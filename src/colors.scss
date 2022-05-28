@@ -6,6 +6,9 @@ $color-cyan-primary: #00FFF0;
 $color-purple: #7040C4;
 $color-magent: #BD31F8;
 $color-pink-primary: #FF26A5;
+$color-fire: #FC6706 ;
+$color-fire-2: #c44e00;
+$color-fire-3: #993d00;
 // >>> Black Scale
 $color-black-1: #000000;
 $color-black-2: #101010;
@@ -32,11 +35,21 @@ $color-wite-1: #FFFFFF;
 // -----------------------------------------------
 
 /* ELEMENTS */
-$main-body: #FFFFFF;
+$main-body: $color-wite-1;
 $main-body-dark: $color-black-2;
 
-$target-login: #d6d6d6;
+$target-login: $color-wite-2;
 $target-login-dark: $color-black-3;
+
+$text-dark: $color-wite-3;
+$text-label-input: $color-fire;
+$border-input: $color-fire;
+$input-background: $color-wite-1;
+
+$shadow: #e0e0e0;
+
+
+
 $background-login: #ffffff;
 $color-select-hover: #F1F1F1;
 
@@ -53,6 +66,6 @@ $text: #9f9f9f;
 $text-responsiva: #5e5e5e;
 $text-target-title: #868686be;
 $text-target-title-white: #ffffff;
-$shadow: #e0e0e0;
+
 
 $buttonsControls: #dbd9d9;

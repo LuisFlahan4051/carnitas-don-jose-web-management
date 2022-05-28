@@ -1,6 +1,7 @@
 import './Main.scss'
 import { useState, useEffect } from 'react';
 import Login from './Login/Login'
+import mongoose from 'mongoose'
 
 function Main() {
 
@@ -8,7 +9,8 @@ function Main() {
   const [darkTheme, setDarkTheme] = useState(true)
 
   /* -------------- GET LOGIN  --------------*/
-  var listOfExistentUsers: string[] = [] 
+
+  var listOfExistentUsers: string[] = ['Luis', 'Marco', 'Ana', 'Kriss', 'Carlos', 'Angel', 'Dany'] 
   const [logUser, setLogUser] = useState({
     username: "",
     password: ""
@@ -29,6 +31,7 @@ function Main() {
   /* -------------- RENDER --------------*/
   return (
     <div className="Main">
+      {/* <div className='blur'> </div> */}
       < Login 
       setLogUser={setLogUser} 
       listOfExistentUsers={listOfExistentUsers}

@@ -1,7 +1,270 @@
 @import '../../colors.scss';
 
+.shadow {
+    box-shadow: 0px 3px 6px $shadow;
+}
+
+.button {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    //height: 35px;
+    //width: 80px;
+    outline: none;
+}
+
+.input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    background-color: $input-background;
+    color: $color-fire;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'armalite_rifle';
+    src: url('./fonts/armalite_rifle.ttf') format('truetype');
+}
+
+/* -------------------------- */
+
+
 .login_container_dark{
     background-color: $target-login-dark;
-    width: 400px;
+    border-radius: 25px;
+
+    width: 500px;
+    min-width: 360px;
     height: 600px;
+    min-height: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}.login_container {
+    background-color: $target-login;
+    border-radius: 25px;
+    box-shadow: 0px 3px 6px $shadow;
+    border: 1px solid $shadow;
+
+    width: 500px;
+    min-width: 360px;
+    height: 600px;
+    min-height: 570px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+@media screen and (max-width: 500px) {
+    .login_container_dark {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+    }
+
+    .login_container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+
+    }
+}
+
+.login__logo{
+    width: 45%;
+    margin-top: 6%;
+}
+
+.login__form{
+    height: 60%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__fild{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+}
+
+
+.login__fild label{
+    margin-left: 15px;
+    color: $text-label-input;
+    font-family: 'armalite_rifle';
+    font-size: 18px;
+}
+
+.form__username{ position: relative; }
+
+.username__select_area, .form__password {
+    border-style: solid;
+    border-width: 1px;
+    border-color: $border-input;
+    border-radius: 10px;
+    background-color: $input-background;
+    width: 100% -15px;
+    height: 35px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.username__select_area{
+    position: relative;
+}
+
+.form__username input{
+    width: 90%;
+    padding: 0px;
+    border-style: none;
+    border-width: 0px;
+}
+
+.username__icon_select{
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.username__icon_select img{
+    width: 20px;
+}
+
+// Animations for select spin
+.icon-motion-right {
+    animation-name: icon-motion-right;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes icon-motion-right {
+    to {
+        transform: rotate(540deg);
+    }
+}
+
+.icon-motion-left {
+    animation-name: icon-motion-left;
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes icon-motion-left {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+
+
+.options_area {
+    position: absolute;
+    align-content: center;
+    background-color: $background-login;
+    border-style: solid;
+    border-width: 1px;
+    border-color: $border;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 5px;
+    max-height: 200px;
+    animation-name: options_motion;
+    animation-duration: 500ms;
+    overflow: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: $color-fire;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+}
+
+.options_area::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.options_area::-webkit-scrollbar:vertical {
+    width: 1px;
+}
+
+@keyframes options_motion {
+    from {
+        transform: translateY(-5px);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
+.select__option {
+    border-radius: 10px;
+    width: 92%;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    padding-top: 7px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.select__option:hover {
+    background-color: $color-select-hover;
+}
+
+
+
+
+.form__link {
+    text-decoration: none;
+    appearance: none;
+    align-self: flex-end;
+    margin: 5px 0px 0px 0px;
+    color: $color-fire-3;
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.form__link:hover {
+    color: $color-fire;
+}
+
+.form__btnsArea {
+    display: flex;
+    justify-content: center;
+    margin-top: 15%;
+}
+
+.form__btnEntry,  .form__btnEntry-dark{
+    border-color: $color-fire-2;
+    color: $color-wite-1;
+    background-color: $color-fire-2;
+    width: 200px;
+    height: 50px;
+    font-family: 'armalite_rifle';
+    font-size: 20px;
+}
+
+.form__btnEntry-dark:hover {
+    border-color: $color-fire;
+    color: $color-wite-1;
+    background-color: $color-fire;
+    //box-shadow: 0px 3px 6px $shadow;
+} .form__btnEntry:hover {
+    border-color: $color-fire;
+    color: $color-wite-1;
+    background-color: $color-fire;
+    box-shadow: 0px 3px 6px $shadow;
+    
 }
