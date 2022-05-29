@@ -35,37 +35,39 @@ $color-wite-1: #FFFFFF;
 // -----------------------------------------------
 
 /* ELEMENTS */
-$main-body: $color-wite-1;
+$main-body: $color-wite-3;
 $main-body-dark: $color-black-2;
+$border: #d6d6d6;
 
-$target-login: $color-wite-2;
-$target-login-dark: $color-black-3;
-
-$text-dark: $color-wite-3;
+$target-login: $color-wite-4;
+$target-login-dark: $color-black-4;
+$color-emphasis-login: $color-fire;
+$color-emphasis-login-2: $color-fire-2;
+$color-emphasis-login-3: $color-fire-3;
 $text-label-input: $color-fire;
 $border-input: $color-fire;
 $input-background: $color-wite-1;
-
 $shadow: #e0e0e0;
-
-
-
-$background-login: #ffffff;
 $color-select-hover: #F1F1F1;
 
-$color-inputCard: #ffffff;
-$color-mainCard: #f1f1f1;
-$background-responsiva: #f8f8f8;
-$color-ribbon: #ffffff;
-
-$placeholder: #9292927a;
-$color-text-resalted: $color-green-menta;
-$color-resalted: $color-pink-primary;
-$border: #d6d6d6;
-$text: #9f9f9f;
-$text-responsiva: #5e5e5e;
-$text-target-title: #868686be;
-$text-target-title-white: #ffffff;
 
 
-$buttonsControls: #dbd9d9;
+
+
+// $text-dark: $color-wite-3;
+// $background-login: #ffffff;
+// $color-inputCard: #ffffff;
+// $color-mainCard: #f1f1f1;
+// $background-responsiva: #f8f8f8;
+// $color-ribbon: #ffffff;
+
+// $placeholder: #9292927a;
+// $color-text-resalted: $color-green-menta;
+// $color-resalted: $color-pink-primary;
+// $text: #9f9f9f;
+// $text-responsiva: #5e5e5e;
+// $text-target-title: #868686be;
+// $text-target-title-white: #ffffff;
+
+
+// $buttonsControls: #dbd9d9;

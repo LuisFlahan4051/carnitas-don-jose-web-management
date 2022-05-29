@@ -1,13 +1,32 @@
+@import './Main-colors.scss';
+
 .Main{
     height: 100%;
     width: 100%;
     position: relative;
 }
 
-// .blur
-//     position: absolute;
-//     height: 100%;
-//     width: 100%;
-//     filter: blur(8px);
-//     -webkit-filter: blur(8px);
-// }
+.display_login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transform: translateY(-100%);
+    background-color: $main-body;
+}.display_login-dark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transform: translateY(-100%);
+    background-color: $main-body-dark;
+}
+
+
+
+
+

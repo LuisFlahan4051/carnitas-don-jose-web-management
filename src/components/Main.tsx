@@ -1,12 +1,13 @@
 import './Main.scss'
 import { useState, useEffect } from 'react';
 import Login from './Login/Login'
-import mongoose from 'mongoose'
+import Home from './Home/Home'
+import { Schema, model, connect } from 'mongoose';
 
 function Main() {
 
   /* --------------GLOBAL THEME CONTROL --------------*/
-  const [darkTheme, setDarkTheme] = useState(true)
+  const [darkTheme, setDarkTheme] = useState(false)
 
   /* -------------- GET LOGIN  --------------*/
 
@@ -17,9 +18,17 @@ function Main() {
   })
   useEffect(() => { if (logUser.username) validateUserData() }, [logUser.username])
   function validateUserData() { 
-    console.log(logUser.username)
+    console.log(logUser)
+    setCurrentUser({id:1, username: logUser.username, password: logUser.password})
     // To Do
   }
+
+
+
+
+
+
+
 
   /* -------------- USER LOGED -------------- */
   const [currentUser, setCurrentUser] = useState({
@@ -31,12 +40,19 @@ function Main() {
   /* -------------- RENDER --------------*/
   return (
     <div className="Main">
-      {/* <div className='blur'> </div> */}
-      < Login 
-      setLogUser={setLogUser} 
-      listOfExistentUsers={listOfExistentUsers}
-      darkTheme={darkTheme}
-      />
+      
+      <Home darkTheme={darkTheme}/>
+
+      <div className={darkTheme ? 'display_login-dark':  'display_login'} style={currentUser.id ? { display: 'none'} : {}}>
+        < Login
+          setLogUser={setLogUser}
+          listOfExistentUsers={listOfExistentUsers}
+          darkTheme={darkTheme}
+        />
+      </div>
+
+      
+
     </div>
   );
 }
