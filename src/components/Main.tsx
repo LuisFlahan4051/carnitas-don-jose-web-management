@@ -2,10 +2,46 @@ import './Main.scss'
 import { useState, useEffect } from 'react';
 import Login from './Login/Login'
 import Home from './Home/Home'
-import { Schema, model, connect } from 'mongoose';
+import { Schema, model, connect, connection} from 'mongoose';
+
+
+// 1. Create an interface representing a document in MongoDB.
+interface IUser {
+  username: string;
+}
+
+// 2. Create a Schema corresponding to the document interface.
+const userSchema = new Schema<IUser>({
+  username: { type: String, required: true },
+});
+
+// 3. Create a Model.
+const User = model<IUser>('User', userSchema);
+
+
+(async () => await connect('mongodb://1270.0.1:27017/test').then(err => console.log("Connected")))()
+
+// async function run() {
+//     // 4. Connect to MongoDB
+//   await connect('mongodb://1270.0.1:27017/test');
+
+//   const user = new User({
+//     name: 'Luis'
+//   });
+//   await user.save();
+
+//   console.log(user); // 'bill@initech.com'
+// }
+
+
+
 
 function Main() {
 
+
+
+
+  
   /* --------------GLOBAL THEME CONTROL --------------*/
   const [darkTheme, setDarkTheme] = useState(false)
 
@@ -18,6 +54,12 @@ function Main() {
   })
   useEffect(() => { if (logUser.username) validateUserData() }, [logUser.username])
   function validateUserData() { 
+
+
+    //run();
+
+    
+    
     console.log(logUser)
     setCurrentUser({id:1, username: logUser.username, password: logUser.password})
     // To Do
