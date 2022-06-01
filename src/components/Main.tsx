@@ -2,37 +2,20 @@ import './Main.scss'
 import { useState, useEffect } from 'react';
 import Login from './Login/Login'
 import Home from './Home/Home'
-import { Schema, model, connect, connection} from 'mongoose';
+import { gql, useQuery } from '@apollo/client'
 
-
-// 1. Create an interface representing a document in MongoDB.
-interface IUser {
-  username: string;
+/* Types needed for Apollo query */
+interface User {
+  name: string
+  username: string
+  password: string
 }
 
-// 2. Create a Schema corresponding to the document interface.
-const userSchema = new Schema<IUser>({
-  username: { type: String, required: true },
-});
+interface UserData {
+  users: User[]
+}
 
-// 3. Create a Model.
-const User = model<IUser>('User', userSchema);
-
-
-(async () => await connect('mongodb://1270.0.1:27017/test').then(err => console.log("Connected")))()
-
-// async function run() {
-//     // 4. Connect to MongoDB
-//   await connect('mongodb://1270.0.1:27017/test');
-
-//   const user = new User({
-//     name: 'Luis'
-//   });
-//   await user.save();
-
-//   console.log(user); // 'bill@initech.com'
-// }
-
+const DB_USERS = gql`query users{users(id:""){name, password, username, lastName}}`
 
 
 
@@ -43,7 +26,7 @@ function Main() {
 
   
   /* --------------GLOBAL THEME CONTROL --------------*/
-  const [darkTheme, setDarkTheme] = useState(false)
+  const [darkTheme, setDarkTheme] = useState(true)
 
   /* -------------- GET LOGIN  --------------*/
 
@@ -53,13 +36,22 @@ function Main() {
     password: ""
   })
   useEffect(() => { if (logUser.username) validateUserData() }, [logUser.username])
-  function validateUserData() { 
 
+  const { data } = useQuery<UserData>(DB_USERS)
 
-    //run();
+  function validateUserData(): void { 
 
+    data?.users.map(User => {
+      console.log(User)
+    })
     
-    
+    /* 
+    mutation mut{createUser(input: {id:"",name: "Luis", password: "4051", username: "LuisFlahan"}){
+  name,
+  password,
+  username
+}}
+*/
     console.log(logUser)
     setCurrentUser({id:1, username: logUser.username, password: logUser.password})
     // To Do

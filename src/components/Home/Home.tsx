@@ -9,7 +9,7 @@ function Home(props: {darkTheme: boolean}) {
     /* -------------- RENDER --------------*/
     return (
         <div className="Home">
-            <div className='main_background'>
+            <div className={props.darkTheme ? 'main_background-dark' : 'main_background'}>
                 <img src={props.darkTheme ? IconBackgroundDark : IconBackground} alt="icon background" className='background__icon' />
             </div>
 

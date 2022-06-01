@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apollo/client'
 import Main from './components/Main';
 import reportWebVitals from './reportWebVitals';
 
@@ -9,7 +11,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Main />
+    <ApolloProvider client={client}>
+      <Main />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
