@@ -16,17 +16,11 @@ interface UserData {
   users: User[]
 }
 
-//EXAMPLE for a manual FETCH
 
-
-//QUERYS
+//APOLLO QUERYS
 const DB_USERS_LOGIN = gql`query users{users{id, username}}`
-const DB_USERS_VALIDATION = gql`query getUser($username: String){
-  userByUsername(username: $username){
-    password, 
-    username
-  }
-}`
+
+
 
 
 function Main() {
@@ -40,41 +34,12 @@ function Main() {
     password: ""
   })
 
-  /*var queryUserValidation = useQuery<User>(DB_USERS_VALIDATION, {
-    variables: { username: logUser.username }
-  })*/
- 
-  // EXAMPLE FETCH query
-  /*useEffect(() => {
-    fetch("http://localhost:8080/query", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ query: DB_USERS_VALIDATION_FETCH})
-    }).then(response => response.json())
-    .then(data => console.log(data.data.userByUsername.username))
-  }, [])*/
-
-  
-  const [queryUserValidation, setQueryUserValidation] = useState({
+  const [currentUser, setCurrentUser] = useState({
     id: "",
-    name: "",
     username: "",
     password: ""
   })
   
-  function validateUser() { 
-    console.log(queryUserValidation)
-    if (queryUserValidation.username === logUser.username) {
-      setCurrentUser({
-        id: queryUserValidation.id,
-        username: queryUserValidation.username,
-        password: queryUserValidation.password
-      })
-      console.log("Usuario " + queryUserValidation.id + " verificado!")
-      console.log(currentUser.username)
-    }  
-  }
-
   useEffect(() => { if (logUser.username) {
     let query = `{
       userByUsername(username: "${logUser.username}"){
@@ -90,17 +55,17 @@ function Main() {
       body: JSON.stringify({ query: query })
     }).then(response => response.json())
       .then(data => {
-        setQueryUserValidation({
-          id: data.data.userByUsername.id,
-          name: data.data.userByUsername.name,
-          username: data.data.userByUsername.username,
-          password: data.data.userByUsername.password
-        })
+        if (data.data.userByUsername.username === logUser.username) {
+          setCurrentUser({
+            id: data.data.userByUsername.id,
+            username: data.data.userByUsername.username,
+            password: data.data.userByUsername.password
+          })
+          console.log("Usuario " + data.data.userByUsername.id + " verificado!")
+          console.log(data.data.userByUsername.username)
+        }  
       })
-  }
-}, [logUser.username])
-
-
+  }}, [logUser.username])
 
   var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
  
@@ -109,22 +74,9 @@ function Main() {
     listOfExistentUsers.push(User.username)
   })
 
-  
-  
-
-
-
-
-
-
-
 
   /* -------------- USER LOGED -------------- */
-  const [currentUser, setCurrentUser] = useState({
-    id: "",
-    username: "",
-    password: ""
-  })
+  
   
   
   /* -------------- RENDER --------------*/
