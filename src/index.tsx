@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import { ApolloProvider } from '@apollo/client';
-import { client } from './apollo/client'
+import { client, URIGRAPHQL } from './apollo/client'
 import Main from './components/Main';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <Main/>
+      <Main URIGRAPHQL={URIGRAPHQL}/>
     </ApolloProvider>
   </React.StrictMode>
 );
