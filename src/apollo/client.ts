@@ -1,8 +1,10 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 
+const uri = 'http://localhost:8080/query' 
+
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/query',
+    uri: uri,
     credentials: 'same-origin',
     
 })
@@ -23,4 +25,5 @@ export const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: authLink.concat(httpLink),
     credentials: 'include'
-})
+}) 
+export const URIGRAPHQL = uri

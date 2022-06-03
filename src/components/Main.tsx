@@ -23,7 +23,7 @@ const DB_USERS_LOGIN = gql`query users{users{id, username}}`
 
 
 
-function Main() {
+function Main(props: { URIGRAPHQL: string}) {
   
   /* --------------GLOBAL THEME CONTROL --------------*/
   const [darkTheme, setDarkTheme] = useState(true)
@@ -49,7 +49,7 @@ function Main() {
         name
       }
     }`
-    fetch("http://localhost:8080/query", {
+    fetch(props.URIGRAPHQL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: query })
