@@ -17,15 +17,7 @@ interface UserData {
 }
 
 //EXAMPLE for a manual FETCH
-/*const DB_USERS_VALIDATION_FETCH = `{
-  userByUsername(username: "LuisFlahan"){
-    id,
-    name, 
-    password, 
-    username, 
-    lastName
-  }
-}`*/
+
 
 //QUERYS
 const DB_USERS_LOGIN = gql`query users{users{id, username}}`
@@ -48,20 +40,9 @@ function Main() {
     password: ""
   })
 
-  useEffect(() => { if (logUser.username) {
-    validateUserData()
-  } }, [logUser.username])
-
-  var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
- 
-  var listOfExistentUsers: string[] = []
-  queryArrayUsers.data?.users.map((User: any) => {
-    listOfExistentUsers.push(User.username)
-  })
-
-  var queryUserValidation = useQuery<User>(DB_USERS_VALIDATION, {
+  /*var queryUserValidation = useQuery<User>(DB_USERS_VALIDATION, {
     variables: { username: logUser.username }
-  })
+  })*/
  
   // EXAMPLE FETCH query
   /*useEffect(() => {
@@ -73,32 +54,64 @@ function Main() {
     .then(data => console.log(data.data.userByUsername.username))
   }, [])*/
 
-  function validateUserData() { 
-    //console.log(logUser)
-    //let getUser: any = queryUserValidation.data ? queryUserValidation.data : undefined
-    let getUser: any = queryUserValidation.data!
-    console.log(getUser)
-  }/*if (getUser.userByUsername.username === logUser.username){
-    console.log(getUser.userByUsername.username)  
-    setCurrentUser({ 
-        id: 1, 
-        username: getUser.userByUsername.username, 
-        password: getUser.userByUsername.password 
+  
+  const [queryUserValidation, setQueryUserValidation] = useState({
+    id: "",
+    name: "",
+    username: "",
+    password: ""
+  })
+  
+  function validateUser() { 
+    console.log(queryUserValidation)
+    if (queryUserValidation.username === logUser.username) {
+      setCurrentUser({
+        id: queryUserValidation.id,
+        username: queryUserValidation.username,
+        password: queryUserValidation.password
       })
-      console.log("Usuario " + logUser.username + " verificado!")
+      console.log("Usuario " + queryUserValidation.id + " verificado!")
       console.log(currentUser.username)
-    }
-  }*/
+    }  
+  }
+
+  useEffect(() => { if (logUser.username) {
+    let query = `{
+      userByUsername(username: "${logUser.username}"){
+        id,
+        password, 
+        username,
+        name
+      }
+    }`
+    fetch("http://localhost:8080/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: query })
+    }).then(response => response.json())
+      .then(data => {
+        setQueryUserValidation({
+          id: data.data.userByUsername.id,
+          name: data.data.userByUsername.name,
+          username: data.data.userByUsername.username,
+          password: data.data.userByUsername.password
+        })
+      })
+  }
+}, [logUser.username])
 
 
-   //query exple for graph, no react
-  /*
-  mutation mut{createUser(input: {id:"",name: "Luis", password: "4051", username: "LuisFlahan"}){
-    name,
-    password,
-    username
-  }}
-*/
+
+  var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
+ 
+  var listOfExistentUsers: string[] = []
+  queryArrayUsers.data?.users.map((User: any) => {
+    listOfExistentUsers.push(User.username)
+  })
+
+  
+  
+
 
 
 
@@ -108,7 +121,7 @@ function Main() {
 
   /* -------------- USER LOGED -------------- */
   const [currentUser, setCurrentUser] = useState({
-    id: 0,
+    id: "",
     username: "",
     password: ""
   })
