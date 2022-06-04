@@ -2,6 +2,7 @@ import './Main.scss'
 import { useState, useEffect } from 'react';
 import Login from './Login/Login'
 import Home from './Home/Home'
+import Loader from './Loader/Loader'
 import { gql, useQuery } from '@apollo/client'
 
 // TYPES needed for Apollo query
@@ -75,15 +76,23 @@ function Main(props: { URIGRAPHQL: string}) {
   })
 
 
-  /* -------------- USER LOGED -------------- */
-  
-  
-  
+  /* -------------- Loader Functions -------------- */
+  const [displayLoader, setDisplayLoader] = useState({})
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("Timeout")
+      setDisplayLoader({ display: 'none' })
+    }, 800)
+  }, []);
+
   /* -------------- RENDER --------------*/
   return (
     <div className="Main">
       
-      <Home darkTheme={darkTheme}/>
+      <Home 
+      darkTheme={darkTheme}
+      currentUser = {currentUser}
+      />
 
       <div className={darkTheme ? 'display_login-dark':  'display_login'} style={currentUser.id ? { display: 'none'} : {}}>
         < Login
@@ -93,7 +102,10 @@ function Main(props: { URIGRAPHQL: string}) {
         />
       </div>
 
-      
+
+      <div className='display_loader' style={displayLoader}>
+        <Loader />
+      </div>      
 
     </div>
   );

@@ -3,7 +3,7 @@ import './Home.scss'
  import IconBackgroundDark from './imgs/LogoFondoDark.svg'
  import IconBackground from './imgs/LogoFondoWite.svg'
 
-function Home(props: {darkTheme: boolean}) {
+function Home(props: {darkTheme: boolean, currentUser: any}) {
 
 
     /* -------------- RENDER --------------*/
@@ -13,7 +13,9 @@ function Home(props: {darkTheme: boolean}) {
                 <img src={props.darkTheme ? IconBackgroundDark : IconBackground} alt="icon background" className='background__icon' />
             </div>
 
-            <div className='options_container'>
+            
+
+            <div className='Home__options_container'>
                 <div className='option_users'>hola</div>
                 <div className='option_users'>hola</div>
             </div>
