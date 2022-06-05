@@ -12,6 +12,7 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
 
     const [handleSelect, setHandleSelect] = useState(false)
     const [userValue, setUserValue] = useState("")
+    const [userInSelect, setUserInSelect] = useState(0)    
     
     /* -------------- FUNCTIONS -------------- */
     function sendData(event: {preventDefault: () => void}){
@@ -48,6 +49,7 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
                                 name="username"
                                 ref={inputName}
                                 autoFocus
+                                autoComplete='off'
                                 onChange={
                                     (event: { target: { value: any } }) => {
                                         setUserValue(event.target.value)
@@ -59,6 +61,27 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
                                         inputPass.current?.focus()
                                     }
                                 }}
+                                onKeyDown={
+                                    (e) => {
+                                        if (e.key === 'ArrowDown') {
+                                            if (userInSelect >= 0 && userInSelect <= props.listOfExistentUsers.length -1){ 
+                                                if (userInSelect === 0) { 
+                                                    setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
+                                                }else{
+                                                    setUserInSelect(userInSelect+1)
+                                                    setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
+                                                }
+                                            }else{
+                                                setUserInSelect(0)
+                                                setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
+                                            }
+                                        }
+                                        if (e.key === 'ArrowUp') {
+                                            if (userInSelect >= 0 && userInSelect <= props.listOfExistentUsers.length - 1) {
+                                            }
+                                        }
+                                    }
+                                }
                                 className='input'
                             />
 

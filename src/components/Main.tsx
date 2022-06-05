@@ -80,7 +80,6 @@ function Main(props: { URIGRAPHQL: string}) {
   const [displayLoader, setDisplayLoader] = useState({})
   useEffect(() => {
     setTimeout(() => {
-      console.log("Timeout")
       setDisplayLoader({ display: 'none' })
     }, 800)
   }, []);
@@ -103,7 +102,7 @@ function Main(props: { URIGRAPHQL: string}) {
       </div>
 
 
-      <div className='display_loader' style={displayLoader}>
+      <div style={displayLoader} className={darkTheme ? 'display_loader-dark' : 'display_loader'}>
         <Loader />
       </div>      
 

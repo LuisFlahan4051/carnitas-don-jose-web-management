@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="143.624" height="100" viewBox="0 0 143.624 100">
+  <g id="UsersIcon" transform="translate(-617.188 -195)">
+    <g id="Grupo_2" data-name="Grupo 2" transform="translate(23 -7)">
+      <circle id="Elipse_1" data-name="Elipse 1" cx="25" cy="25" r="25" transform="translate(671 202)" fill="#75a1c8"/>
+      <path id="Sustracción_1" data-name="Sustracción 1" d="M83.812,38H.188A42.036,42.036,0,0,1,26.515,2.947,24.207,24.207,0,0,0,42.5,9,24.233,24.233,0,0,0,58.164,3.223,42.032,42.032,0,0,1,83.812,38Z" transform="translate(654 254)" fill="#75a1c8"/>
+    </g>
+    <g id="Grupo_3" data-name="Grupo 3" transform="translate(-37 -7)">
+      <circle id="Elipse_1-2" data-name="Elipse 1" cx="25" cy="25" r="25" transform="translate(671 202)" fill="#5682aa"/>
+      <path id="Sustracción_1-2" data-name="Sustracción 1" d="M83.812,38H.188A42.037,42.037,0,0,1,27.331,2.633,23.941,23.941,0,0,0,42.5,8,23.962,23.962,0,0,0,57.344,2.891,42.036,42.036,0,0,1,83.812,38Z" transform="translate(654 254)" fill="#5682aa"/>
+    </g>
+    <g id="Grupo_1" data-name="Grupo 1" transform="translate(-9 3)">
+      <circle id="Elipse_1-3" data-name="Elipse 1" cx="25" cy="25" r="25" transform="translate(671 202)" fill="#8dc0ec"/>
+      <path id="Sustracción_1-3" data-name="Sustracción 1" d="M83.812,38H.188A42.037,42.037,0,0,1,27.331,2.633,23.941,23.941,0,0,0,42.5,8,23.962,23.962,0,0,0,57.344,2.891,42.036,42.036,0,0,1,83.812,38Z" transform="translate(654 254)" fill="#8dc0ec"/>
+    </g>
+  </g>
+</svg>
