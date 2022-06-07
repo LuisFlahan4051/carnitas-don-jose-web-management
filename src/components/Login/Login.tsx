@@ -12,7 +12,7 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
 
     const [handleSelect, setHandleSelect] = useState(false)
     const [userValue, setUserValue] = useState("")
-    const [userInSelect, setUserInSelect] = useState(0)    
+    const [userInSelect, setUserInSelect] = useState(-1)    
     
     /* -------------- FUNCTIONS -------------- */
     function sendData(event: {preventDefault: () => void}){
@@ -21,6 +21,10 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
             username: inputName.current.value,
             password: inputPass.current.value
         })
+        setTimeout(() => {
+            inputPass.current.value = ''
+            inputPass.current.focus()
+        }, 2000)
     }
 
     function resetPassword(event:{preventDefault: () => void}) {
@@ -63,21 +67,31 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
                                 }}
                                 onKeyDown={
                                     (e) => {
-                                        if (e.key === 'ArrowDown') {
-                                            if (userInSelect >= 0 && userInSelect <= props.listOfExistentUsers.length -1){ 
-                                                if (userInSelect === 0) { 
-                                                    setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
-                                                }else{
-                                                    setUserInSelect(userInSelect+1)
-                                                    setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
-                                                }
-                                            }else{
-                                                setUserInSelect(0)
-                                                setUserValue(`${props.listOfExistentUsers[userInSelect]}`)
+                                        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                                            if (e.key === 'ArrowDown') {
+                                                new Promise((resolve)=>{
+                                                    if (userInSelect < props.listOfExistentUsers.length - 1) {
+                                                        setUserInSelect(userInSelect + 1)
+                                                    }
+                                                    resolve(userInSelect + 1) //Se ejecuta al mismo tiempo que el if. por eso regreso el valor mientras actualiza el estado
+
+                                                }).then((InSelect: any) => {
+                                                    if (InSelect >= 0 && InSelect < props.listOfExistentUsers.length) {
+                                                        setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+                                                    }
+                                                })        
                                             }
-                                        }
-                                        if (e.key === 'ArrowUp') {
-                                            if (userInSelect >= 0 && userInSelect <= props.listOfExistentUsers.length - 1) {
+                                            if (e.key === 'ArrowUp') {
+                                                new Promise((resolve) => {
+                                                    if (userInSelect > 0) {
+                                                        setUserInSelect(userInSelect - 1)
+                                                    }
+                                                    resolve(userInSelect-1)
+                                                }).then((InSelect: any) => {
+                                                    if (InSelect >= 0 && InSelect < props.listOfExistentUsers.length) {
+                                                        setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+                                                    }
+                                                })
                                             }
                                         }
                                     }
@@ -93,13 +107,15 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
 
 
                         <div className="options_area" style={handleSelect ? {} : { display: 'none' }}>
-                            {props.listOfExistentUsers.map((user) =>
+                            {props.listOfExistentUsers.map((user,index) =>
                                 <div
                                     className="select__option"
                                     onClick={
                                         () => {
                                             setUserValue(`${user}`)
                                             setHandleSelect(false)
+                                            setUserInSelect(index)
+                                            inputName.current?.focus()
                                         }}
                                     key={user?.toString()}
                                 >

@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import Login from './Login/Login'
 import Home from './Home/Home'
 import Loader from './Loader/Loader'
+import AlertScreen from './AlertScreen/AlertScreen';
 import { gql, useQuery } from '@apollo/client'
+
 
 // TYPES needed for Apollo query
 interface User {
@@ -27,7 +29,11 @@ const DB_USERS_LOGIN = gql`query users{users{id, username}}`
 function Main(props: { URIGRAPHQL: string}) {
   
   /* --------------GLOBAL THEME CONTROL --------------*/
-  const [darkTheme, setDarkTheme] = useState(true)
+  const [darkTheme, setDarkTheme] = useState(window.sessionStorage.getItem('darkTheme')? true: false)
+  function setDarkThemeHandler() {
+    setDarkTheme(!darkTheme)
+    darkTheme ? window.sessionStorage.removeItem('darkTheme') : window.sessionStorage.setItem('darkTheme', 'true')
+  }
 
   /* -------------- GET LOGIN  --------------*/
   const [logUser, setLogUser] = useState({
@@ -35,13 +41,28 @@ function Main(props: { URIGRAPHQL: string}) {
     password: ""
   })
 
+
   const [currentUser, setCurrentUser] = useState({
-    id: "",
-    username: "",
+    id: window.sessionStorage.getItem('idCurrentUser'),
+    username: window.sessionStorage.getItem('usernameCurrentUser'),
     password: ""
   })
+
+  function closeSession() {
+    window.sessionStorage.removeItem('idCurrentUser')
+    window.sessionStorage.removeItem('usernameCurrentUser')
+    setCurrentUser({
+      id: '',
+      username: '',
+      password: ''
+    })
+    setLogUser({
+      username: '',
+      password: ''
+    })
+  }
   
-  useEffect(() => { if (logUser.username) {
+  function validateUser(){
     let query = `{
       userByUsername(username: "${logUser.username}"){
         id,
@@ -56,25 +77,75 @@ function Main(props: { URIGRAPHQL: string}) {
       body: JSON.stringify({ query: query })
     }).then(response => response.json())
       .then(data => {
-        if (data.data.userByUsername.username === logUser.username) {
+        if (data.data.userByUsername.username === logUser.username && data.data.userByUsername.password === logUser.password) {
           setCurrentUser({
             id: data.data.userByUsername.id,
             username: data.data.userByUsername.username,
             password: data.data.userByUsername.password
           })
-          console.log("Usuario " + data.data.userByUsername.id + " verificado!")
-          console.log(data.data.userByUsername.username)
-        }  
+          window.sessionStorage.setItem('idCurrentUser', data.data.userByUsername.id)
+          window.sessionStorage.setItem('usernameCurrentUser', data.data.userByUsername.username)
+        }else{
+          setDisplayAlert({
+            style: { display: 'block' },
+            msg: '¡Contraseña Incorrecta!',
+            type: 'Error'
+          })
+          
+        }
+      }).catch( _ =>{
+        setDisplayAlert({
+          style: { display: 'block' },
+          msg: `¡No existe el usuario ${logUser.username}!`,
+          type: 'Error'
+        })
       })
-  }}, [logUser.username])
+  }
 
+  useEffect(() => { 
+    if (logUser.username && !logUser.password) {
+      setDisplayAlert({ 
+        style: { display: 'block'},
+        msg: 'Escribe la contraseña',
+        type: 'Error'
+      })
+    }
+    if (!logUser.username && logUser.password) {
+      setDisplayAlert({
+        style: { display: 'block' },
+        msg: 'Escribe el nombre de usuario o tu correo',
+        type: 'Error'
+      })
+    }
+    if (logUser.username && logUser.password) {
+      validateUser()
+    }
+}, [logUser.username, logUser.password])
+
+
+  /*GET USER LIST*/
   var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
  
   var listOfExistentUsers: string[] = []
   queryArrayUsers.data?.users.map((User: any) => {
-    listOfExistentUsers.push(User.username)
+    return listOfExistentUsers.push(User.username)
   })
 
+  /* -------------- Alert Functions -------------- */
+  function handlerAlert() {
+    setDisplayAlert({ 
+      style: { display: 'none'},
+      msg: '',
+      type: ''
+    })
+  }
+
+  const [displayAlert, setDisplayAlert] = useState({
+    style: { display: 'none' },
+    msg: '',
+    type: ''
+  })
+  
 
   /* -------------- Loader Functions -------------- */
   const [displayLoader, setDisplayLoader] = useState({})
@@ -91,9 +162,11 @@ function Main(props: { URIGRAPHQL: string}) {
       <Home 
       darkTheme={darkTheme}
       currentUser = {currentUser}
+      setDarkThemeHandler={setDarkThemeHandler}
+      closeSession={closeSession}
       />
 
-      <div className={darkTheme ? 'display_login-dark':  'display_login'} style={currentUser.id ? { display: 'none'} : {}}>
+      <div className={darkTheme ? 'display_login-dark setOn':  'display_login setOn'} style={currentUser.id ? { display: 'none'} : {}}>
         < Login
           setLogUser={setLogUser}
           listOfExistentUsers={listOfExistentUsers}
@@ -101,8 +174,17 @@ function Main(props: { URIGRAPHQL: string}) {
         />
       </div>
 
+      <div className="display_alertScreen setOn" style={displayAlert.style}>
+        <AlertScreen 
+          darkTheme = {darkTheme}
+          type = {displayAlert.type}
+          msg = {displayAlert.msg}
+          handlerAlert={handlerAlert}
+        />
+      </div>
 
-      <div style={displayLoader} className={darkTheme ? 'display_loader-dark' : 'display_loader'}>
+
+      <div style={displayLoader} className={darkTheme ? 'display_loader-dark setOn' : 'display_loader setOn'}>
         <Loader />
       </div>      
 

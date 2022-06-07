@@ -1,0 +1,109 @@
+@import '../Main-colors.scss';
+
+.AlertScreen{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.alert__background{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.alert__content{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.alert__target{
+    width: 520px;
+    height: auto;
+    max-height: 520px;
+    border-radius: 10px;
+    background-color: $target-alert;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}.alert__target-dark {
+    width: 520px;
+    height: auto;
+    max-height: 520px;
+    border-radius: 10px;
+    background-color: $target-alert-dark;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.alert__icon{
+    width: 30%;
+    margin-bottom: 40px;
+}
+
+.alert__target p{
+    font-size: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
+    overflow: auto;
+}.alert__target-dark p {
+    font-size: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    color: white;
+    text-align: center;
+    overflow: auto;
+}
+
+@media screen and (max-width: 500px) {
+    $width-target: 270px;
+    .alert__target,.alert__target-dark {
+        width: $width-target;
+        height: auto;
+        max-height: 400px;
+    }
+    .alert__target p, .alert__target-dark p {
+        font-size: 20px;
+    }
+}
+
+//$color-btn-ok: #71e293;
+//$color-btn-ok-hover: #6dd68d;
+$color-btn-ok: $color-alert-btn;
+$color-btn-ok-hover: $color-alert-btn-2;
+$shadow: #e0e0e0;
+.alert__ok{
+    width: 80px;
+    height: 40px;
+    background-color: $color-btn-ok;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+}.alert__ok:hover{
+    background-color: $color-btn-ok-hover;
+    box-shadow: 0px 0px 6px $shadow;
+}

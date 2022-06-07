@@ -1,5 +1,12 @@
 @import './Main-colors.scss';
 
+.setOn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translateY(-100%);
+}
+
 .Main{
     height: 100%;
     width: 100%;
@@ -7,31 +14,19 @@
 }
 
 .display_login {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    transform: translateY(-100%);
     background-color: $main-body;
 }.display_login-dark {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    transform: translateY(-100%);
     background-color: $main-body-dark;
 }
 
 .display_loader-dark{
-    width: 100%;
-    height: 100%;
     background-color: $main-body-dark;
-    transform: translateY(-100%);
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,11 +36,7 @@
     animation-duration: 400ms;
     animation-fill-mode:forwards;
 }.display_loader {
-    width: 100%;
-    height: 100%;
     background-color: $main-body;
-    transform: translateY(-100%);
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,6 +56,10 @@
         opacity: 0;
     }
 }
+
+// .display_alertScreen{
+    
+// }
 
 
 
