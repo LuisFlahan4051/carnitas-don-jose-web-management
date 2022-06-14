@@ -33,6 +33,16 @@ function Main(props: { URIGRAPHQL: string}) {
   function setDarkThemeHandler() {
     setDarkTheme(!darkTheme)
     darkTheme ? window.sessionStorage.removeItem('darkTheme') : window.sessionStorage.setItem('darkTheme', 'true')
+    let mutation = `mutation{
+      updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}}){
+        darktheme
+      }
+    }`
+    fetch(props.URIGRAPHQL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({query: mutation})
+    })
   }
 
   /* -------------- GET LOGIN  --------------*/
@@ -45,12 +55,11 @@ function Main(props: { URIGRAPHQL: string}) {
   const [currentUser, setCurrentUser] = useState({
     id: window.sessionStorage.getItem('idCurrentUser'),
     username: window.sessionStorage.getItem('usernameCurrentUser'),
-    password: ""
+    password: window.sessionStorage.getItem('passwordCurrentUser'),
   })
 
   function closeSession() {
-    window.sessionStorage.removeItem('idCurrentUser')
-    window.sessionStorage.removeItem('usernameCurrentUser')
+    window.sessionStorage.clear()
     setCurrentUser({
       id: '',
       username: '',
@@ -62,13 +71,15 @@ function Main(props: { URIGRAPHQL: string}) {
     })
   }
   
+  // TODO: use the query validateUser from the API, not in react. Add request User! to schema graphql for that purpose
   function validateUser(){
     let query = `{
       userByUsername(username: "${logUser.username}"){
         id,
         password, 
         username,
-        name
+        name,
+        darktheme
       }
     }`
     fetch(props.URIGRAPHQL, {
@@ -83,8 +94,19 @@ function Main(props: { URIGRAPHQL: string}) {
             username: data.data.userByUsername.username,
             password: data.data.userByUsername.password
           })
+
+          console.log(data.data.userByUsername.darktheme)
+          if(data.data.userByUsername.darktheme == true){
+            setDarkTheme(true)
+            window.sessionStorage.setItem('darkTheme', 'true')
+          }else{
+            setDarkTheme(false)
+            window.sessionStorage.removeItem('darkTheme')
+          }
+
           window.sessionStorage.setItem('idCurrentUser', data.data.userByUsername.id)
           window.sessionStorage.setItem('usernameCurrentUser', data.data.userByUsername.username)
+          window.sessionStorage.setItem('passwordCurrentUser', data.data.userByUsername.password)
         }else{
           setDisplayAlert({
             style: { display: 'block' },
@@ -123,7 +145,7 @@ function Main(props: { URIGRAPHQL: string}) {
 }, [logUser.username, logUser.password])
 
 
-  /*GET USER LIST*/
+  /* -------------- GET USER LIST -----------------*/
   var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
  
   var listOfExistentUsers: string[] = []
