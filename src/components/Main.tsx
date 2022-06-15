@@ -21,7 +21,7 @@ interface UserData {
 
 
 //APOLLO QUERYS
-const DB_USERS_LOGIN = gql`query users{users{id, username}}`
+const DB_USERS_LOGIN = gql`query users{users{username}}`
 
 
 
@@ -71,57 +71,84 @@ function Main(props: { URIGRAPHQL: string}) {
     })
   }
   
-  // TODO: use the query validateUser from the API, not in react. Add request User! to schema graphql for that purpose
-  function validateUser(){
-    let query = `{
-      userByUsername(username: "${logUser.username}"){
-        id,
-        password, 
-        username,
-        name,
-        darktheme
-      }
-    }`
+  function saveSession(userId: string) {
+    let query = `
+          query{
+            userById(id:"${userId}"){
+              id
+              name
+              lastname
+              username
+              password
+              darktheme
+            }
+          }
+          `
     fetch(props.URIGRAPHQL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: query })
-    }).then(response => response.json())
+    }).then(res => res.json())
       .then(data => {
-        if (data.data.userByUsername.username === logUser.username && data.data.userByUsername.password === logUser.password) {
-          setCurrentUser({
-            id: data.data.userByUsername.id,
-            username: data.data.userByUsername.username,
-            password: data.data.userByUsername.password
+        setCurrentUser({
+          id: data.data.userById.id,
+          username: data.data.userById.username,
+          password: data.data.userById.password
+        })
+
+        if (data.data.userById.darktheme == true) {
+          setDarkTheme(true)
+          window.sessionStorage.setItem('darkTheme', 'true')
+        } else {
+          setDarkTheme(false)
+          window.sessionStorage.removeItem('darkTheme')
+        }
+
+        window.sessionStorage.setItem('idCurrentUser', data.data.userById.id)
+        window.sessionStorage.setItem('usernameCurrentUser', data.data.userById.username)
+        window.sessionStorage.setItem('passwordCurrentUser', data.data.userById.password)
+      })
+  }
+
+  function validateUser() {
+    let query =  `
+    query{
+      validateUser(username: "${logUser.username}", password: "${logUser.password}")
+    }
+    `
+    fetch( props.URIGRAPHQL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({query: query})
+    }).then(response => response.json())
+    .then(data => {
+      switch (data.data.validateUser) {
+        case "UserDoesNotExist":
+          setDisplayAlert({
+            style: { display: 'block' },
+            msg: `¡No existe el usuario ${logUser.username}!`,
+            type: 'Error'
           })
-
-          console.log(data.data.userByUsername.darktheme)
-          if(data.data.userByUsername.darktheme == true){
-            setDarkTheme(true)
-            window.sessionStorage.setItem('darkTheme', 'true')
-          }else{
-            setDarkTheme(false)
-            window.sessionStorage.removeItem('darkTheme')
-          }
-
-          window.sessionStorage.setItem('idCurrentUser', data.data.userByUsername.id)
-          window.sessionStorage.setItem('usernameCurrentUser', data.data.userByUsername.username)
-          window.sessionStorage.setItem('passwordCurrentUser', data.data.userByUsername.password)
-        }else{
+        break;
+        case "IncorrectPassword":
           setDisplayAlert({
             style: { display: 'block' },
             msg: '¡Contraseña Incorrecta!',
             type: 'Error'
           })
-          
-        }
-      }).catch( _ =>{
-        setDisplayAlert({
-          style: { display: 'block' },
-          msg: `¡No existe el usuario ${logUser.username}!`,
-          type: 'Error'
-        })
-      })
+        break;
+        case null:
+          setDisplayAlert({
+            style: { display: 'block' },
+            msg: '¡Error de Consulta!',
+            type: 'Error'
+          })
+        break;
+        default:
+          saveSession(data.data.validateUser)
+        break;
+      }
+    })
   }
 
   useEffect(() => { 
