@@ -34,9 +34,7 @@ function Main(props: { URIGRAPHQL: string}) {
     setDarkTheme(!darkTheme)
     darkTheme ? window.sessionStorage.removeItem('darkTheme') : window.sessionStorage.setItem('darkTheme', 'true')
     let mutation = `mutation{
-      updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}}){
-        darktheme
-      }
+      updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}})
     }`
     fetch(props.URIGRAPHQL, {
       method: "POST",
@@ -169,8 +167,7 @@ function Main(props: { URIGRAPHQL: string}) {
     if (logUser.username && logUser.password) {
       validateUser()
     }
-}, [logUser.username, logUser.password])
-
+  }, [logUser.username, logUser.password])
 
   /* -------------- GET USER LIST -----------------*/
   var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
