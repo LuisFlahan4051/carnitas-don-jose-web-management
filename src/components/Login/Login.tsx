@@ -1,9 +1,9 @@
 import './Login.scss'
 import logo from './img/LogoCV1.svg'
 import icon from './img/Down-Row.svg'
-import React, { useRef, useState } from 'react';
+import React, { FunctionComponentFactory, useRef, useState } from 'react';
 
-function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[], darkTheme: boolean}) {
+function Login(props: { setLogUser: Function; listOfExistentUsers: React.ReactNode[], darkTheme: boolean}) {
 
     /* -------------- INIT REFS AND THEMES --------------*/
     const inputName = useRef(document.createElement('input'))
@@ -39,7 +39,7 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
             <img src={logo} alt="main_logo" className='login__logo'/>
 
 
-            <form className='login__form'>
+            <form className='login__form' onSubmit={sendData}>
 
 
                 <div className='login__fild'>
@@ -154,7 +154,7 @@ function Login(props: { setLogUser: any; listOfExistentUsers: React.ReactNode[],
 
 
                 <div className='form__btnsArea'>
-                    <button onClick={sendData} ref={inputSubmit} className={props.darkTheme ? 'form__btnEntry-dark button' : 'form__btnEntry button'}>Login</button>
+                    <button type='submit' ref={inputSubmit} className={props.darkTheme ? 'form__btnEntry-dark button' : 'form__btnEntry button'}>Login</button>
                 </div>
 
 
