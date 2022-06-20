@@ -1,7 +1,7 @@
 import './Login.scss'
 import logo from './img/LogoCV1.svg'
 import icon from './img/Down-Row.svg'
-import React, { FunctionComponentFactory, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 function Login(props: { setLogUser: Function; listOfExistentUsers: React.ReactNode[], darkTheme: boolean}) {
 

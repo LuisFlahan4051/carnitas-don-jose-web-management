@@ -1,13 +1,15 @@
 import './Main.scss'
-import { useState, useEffect } from 'react';
-import Login from './Login/Login'
-import Home from './Home/Home'
-import Loader from './Loader/Loader'
-import AlertScreen from './AlertScreen/AlertScreen';
+import { useState, useEffect } from 'react'
+import Login from './pages/Login/Login'
+import Home from './pages/Home/Home'
+import Loader from './components/Loader/Loader'
+import AlertScreen from './components/AlertScreen/AlertScreen'
 import { gql, useQuery } from '@apollo/client'
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
+import NotFound from './pages/NotFound/NotFound'
 
 
-// TYPES needed for Apollo query
+/* --------------- Apollo TYPES ---------------------*/
 interface User {
   id: string
   name: string
@@ -20,16 +22,20 @@ interface UserData {
 }
 
 
-//APOLLO QUERYS
+/* -------------- Apollo QUERYS ---------------------*/
 const DB_USERS_LOGIN = gql`query users{users{username}}`
 
 
 
 
 function Main(props: { URIGRAPHQL: string}) {
+
+  /* ------------------- Initial Hooks -------------- */
+  //let navigate = useNavigate()
   
-  /* --------------GLOBAL THEME CONTROL --------------*/
+  /* -------------- GLOBAL THEME CONTROL --------------*/
   const [darkTheme, setDarkTheme] = useState(window.sessionStorage.getItem('darkTheme')? true: false)
+
   function setDarkThemeHandler() {
     setDarkTheme(!darkTheme)
     darkTheme ? window.sessionStorage.removeItem('darkTheme') : window.sessionStorage.setItem('darkTheme', 'true')
@@ -43,18 +49,37 @@ function Main(props: { URIGRAPHQL: string}) {
     })
   }
 
-  /* -------------- GET LOGIN  --------------*/
+  /* -------------- USER VALIDATION --------------*/
   const [logUser, setLogUser] = useState({
     username: "",
     password: ""
   })
-
 
   const [currentUser, setCurrentUser] = useState({
     id: window.sessionStorage.getItem('idCurrentUser'),
     username: window.sessionStorage.getItem('usernameCurrentUser'),
     password: window.sessionStorage.getItem('passwordCurrentUser'),
   })
+
+  useEffect(() => {
+    if (logUser.username && !logUser.password) {
+      setDisplayAlert({
+        style: { display: 'block' },
+        msg: 'Escribe la contraseña',
+        type: 'Error'
+      })
+    }
+    if (!logUser.username && logUser.password) {
+      setDisplayAlert({
+        style: { display: 'block' },
+        msg: 'Escribe el nombre de usuario, tu correo o tu número de telefono',
+        type: 'Error'
+      })
+    }
+    if (logUser.username && logUser.password) {
+      validateUser()
+    }
+  }, [logUser.username, logUser.password])
 
   function closeSession() {
     window.sessionStorage.clear()
@@ -144,30 +169,13 @@ function Main(props: { URIGRAPHQL: string}) {
         break;
         default:
           saveSession(data.data.validateUser)
+          //navigate("/")
         break;
       }
     })
   }
 
-  useEffect(() => { 
-    if (logUser.username && !logUser.password) {
-      setDisplayAlert({ 
-        style: { display: 'block'},
-        msg: 'Escribe la contraseña',
-        type: 'Error'
-      })
-    }
-    if (!logUser.username && logUser.password) {
-      setDisplayAlert({
-        style: { display: 'block' },
-        msg: 'Escribe el nombre de usuario o tu correo',
-        type: 'Error'
-      })
-    }
-    if (logUser.username && logUser.password) {
-      validateUser()
-    }
-  }, [logUser.username, logUser.password])
+  
 
   /* -------------- GET USER LIST -----------------*/
   var queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
@@ -177,10 +185,25 @@ function Main(props: { URIGRAPHQL: string}) {
     return listOfExistentUsers.push(User.username)
   })
 
-  /* -------------- Alert Functions -------------- */
+  /* -------------------- RENDER --------------------*/
+
+  /* Alert Functions */
+  function AlertScreenDisplay() {
+    return(
+      <div className="display_alertScreen setOver centerOnDisplay" style={displayAlert.style}>
+        <AlertScreen
+          darkTheme={darkTheme}
+          type={displayAlert.type}
+          msg={displayAlert.msg}
+          handlerAlert={handlerAlert}
+        />
+      </div>
+    )
+  }
+
   function handlerAlert() {
-    setDisplayAlert({ 
-      style: { display: 'none'},
+    setDisplayAlert({
+      style: { display: 'none' },
       msg: '',
       type: ''
     })
@@ -191,9 +214,16 @@ function Main(props: { URIGRAPHQL: string}) {
     msg: '',
     type: ''
   })
-  
 
-  /* -------------- Loader Functions -------------- */
+  /* Loader Functions */
+  function LoaderDisplay() {
+    return(
+      <div style={displayLoader} className={darkTheme ? 'display_loader-dark setOver centerOnDisplay' : 'display_loader setOver centerOnDisplay'}>
+        <Loader />
+      </div>   
+    )
+  }
+
   const [displayLoader, setDisplayLoader] = useState({})
   useEffect(() => {
     setTimeout(() => {
@@ -201,38 +231,41 @@ function Main(props: { URIGRAPHQL: string}) {
     }, 800)
   }, []);
 
-  /* -------------- RENDER --------------*/
+  /*-------------------- Main Render ------------------------- */
   return (
     <div className="Main">
-      
-      <Home 
-      darkTheme={darkTheme}
-      currentUser = {currentUser}
-      setDarkThemeHandler={setDarkThemeHandler}
-      closeSession={closeSession}
-      />
+      <BrowserRouter>
+      <Routes>
 
-      <div className={darkTheme ? 'display_login-dark setOn':  'display_login setOn'} style={currentUser.id ? { display: 'none'} : {}}>
-        < Login
+        <Route 
+        path='/' 
+        element={<Home
+            darkTheme={darkTheme}
+            currentUser={currentUser}
+            setDarkThemeHandler={setDarkThemeHandler}
+            closeSession={closeSession}
+        />} />
+
+        <Route 
+        path='login'
+        element={< Login
           setLogUser={setLogUser}
           listOfExistentUsers={listOfExistentUsers}
           darkTheme={darkTheme}
+          //TODO: No se debe utilizar displayHandler, debe ser un renderizado condicional usando el Router
+          
+        />}
         />
-      </div>
 
-      <div className="display_alertScreen setOn" style={displayAlert.style}>
-        <AlertScreen 
-          darkTheme = {darkTheme}
-          type = {displayAlert.type}
-          msg = {displayAlert.msg}
-          handlerAlert={handlerAlert}
-        />
-      </div>
+        <Route path='*' element={<NotFound/>}/>
 
+      </Routes>
 
-      <div style={displayLoader} className={darkTheme ? 'display_loader-dark setOn' : 'display_loader setOn'}>
-        <Loader />
-      </div>      
+      </BrowserRouter>
+
+      <AlertScreenDisplay />
+
+      <LoaderDisplay />  
 
     </div>
   );
