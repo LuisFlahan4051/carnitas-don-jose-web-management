@@ -1,0 +1,27 @@
+@import '../../Main-colors.scss';
+
+@font-face {
+    font-family: 'armalite_rifle';
+    src: url('./fonts/armalite_rifle.ttf') format('truetype');
+}
+
+.NotFound {
+    width: 100%;
+    height: 100%;
+    background-color: $main-body-dark;
+    color: $color-fire;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'armalite_rifle';
+    text-align: center;
+}
+
+.NotFound_msg {
+    padding-top: 2rem;
+    font-size: 3rem;
+}
+
+.NotFound_img {
+    height: 60%;
+}
