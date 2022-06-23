@@ -46,8 +46,19 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-}.login_container {
-    background-color: $target-login;
+}
+
+
+
+
+[data-theme='dark']{
+    --target-login: red;
+}
+
+$col: var(--target-login);
+
+.login_container {
+    background-color: $col;
     border-radius: 25px;
     box-shadow: 0px 3px 6px $shadow;
     border: 1px solid $shadow;
