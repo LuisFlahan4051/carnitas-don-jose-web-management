@@ -251,7 +251,7 @@ function Main(props: {URIGRAPHQL: string}) {
 
 	/*-------------------- Main Render ------------------------- */
 	return (
-		<div className='Main'>
+		<div className='Main' data-theme={'dark'}>
 			<BrowserRouter>
 				<Routes>
 					<Route

@@ -1,15 +1,13 @@
 @import '../../Main-colors.scss';
 
 .shadow {
-    box-shadow: 0px 3px 6px $shadow;
+    box-shadow: 0px 3px 6px var(--shadow);
 }
 
 .button {
     border-style: solid;
     border-width: 2px;
     border-radius: 10px;
-    //height: 35px;
-    //width: 80px;
     outline: none;
 }
 
@@ -18,8 +16,8 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
-    background-color: $input-background;
-    color: $color-emphasis-login;
+    background-color: var(--input-background);
+    color: var(--color-emphasis-login);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
     text-align: center;
@@ -33,35 +31,11 @@
 
 /* -------------------------- */
 
-
-.login_container_dark{
-    background-color: $target-login-dark;
-    border-radius: 25px;
-
-    width: 500px;
-    min-width: 360px;
-    height: 600px;
-    min-height: 570px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-
-
-
-[data-theme='dark']{
-    --target-login: red;
-}
-
-$col: var(--target-login);
-
 .login_container {
-    background-color: $col;
+    background-color: (--target-login);
     border-radius: 25px;
-    box-shadow: 0px 3px 6px $shadow;
-    border: 1px solid $shadow;
+    box-shadow: 0px 3px 6px var(--shadow);
+    border: 1px solid var(--shadow);
 
     width: 500px;
     min-width: 360px;
@@ -108,7 +82,7 @@ $col: var(--target-login);
 
 .login__fild label{
     margin-left: 15px;
-    color: $text-label-input;
+    color: var(--input-label);
     font-family: 'armalite_rifle';
     font-size: 18px;
 }
@@ -118,9 +92,9 @@ $col: var(--target-login);
 .username__select_area, .form__password {
     border-style: solid;
     border-width: 1px;
-    border-color: $border-input;
+    border-color: var(--input-border);
     border-radius: 10px;
-    background-color: $input-background;
+    background-color: var(--input-background);
     width: 100% -15px;
     height: 35px;
     padding-left: 15px;

@@ -12,9 +12,5 @@
 }
 
 .display_login {
-    background-color: $main-body;
-}
-
-.display_login-dark {
-    background-color: $main-body-dark;
+    background-color: var(--main-body);
 }

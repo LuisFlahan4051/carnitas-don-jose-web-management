@@ -1,3 +1,86 @@
+/* ----------------COMON COLORS -----------------*/
+:root{
+    --color-green-cake: #26FF8B;
+    --color-green-primary: #00FF4C;
+    --color-green-menta: #6BAEA7;
+    --color-cyan-primary: #00FFF0;
+    --color-blue-night: #407BFF;
+    --color-purple: #7040C4;
+    --color-magent: #BD31F8;
+    --color-pink-primary: #FF26A5;
+    --color-fire: #FC6706;
+    --color-fire-2: #c44e00;
+    --color-fire-3: #993d00;
+    // >>> Black Scale
+    --color-black-1: #000000;
+    --color-black-2: #101010;
+    --color-black-3: #181818;
+    --color-black-4: #202020;
+    --color-black-5: #282828;
+    --color-black-6: #303030;
+    --color-black-7-gray: #383838;
+    --color-black-8-gray: #404040;
+    --color-black-9-gray: #505050;
+    --color-black-10-gray: #606060;
+    // >>> Wite Scale
+    --color-wite-11-gray: #707070;
+    --color-wite-10-gray: #808080;
+    --color-wite-9-gray: #909090;
+    --color-wite-8-gray: #B0B0B0;
+    --color-wite-7: #C0C0C0;
+    --color-wite-6: #D0D0D0;
+    --color-wite-5: #E0E0E0;
+    --color-wite-4: #E8E8E8;
+    --color-wite-3: #F0F0F0;
+    --color-wite-2: #F8F8F8;
+    --color-wite-1: #FFFFFF;
+}
+// -----------------------------------------------
+
+/* ----------------- ELEMENTS -----------------*/
+:root{
+    --border: #d6d6d6;
+    --shadow: var(--color-wite-5);
+    --color-select-hover: #F1F1F1;
+    --input-background: var(--color-wite-1);
+    --input-label: var(--color-fire);
+    --input-border: var(--color-fire);
+}
+
+[data-theme='dark']{
+    --main-body: var(--color-black-2);
+    --target-login: var(--color-black-4);
+    --target-alert: var(--color-black-4);
+    --infoTarget: var(--color-black-5);
+}
+[data-theme='light']{
+    --main-body: var(--color-wite-2);
+    --target-login: var(--color-wite-4);
+    --target-alert: var(--color-wite-4);
+    --infoTarget: var(--color-wite-5);
+}
+
+$main-body: var(--main-body);
+$border: var(--border);
+
+// LOGIN
+$target-login: var(--target-login);
+$color-emphasis-login: var(--color-fire);
+$color-emphasis-login-2: var(--color-fire-2);
+$color-emphasis-login-3: var(--color-fire-3);
+$text-label-input: var(--color-fire);
+$border-input: var(--color-fire);
+
+$input-background: var(--color-wite-1);
+$shadow: var(--color-wite-5);
+$color-select-hover: var(--color-select-hover);
+//ALERT
+$target-alert: var(--target-alert);
+$color-alert-btn: var(--color-fire);
+$color-alert-btn-2: #ff8839;
+//HOME
+$infoTarget: var(--infoTarget);
+// ----------------------------------
 /* COMON COLORS */
 $color-green-cake: #26FF8B;
 $color-green-primary: #00FF4C;
@@ -7,7 +90,7 @@ $color-blue-night: #407BFF;
 $color-purple: #7040C4;
 $color-magent: #BD31F8;
 $color-pink-primary: #FF26A5;
-$color-fire: #FC6706 ;
+$color-fire: #FC6706;
 $color-fire-2: #c44e00;
 $color-fire-3: #993d00;
 // >>> Black Scale
@@ -20,7 +103,7 @@ $color-black-6: #303030;
 $color-black-7-gray: #383838;
 $color-black-8-gray: #404040;
 $color-black-9-gray: #505050;
-$color-black-10-gray: #606060; 
+$color-black-10-gray: #606060;
 // >>> Wite Scale
 $color-wite-11-gray: #707070;
 $color-wite-10-gray: #808080;
@@ -33,51 +116,3 @@ $color-wite-4: #E8E8E8;
 $color-wite-3: #F0F0F0;
 $color-wite-2: #F8F8F8;
 $color-wite-1: #FFFFFF;
-// -----------------------------------------------
-
-/* ELEMENTS */
-$main-body: $color-wite-3;
-$main-body-dark: $color-black-2;
-$border: #d6d6d6;
-$infoTarget-dark: $color-black-3;
-
-
-// LOGIN
-$target-login: $color-wite-4;
-$target-login-dark: $color-black-4;
-$color-emphasis-login: $color-fire;
-$color-emphasis-login-2: $color-fire-2;
-$color-emphasis-login-3: $color-fire-3;
-$text-label-input: $color-fire;
-$border-input: $color-fire;
-$input-background: $color-wite-1;
-$shadow: #e0e0e0;
-$color-select-hover: #F1F1F1;
-
-//ALERT
-$target-alert:$color-wite-4;
-$target-alert-dark: $color-black-4;
-$color-alert-btn: $color-fire;
-$color-alert-btn-2: #ff8839;
-
-
-
-
-
-// $text-dark: $color-wite-3;
-// $background-login: #ffffff;
-// $color-inputCard: #ffffff;
-// $color-mainCard: #f1f1f1;
-// $background-responsiva: #f8f8f8;
-// $color-ribbon: #ffffff;
-
-// $placeholder: #9292927a;
-// $color-text-resalted: $color-green-menta;
-// $color-resalted: $color-pink-primary;
-// $text: #9f9f9f;
-// $text-responsiva: #5e5e5e;
-// $text-target-title: #868686be;
-// $text-target-title-white: #ffffff;
-
-
-// $buttonsControls: #dbd9d9;
