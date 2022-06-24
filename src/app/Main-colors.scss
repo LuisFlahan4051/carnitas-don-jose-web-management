@@ -11,6 +11,7 @@
     --color-fire: #FC6706;
     --color-fire-2: #c44e00;
     --color-fire-3: #993d00;
+    --translucid-color: rgba(0, 0, 0, 0);
     // >>> Black Scale
     --color-black-1: #000000;
     --color-black-2: #101010;
@@ -35,29 +36,53 @@
     --color-wite-2: #F8F8F8;
     --color-wite-1: #FFFFFF;
 }
-// -----------------------------------------------
 
 /* ----------------- ELEMENTS -----------------*/
 :root{
-    --border: #d6d6d6;
-    --shadow: var(--color-wite-5);
-    --color-select-hover: #F1F1F1;
-    --input-background: var(--color-wite-1);
-    --input-label: var(--color-fire);
-    --input-border: var(--color-fire);
+    //Login
+    --login-border: #d6d6d6;
+    --login-shadow: var(--color-wite-5);
+    --login-input-selector-hover: #F1F1F1;
+    --login-input-background: var(--color-wite-1);
+    --login-input-label: var(--color-fire);
+    --login-input-border: var(--color-fire);
+    --login-emphasis-color: var(--color-fire);
+    --login-emphasis-color-2: var(--color-fire-2);
+    --login-emphasis-color-3: var(--color-fire-3);
+    //Alert
+    --alert-button-ok: var(--color-fire);
+    --alert-button-ok-hover: #ff8839;
+    --alert-shadow: var(--color-wite-5);
 }
 
-[data-theme='dark']{
+[data-global-theme='dark']{
+    //General
     --main-body: var(--color-black-2);
-    --target-login: var(--color-black-4);
-    --target-alert: var(--color-black-4);
-    --infoTarget: var(--color-black-5);
+    //Login
+    --login-shadow: var(--translucid-color);
+    --login-target: var(--color-black-4);
+    --login-display-background: var(--main-body);
+    //NotFound
+    --not-found-background: var(--main-body);
+    //Alert
+    --alert-target: var(--color-black-4);
+    --alert-message: var(--color-wite-5);
+    //Home
+    --home-display-background: var(--main-body);
+    
 }
-[data-theme='light']{
+[data-global-theme='light']{
+    //General
     --main-body: var(--color-wite-2);
-    --target-login: var(--color-wite-4);
-    --target-alert: var(--color-wite-4);
-    --infoTarget: var(--color-wite-5);
+    //Login
+    --login-shadow: var(--color-wite-5);
+    --login-target: var(--color-wite-4);
+    --login-display-background: var(--main-body);
+    //NotFound
+    --not-found-background: var(--main-body);
+    //Alert
+    --alert-target: var(--color-wite-4);
+    --alert-message: var(--color-black-5);
 }
 
 $main-body: var(--main-body);

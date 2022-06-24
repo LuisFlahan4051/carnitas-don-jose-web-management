@@ -33,9 +33,10 @@ function Main(props: {URIGRAPHQL: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
 
 	const [darkTheme, setDarkTheme] = useState(
-		window.sessionStorage.getItem('darkTheme')
-			? true
-			: !!window.matchMedia('(prefers-color-scheme: dark)').matches
+		// window.sessionStorage.getItem('darkTheme')
+		// 	? true
+		// 	: !!window.matchMedia('(prefers-color-scheme: dark)').matches
+		false
 	)
 
 	function setDarkThemeHandler() {
@@ -251,7 +252,7 @@ function Main(props: {URIGRAPHQL: string}) {
 
 	/*-------------------- Main Render ------------------------- */
 	return (
-		<div className='Main' data-theme={'dark'}>
+		<div className='Main' data-global-theme={'dark'}>
 			<BrowserRouter>
 				<Routes>
 					<Route

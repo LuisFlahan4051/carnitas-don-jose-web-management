@@ -1,7 +1,39 @@
 @import '../../Main-colors.scss';
 
+//USE data-login-theme for a specific theme
+//USE data-global-theme for a global theme
+
+[data-login-theme='dark'],[data-login-theme='light']{
+    --color-wite-5: #E0E0E0;
+    --color-wite-1: #FFFFFF;
+    --color-black-5: #E0E0E0;
+    --color-black-4: #202020;
+    --translucid-color: rgba(0, 0, 0, 0);
+    --color-fire: #FC6706;
+    --color-fire-2: #c44e00;
+    --color-fire-3: #993d00;
+
+    --login-border: #d6d6d6;
+    --login-input-selector-hover: #F1F1F1;
+    --login-input-background: var(--color-wite-1);
+    --login-input-label: var(--color-fire);
+    --login-input-border: var(--color-fire);
+    --login-emphasis-color: var(--color-fire);
+    --login-emphasis-color-2: var(--color-fire-2);
+    --login-emphasis-color-3: var(--color-fire-3);
+}
+
+[data-login-theme='dark'] {
+    --login-target: var(--color-black-4);
+    --login-shadow: var(--translucid-color);
+}
+[data-login-theme='light'] {
+    --login-shadow: var(--color-wite-5);
+    --login-target: var(--color-wite-4);
+}
+/* -------------------------------------------- */
 .shadow {
-    box-shadow: 0px 3px 6px var(--shadow);
+    box-shadow: 0px 3px 6px var(--login-shadow);
 }
 
 .button {
@@ -16,8 +48,8 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     outline: none;
-    background-color: var(--input-background);
-    color: var(--color-emphasis-login);
+    background-color: var(--login-input-background);
+    color: var(--login-emphasis-color);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 18px;
     text-align: center;
@@ -29,13 +61,13 @@
     src: url('./fonts/armalite_rifle.ttf') format('truetype');
 }
 
-/* -------------------------- */
+/* ------------------------------------------------------- */
 
 .login_container {
-    background-color: (--target-login);
+    background-color: var(--login-target);
     border-radius: 25px;
-    box-shadow: 0px 3px 6px var(--shadow);
-    border: 1px solid var(--shadow);
+    box-shadow: 0px 3px 6px var(--login-shadow);
+    border: 1px solid var(--login-shadow);
 
     width: 500px;
     min-width: 360px;
@@ -47,12 +79,6 @@
     align-items: center;
 }
 @media screen and (max-width: 500px) {
-    .login_container_dark {
-        width: 100%;
-        height: 100%;
-        border-radius: 0px;
-    }
-
     .login_container {
         width: 100%;
         height: 100%;
@@ -82,7 +108,7 @@
 
 .login__fild label{
     margin-left: 15px;
-    color: var(--input-label);
+    color: var(--login-input-label);
     font-family: 'armalite_rifle';
     font-size: 18px;
 }
@@ -92,9 +118,9 @@
 .username__select_area, .form__password {
     border-style: solid;
     border-width: 1px;
-    border-color: var(--input-border);
+    border-color: var(--login-input-border);
     border-radius: 10px;
-    background-color: var(--input-background);
+    background-color: var(--login-input-background);
     width: 100% -15px;
     height: 35px;
     padding-left: 15px;
@@ -160,10 +186,10 @@
 .options_area {
     position: absolute;
     align-content: center;
-    background-color: $color-wite-1;
+    background-color: var(--login-input-background);
     border-style: solid;
     border-width: 1px;
-    border-color: $border;
+    border-color: var(--login-border);
     border-radius: 10px;
     width: 100%;
     margin-top: 5px;
@@ -172,7 +198,7 @@
     animation-duration: 500ms;
     overflow: auto;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    color: $color-emphasis-login;
+    color: var(--login-emphasis-color);
     font-weight: bold;
     text-align: center;
     font-size: 16px;
@@ -209,7 +235,7 @@
 }
 
 .select__option:hover {
-    background-color: $color-select-hover;
+    background-color: var(--login-input-selector-hover);
 }
 
 
@@ -220,13 +246,13 @@
     appearance: none;
     align-self: flex-end;
     margin: 5px 0px 0px 0px;
-    color: $color-emphasis-login-3;
+    color: var(--login-emphasis-color-3);
     cursor: pointer;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .form__link:hover {
-    color: $color-emphasis-login;
+    color: var(--login-emphasis-color);
 }
 
 .form__btnsArea {
@@ -235,25 +261,19 @@
     margin-top: 15%;
 }
 
-.form__btnEntry,  .form__btnEntry-dark{
-    border-color: $color-emphasis-login-2;
-    color: $color-wite-1;
-    background-color: $color-emphasis-login-2;
+.form__btnEntry{
+    border-color: var(--login-emphasis-color-2);
+    color: var(--color-wite-1);
+    background-color: var(--login-emphasis-color-2);
     width: 200px;
     height: 50px;
     font-family: 'armalite_rifle';
     font-size: 20px;
 }
 
-.form__btnEntry-dark:hover {
-    border-color: $color-emphasis-login;
-    color: $color-wite-1;
-    background-color: $color-emphasis-login;
-    //box-shadow: 0px 3px 6px $shadow;
-} .form__btnEntry:hover {
-    border-color: $color-emphasis-login;
-    color: $color-wite-1;
-    background-color: $color-emphasis-login;
-    box-shadow: 0px 3px 6px $shadow;
-    
+.form__btnEntry:hover {
+    border-color: var(--login-emphasis-color);
+    color: var(--login-input-background);
+    background-color: var(--login-emphasis-color);
+    box-shadow: 0px 3px 6px var(--login-shadow);
 }

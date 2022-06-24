@@ -1,5 +1,29 @@
 @import '../../Main-colors.scss';
 
+//USE data-alert-theme for a specific theme
+//USE data-global-theme for a global theme
+
+[data-alert-theme='dark'],
+[data-alert-theme='light'] {
+    --color-wite-5: #E0E0E0;
+    --color-fire: #FC6706;
+
+    --alert-button-ok: var(--color-fire);
+    --alert-button-ok-hover: #ff8839;
+    --alert-shadow: var(--color-wite-5);
+}
+
+[data-alert-theme='dark'] {
+    --alert-target: var(--color-black-4);
+    --alert-message: var(--color-wite-5);
+}
+
+[data-alert-theme='light'] {
+    --alert-target: var(--color-wite-4);
+    --alert-message: var(--color-black-5);
+}
+// ----------------------------------------
+
 .AlertScreen{
     height: 100%;
     width: 100%;
@@ -32,20 +56,7 @@
     height: auto;
     max-height: 520px;
     border-radius: 10px;
-    background-color: $target-alert;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    padding-top: 25px;
-    padding-bottom: 25px;
-}.alert__target-dark {
-    width: 520px;
-    height: auto;
-    max-height: 520px;
-    border-radius: 10px;
-    background-color: $target-alert;
+    background-color: var(--alert-target);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,38 +75,27 @@
     font-size: 25px;
     padding-left: 25px;
     padding-right: 25px;
-    text-align: center;
-    overflow: auto;
-}.alert__target-dark p {
-    font-size: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
-    color: white;
+    color: var(--alert-message);
     text-align: center;
     overflow: auto;
 }
 
 @media screen and (max-width: 500px) {
     $width-target: 270px;
-    .alert__target,.alert__target-dark {
+    .alert__target{
         width: $width-target;
         height: auto;
         max-height: 400px;
     }
-    .alert__target p, .alert__target-dark p {
+    .alert__target p {
         font-size: 20px;
     }
 }
 
-//$color-btn-ok: #71e293;
-//$color-btn-ok-hover: #6dd68d;
-$color-btn-ok: $color-alert-btn;
-$color-btn-ok-hover: $color-alert-btn-2;
-$shadow: #e0e0e0;
 .alert__ok{
     width: 80px;
     height: 40px;
-    background-color: $color-btn-ok;
+    background-color: var(--alert-button-ok);
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -104,6 +104,6 @@ $shadow: #e0e0e0;
     border-style: none;
     cursor: pointer;
 }.alert__ok:hover{
-    background-color: $color-btn-ok-hover;
-    box-shadow: 0px 0px 6px $shadow;
+    background-color: var(--alert-button-ok-hover);
+    box-shadow: 0px 0px 6px var(--alert-shadow);
 }
