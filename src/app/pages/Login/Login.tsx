@@ -5,9 +5,8 @@ import LoginForm from '../../components/Login/Login'
 import './Login.scss'
 
 export default function Login(props: {
-	setLogUser: Function
+	setLogUser: any
 	listOfExistentUsers: React.ReactNode[]
-	darkTheme: boolean
 	handleLoged: boolean
 }) {
 	const navigate = useNavigate()
@@ -19,17 +18,10 @@ export default function Login(props: {
 	}, [props.handleLoged])
 
 	return (
-		<div
-			className={
-				props.darkTheme
-					? 'display_login-dark setMainFrame centerOnDisplay'
-					: 'display_login setMainFrame centerOnDisplay'
-			}
-		>
+		<div className='display_login setMainFrame centerOnDisplay'>
 			<LoginForm
 				setLogUser={props.setLogUser}
 				listOfExistentUsers={props.listOfExistentUsers}
-				darkTheme={props.darkTheme}
 			/>
 		</div>
 	)

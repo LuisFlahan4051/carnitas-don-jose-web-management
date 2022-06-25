@@ -4,9 +4,8 @@ import icon from './img/Down-Row.svg'
 import React, {useRef, useState} from 'react'
 
 function Login(props: {
-	setLogUser: Function
+	setLogUser: any
 	listOfExistentUsers: React.ReactNode[]
-	darkTheme: boolean
 }) {
 	/* -------------- INIT REFS AND THEMES --------------*/
 	const inputName = useRef(document.createElement('input'))
@@ -35,9 +34,7 @@ function Login(props: {
 
 	/* -------------- RENDER --------------*/
 	return (
-		<div
-			className={props.darkTheme ? 'login_container_dark' : 'login_container'}
-		>
+		<div className='login_container'>
 			<img src={logo} alt='main_logo' className='login__logo' />
 
 			<form className='login__form' onSubmit={sendData}>
@@ -162,11 +159,7 @@ function Login(props: {
 					<button
 						type='submit'
 						ref={inputSubmit}
-						className={
-							props.darkTheme
-								? 'form__btnEntry-dark button'
-								: 'form__btnEntry button'
-						}
+						className='form__btnEntry button'
 					>
 						Login
 					</button>

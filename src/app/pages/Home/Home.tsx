@@ -6,8 +6,8 @@ import IconBackground from './imgs/LogoFondoWite.svg'
 import IconUsers from './imgs/UsersIcon.svg'
 
 function Home(props: {
-	darkTheme: boolean
 	currentUser: any
+	darkTheme: boolean
 	setDarkThemeHandler: any
 	closeSession: any
 }) {
@@ -20,17 +20,23 @@ function Home(props: {
 	}, [props.currentUser.id])
 
 	/* -------------- RENDER --------------*/
-	return (
-		<div className='Home'>
-			<div className={props.darkTheme ? 'background-dark' : 'background'}>
+
+	function Background() {
+		return (
+			<div className='background'>
 				<img
 					src={props.darkTheme ? IconBackgroundDark : IconBackground}
 					alt='icon background'
 					className='background__icon'
 				/>
 			</div>
+		)
+	}
 
-			<div className='background_app'>
+	return (
+		<div className='display_home'>
+			<Background />
+			<div className='Home'>
 				<div className='Home__sesionInfoTarget'>
 					{'Usuario: ' + props.currentUser.username}
 					<button
@@ -42,16 +48,13 @@ function Home(props: {
 						cerrar sesion
 					</button>
 				</div>
+				<div className='Home__navbar'>nav</div>
 
 				<div className='Home__options_container'>
-					<button
-						className={
-							props.darkTheme ? 'btn-dark option_users' : 'btn option_users'
-						}
-					>
+					<button className='btn option_users'>
 						<img src={IconUsers} alt='Icon Users' className='btn_icon' />
 					</button>
-					<button className='btn-dark'>Button</button>
+					<button className='btn'>Button</button>
 					<button onClick={props.setDarkThemeHandler}></button>
 				</div>
 			</div>

@@ -28,15 +28,14 @@ const DB_USERS_LOGIN = gql`
 		}
 	}
 `
-
+//const defaultTheme = !!window.matchMedia('(prefers-color-scheme: dark)').matches
 function Main(props: {URIGRAPHQL: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
 
 	const [darkTheme, setDarkTheme] = useState(
-		// window.sessionStorage.getItem('darkTheme')
-		// 	? true
-		// 	: !!window.matchMedia('(prefers-color-scheme: dark)').matches
-		false
+		window.sessionStorage.getItem('darkTheme')
+			? true
+			: !!window.matchMedia('(prefers-color-scheme: dark)').matches
 	)
 
 	function setDarkThemeHandler() {
@@ -204,7 +203,6 @@ function Main(props: {URIGRAPHQL: string}) {
 				style={displayAlert.style}
 			>
 				<AlertScreen
-					darkTheme={darkTheme}
 					type={displayAlert.type}
 					msg={displayAlert.msg}
 					handlerAlert={handlerAlert}
@@ -232,11 +230,7 @@ function Main(props: {URIGRAPHQL: string}) {
 		return (
 			<div
 				style={displayLoader}
-				className={
-					darkTheme
-						? 'display_loader-dark setOver centerOnDisplay'
-						: 'display_loader setOver centerOnDisplay'
-				}
+				className='display_loader setOver centerOnDisplay'
 			>
 				<Loader />
 			</div>
@@ -252,15 +246,15 @@ function Main(props: {URIGRAPHQL: string}) {
 
 	/*-------------------- Main Render ------------------------- */
 	return (
-		<div className='Main' data-global-theme={'dark'}>
+		<div className='Main' data-global-theme={darkTheme ? 'dark' : 'light'}>
 			<BrowserRouter>
 				<Routes>
 					<Route
 						path='/'
 						element={
 							<Home
-								darkTheme={darkTheme}
 								currentUser={currentUser}
+								darkTheme={darkTheme}
 								setDarkThemeHandler={setDarkThemeHandler}
 								closeSession={closeSession}
 							/>
@@ -273,7 +267,6 @@ function Main(props: {URIGRAPHQL: string}) {
 							<Login
 								setLogUser={setLogUser}
 								listOfExistentUsers={listOfExistentUsers}
-								darkTheme={darkTheme}
 								handleLoged={!!currentUser.id}
 							/>
 						}

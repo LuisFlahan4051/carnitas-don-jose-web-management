@@ -5,12 +5,7 @@ import iconQuestion from './icons/iconQuestion.svg'
 import iconInfo from './icons/iconInfo.svg'
 import iconWarning from './icons/iconWarning.svg'
 
-function AlertScreen(props: {
-	darkTheme: boolean
-	type: string
-	msg: string
-	handlerAlert: any
-}) {
+function AlertScreen(props: {type: string; msg: string; handlerAlert: any}) {
 	let icon: any
 
 	switch (props.type) {
@@ -40,9 +35,7 @@ function AlertScreen(props: {
 			<div className='alert__background'></div>
 
 			<div className='alert__content' onClick={props.handlerAlert}>
-				<div
-					className={props.darkTheme ? 'alert__target-dark' : 'alert__target'}
-				>
+				<div className='alert__target'>
 					<img src={icon} alt='alert__icon' />
 					<p className='alert__msg'>{props.msg}</p>
 					<button className='alert__ok' onClick={props.handlerAlert}>
