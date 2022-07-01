@@ -3,13 +3,16 @@ import {useNavigate} from 'react-router-dom'
 import './Home.scss'
 import IconBackgroundDark from './imgs/LogoFondoDark.svg'
 import IconBackground from './imgs/LogoFondoWite.svg'
-import IconUsers from './imgs/UsersIcon.svg'
+import Header from '../../components/Header/Header'
+import Navbar from '../../components/Navbar/Navbar'
+import Workspace from '../../components/Workspace/Workspace'
 
 function Home(props: {
 	currentUser: any
 	darkTheme: boolean
 	setDarkThemeHandler: any
 	closeSession: any
+	setDisplayAlert: any
 }) {
 	const navigate = useNavigate()
 
@@ -37,25 +40,22 @@ function Home(props: {
 		<div className='display_home'>
 			<Background />
 			<div className='Home'>
-				<div className='Home__sesionInfoTarget'>
-					{'Usuario: ' + props.currentUser.username}
-					<button
-						onClick={() => {
-							props.closeSession()
-							navigate('/login')
-						}}
-					>
-						cerrar sesion
-					</button>
+				<div className='display_home__header'>
+					<Header
+						currentUser={props.currentUser}
+						closeSession={props.closeSession}
+					/>
 				</div>
-				<div className='Home__navbar'>nav</div>
 
-				<div className='Home__options_container'>
-					<button className='btn option_users'>
-						<img src={IconUsers} alt='Icon Users' className='btn_icon' />
-					</button>
-					<button className='btn'>Button</button>
-					<button onClick={props.setDarkThemeHandler}></button>
+				<div className='display_home__navbar'>
+					<Navbar />
+				</div>
+
+				<div className='display_home__workspace'>
+					<Workspace
+						setDarkThemeHandler={props.setDarkThemeHandler}
+						setDisplayAlert={props.setDisplayAlert}
+					/>
 				</div>
 			</div>
 		</div>

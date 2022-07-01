@@ -28,24 +28,26 @@ const DB_USERS_LOGIN = gql`
 		}
 	}
 `
-//const defaultTheme = !!window.matchMedia('(prefers-color-scheme: dark)').matches
+
 function Main(props: {URIGRAPHQL: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
 
 	const [darkTheme, setDarkTheme] = useState(
-		window.sessionStorage.getItem('darkTheme')
-			? true
+		window.sessionStorage.getItem('darkTheme') === 'false'
+			? false
 			: !!window.matchMedia('(prefers-color-scheme: dark)').matches
 	)
 
 	function setDarkThemeHandler() {
 		setDarkTheme(!darkTheme)
 		darkTheme
-			? window.sessionStorage.removeItem('darkTheme')
+			? window.sessionStorage.setItem('darkTheme', 'false')
 			: window.sessionStorage.setItem('darkTheme', 'true')
-		const mutation = `mutation{
-      updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}})
-    }`
+		const mutation = `
+			mutation{
+      			updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}})
+    		}
+		`
 		fetch(props.URIGRAPHQL, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
@@ -131,6 +133,7 @@ function Main(props: {URIGRAPHQL: string}) {
 					setDarkTheme(false)
 					window.sessionStorage.removeItem('darkTheme')
 				}
+				window.sessionStorage.setItem('darkTheme', data.data.userById.darktheme)
 				window.sessionStorage.setItem('idCurrentUser', data.data.userById.id)
 				window.sessionStorage.setItem(
 					'usernameCurrentUser',
@@ -205,18 +208,23 @@ function Main(props: {URIGRAPHQL: string}) {
 				<AlertScreen
 					type={displayAlert.type}
 					msg={displayAlert.msg}
-					handlerAlert={handlerAlert}
+					onAcept={handlerAlertAcept}
+					onCancel={handlerAlertCancel}
 				/>
 			</div>
 		)
 	}
 
-	function handlerAlert() {
+	function handlerAlertAcept() {
 		setDisplayAlert({
 			style: {display: 'none'},
 			msg: '',
 			type: '',
 		})
+	}
+
+	function handlerAlertCancel() {
+		console.log('cancel')
 	}
 
 	const [displayAlert, setDisplayAlert] = useState({
@@ -257,6 +265,7 @@ function Main(props: {URIGRAPHQL: string}) {
 								darkTheme={darkTheme}
 								setDarkThemeHandler={setDarkThemeHandler}
 								closeSession={closeSession}
+								setDisplayAlert={setDisplayAlert}
 							/>
 						}
 					/>

@@ -5,13 +5,16 @@
     --color-green-menta: #6BAEA7;
     --color-cyan-primary: #00FFF0;
     --color-blue-night: #407BFF;
+    --color-blue-night-2: #6897fd;
     --color-purple: #7040C4;
     --color-magent: #BD31F8;
     --color-pink-primary: #FF26A5;
     --color-fire: #FC6706;
     --color-fire-2: #c44e00;
     --color-fire-3: #993d00;
-    --translucid-color: rgba(0, 0, 0, 0);
+    --color-red-cake: #ec3636;
+    --color-red-cake-2: #f55656;
+    --translucid-color: #e0e0e000;
     // >>> Black Scale
     --color-black-1: #000000;
     --color-black-2: #101010;
@@ -53,6 +56,12 @@
     --alert-button-ok: var(--color-fire);
     --alert-button-ok-hover: #ff8839;
     --alert-shadow: var(--color-wite-5);
+    --alert-button-acept: var(--color-blue-night);
+    --alert-button-acept-hover: var(--color-blue-night-2);
+    --alert-button-cancel: var(--color-red-cake);
+    --alert-button-cancel-hover: var(--color-red-cake-2);
+    //Workspace
+    --worspace-shadow: var(--color-wite-5);
 }
 
 [data-global-theme='dark']{
@@ -69,6 +78,9 @@
     --alert-message: var(--color-wite-5);
     //Home
     --home-display-background: var(--main-body);
+    //Workspace
+    --btn-circle-background: var(--color-black-3);
+    
     
 }
 [data-global-theme='light']{
@@ -83,6 +95,10 @@
     //Alert
     --alert-target: var(--color-wite-4);
     --alert-message: var(--color-black-5);
+    //Home
+    --home-display-background: var(--main-body);
+    //Workspace
+    --btn-circle-background: var(--color-wite-1);
 }
 
 $main-body: var(--main-body);
