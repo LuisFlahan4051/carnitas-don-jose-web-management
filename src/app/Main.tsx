@@ -215,6 +215,16 @@ function Main(props: {URIGRAPHQL: string}) {
 		)
 	}
 
+	function callback(functionAny: any, msg: string, type: string) {
+		functionAny()
+		console.log('callback')
+		setDisplayAlert({
+			style: {display: 'block'},
+			msg,
+			type,
+		})
+	}
+
 	function handlerAlertAcept() {
 		setDisplayAlert({
 			style: {display: 'none'},
@@ -266,6 +276,7 @@ function Main(props: {URIGRAPHQL: string}) {
 								setDarkThemeHandler={setDarkThemeHandler}
 								closeSession={closeSession}
 								setDisplayAlert={setDisplayAlert}
+								callback={callback}
 							/>
 						}
 					/>

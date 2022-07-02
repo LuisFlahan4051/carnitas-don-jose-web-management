@@ -13,6 +13,7 @@ function Home(props: {
 	setDarkThemeHandler: any
 	closeSession: any
 	setDisplayAlert: any
+	callback: any
 }) {
 	const navigate = useNavigate()
 
@@ -55,6 +56,7 @@ function Home(props: {
 					<Workspace
 						setDarkThemeHandler={props.setDarkThemeHandler}
 						setDisplayAlert={props.setDisplayAlert}
+						callback={props.callback}
 					/>
 				</div>
 			</div>

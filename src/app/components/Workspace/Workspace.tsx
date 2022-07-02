@@ -5,6 +5,7 @@ import './Workspace.scss'
 export default function Workspace(props: {
 	setDarkThemeHandler: any
 	setDisplayAlert: any
+	callback: any
 }) {
 	function onClickUsers() {
 		console.log('onClickUsers')
@@ -20,6 +21,16 @@ export default function Workspace(props: {
 			msg: '¡Carlos es puto!',
 			type: 'Question',
 		})
+	}
+
+	function callback() {
+		props.callback(
+			() => {
+				console.log('callbackResponse')
+			},
+			'¡Sending Callback!',
+			'Question'
+		)
 	}
 
 	return (
@@ -51,7 +62,14 @@ export default function Workspace(props: {
 				alt='send alert'
 				specificTheme='null'
 				onClick={onClickAlert}
-			></ButtonCircle>
+			/>
+			<ButtonCircle
+				color='#456BFF'
+				icon='null'
+				alt='Use a callback'
+				specificTheme='null'
+				onClick={callback}
+			/>
 		</div>
 	)
 }
