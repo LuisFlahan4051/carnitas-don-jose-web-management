@@ -9,7 +9,7 @@ import {useRef} from 'react'
 function AlertScreen(props: {
 	type: string
 	msg: string
-	onAcept: any
+	onAccept: any
 	onCancel: any
 }) {
 	const inputOk = useRef(document.createElement('button'))
@@ -51,7 +51,7 @@ function AlertScreen(props: {
 							<>
 								<button
 									className='alert-btn alert__acept'
-									onClick={props.onAcept}
+									onClick={props.onAccept}
 									ref={inputAcept}
 								>
 									Aceptar
@@ -67,7 +67,7 @@ function AlertScreen(props: {
 						) : (
 							<button
 								className='alert-btn alert__ok'
-								onClick={props.onAcept}
+								onClick={props.onAccept}
 								ref={inputOk}
 							>
 								OK

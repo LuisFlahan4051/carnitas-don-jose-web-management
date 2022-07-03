@@ -1,12 +1,18 @@
 import ButtonCircle from '../ButtonCircle/ButtonCircle'
 import IconUsers from './imgs/UsersIcon.svg'
 import './Workspace.scss'
+import {useState} from 'react'
+import AlertScreen from '../AlertScreen/AlertScreen'
+
+//function AlertScreen
 
 export default function Workspace(props: {
 	setDarkThemeHandler: any
 	setDisplayAlert: any
 	callback: any
 }) {
+	const [handleQuestion1, setHandleQuestion1] = useState(false)
+
 	function onClickUsers() {
 		console.log('onClickUsers')
 	}
@@ -16,11 +22,8 @@ export default function Workspace(props: {
 	}
 
 	function onClickAlert() {
-		props.setDisplayAlert({
-			style: {display: 'block'},
-			msg: '¡Carlos es puto!',
-			type: 'Question',
-		})
+		console.log('onClickAlert')
+		setHandleQuestion1(true)
 	}
 
 	function callback() {
@@ -70,6 +73,7 @@ export default function Workspace(props: {
 				specificTheme='null'
 				onClick={callback}
 			/>
+			{handleQuestion1 ? <></> : <></>}
 		</div>
 	)
 }

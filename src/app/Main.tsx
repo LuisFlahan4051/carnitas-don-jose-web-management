@@ -208,24 +208,31 @@ function Main(props: {URIGRAPHQL: string}) {
 				<AlertScreen
 					type={displayAlert.type}
 					msg={displayAlert.msg}
-					onAcept={handlerAlertAcept}
+					onAccept={handlerAlertAccept}
 					onCancel={handlerAlertCancel}
 				/>
 			</div>
 		)
 	}
 
-	function callback(functionAny: any, msg: string, type: string) {
-		functionAny()
-		console.log('callback')
+	function shootAlert(action: any, msg: string, type: string) {
 		setDisplayAlert({
 			style: {display: 'block'},
 			msg,
 			type,
 		})
+		setTimeout(() => {
+			setDisplayAlert({
+				style: {display: 'none'},
+				msg: '',
+				type: '',
+			})
+			action()
+		}, 1700)
 	}
 
-	function handlerAlertAcept() {
+	function handlerAlertAccept() {
+		console.log('accept')
 		setDisplayAlert({
 			style: {display: 'none'},
 			msg: '',
@@ -235,6 +242,11 @@ function Main(props: {URIGRAPHQL: string}) {
 
 	function handlerAlertCancel() {
 		console.log('cancel')
+		setDisplayAlert({
+			style: {display: 'none'},
+			msg: '',
+			type: '',
+		})
 	}
 
 	const [displayAlert, setDisplayAlert] = useState({
@@ -276,7 +288,7 @@ function Main(props: {URIGRAPHQL: string}) {
 								setDarkThemeHandler={setDarkThemeHandler}
 								closeSession={closeSession}
 								setDisplayAlert={setDisplayAlert}
-								callback={callback}
+								callback={shootAlert}
 							/>
 						}
 					/>
