@@ -4,17 +4,17 @@ import iconCancel from './icons/iconCancel.svg'
 import iconQuestion from './icons/iconQuestion.svg'
 import iconInfo from './icons/iconInfo.svg'
 import iconWarning from './icons/iconWarning.svg'
-import {useRef} from 'react'
+import {useEffect, useRef} from 'react'
 
 function AlertScreen(props: {
 	type: string
 	msg: string
 	onAccept: any
 	onCancel: any
+	onClose: any
 }) {
 	const inputOk = useRef(document.createElement('button'))
-	const inputAcept = useRef(document.createElement('button'))
-	const inputCancel = useRef(document.createElement('button'))
+
 	let icon: any
 	switch (props.type) {
 		case 'Success':
@@ -37,10 +37,14 @@ function AlertScreen(props: {
 			break
 	}
 
+	useEffect(() => {
+		inputOk.current.focus()
+	}, [])
+
 	/* -------------- RENDER --------------*/
 	return (
 		<div className='AlertScreen'>
-			<div className='alert__background'></div>
+			<div className='alert__background' onClick={props.onClose}></div>
 
 			<div className='alert__content'>
 				<div className='alert__target'>
@@ -52,14 +56,18 @@ function AlertScreen(props: {
 								<button
 									className='alert-btn alert__acept'
 									onClick={props.onAccept}
-									ref={inputAcept}
+									ref={inputOk}
+									onKeyDown={e => {
+										if (e.key === 'ArrowRight') {
+											console.log('Right')
+										}
+									}}
 								>
 									Aceptar
 								</button>
 								<button
 									className='alert-btn alert__cancel'
 									onClick={props.onCancel}
-									ref={inputCancel}
 								>
 									Cancelar
 								</button>

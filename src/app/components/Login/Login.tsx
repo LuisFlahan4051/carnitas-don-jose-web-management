@@ -56,7 +56,9 @@ function Login(props: {
 								onKeyPress={(e: {key: any; preventDefault: () => void}) => {
 									if (e.key === 'Enter') {
 										e.preventDefault()
+										inputPass.current.value = ''
 										inputPass.current?.focus()
+										setHandleSelect(false)
 									}
 								}}
 								onKeyDown={e => {
@@ -68,6 +70,7 @@ function Login(props: {
 													props.listOfExistentUsers.length - 1
 												) {
 													setUserInSelect(userInSelect + 1)
+													setHandleSelect(true)
 												}
 												resolve(userInSelect + 1) //Se ejecuta al mismo tiempo que el if. por eso regreso el valor mientras actualiza el estado
 											}).then((InSelect: any) => {
@@ -76,6 +79,7 @@ function Login(props: {
 													InSelect < props.listOfExistentUsers.length
 												) {
 													setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+													setHandleSelect(true)
 												}
 											})
 										}
@@ -119,11 +123,16 @@ function Login(props: {
 						>
 							{props.listOfExistentUsers.map((user, index) => (
 								<div
-									className='select__option'
+									className={
+										userValue === user
+											? 'select__option focused'
+											: 'select__option'
+									}
 									onClick={() => {
 										setUserValue(`${user}`)
 										setHandleSelect(false)
 										setUserInSelect(index)
+										inputPass.current.value = ''
 										inputName.current?.focus()
 									}}
 									key={user?.toString()}

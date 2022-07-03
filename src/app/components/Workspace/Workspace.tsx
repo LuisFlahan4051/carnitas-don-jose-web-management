@@ -4,14 +4,18 @@ import './Workspace.scss'
 import {useState} from 'react'
 import AlertScreen from '../AlertScreen/AlertScreen'
 
-//function AlertScreen
+export default function Workspace(props: {setDarkThemeHandler: any}) {
+	const [displayAlert, setDisplayAlert] = useState(false)
 
-export default function Workspace(props: {
-	setDarkThemeHandler: any
-	setDisplayAlert: any
-	callback: any
-}) {
-	const [handleQuestion1, setHandleQuestion1] = useState(false)
+	function sure() {
+		console.log('sure')
+		setDisplayAlert(false)
+	}
+
+	function dontsure() {
+		console.log('dontsure')
+		setDisplayAlert(false)
+	}
 
 	function onClickUsers() {
 		console.log('onClickUsers')
@@ -23,17 +27,7 @@ export default function Workspace(props: {
 
 	function onClickAlert() {
 		console.log('onClickAlert')
-		setHandleQuestion1(true)
-	}
-
-	function callback() {
-		props.callback(
-			() => {
-				console.log('callbackResponse')
-			},
-			'¡Sending Callback!',
-			'Question'
-		)
+		setDisplayAlert(true)
 	}
 
 	return (
@@ -66,14 +60,16 @@ export default function Workspace(props: {
 				specificTheme='null'
 				onClick={onClickAlert}
 			/>
-			<ButtonCircle
-				color='#456BFF'
-				icon='null'
-				alt='Use a callback'
-				specificTheme='null'
-				onClick={callback}
-			/>
-			{handleQuestion1 ? <></> : <></>}
+
+			{displayAlert ? (
+				<AlertScreen
+					type='Question'
+					msg='Are you sure you want to delete this workspace?'
+					onAccept={sure}
+					onCancel={dontsure}
+					onClose={dontsure}
+				/>
+			) : null}
 		</div>
 	)
 }

@@ -7,15 +7,15 @@ import './Login.scss'
 export default function Login(props: {
 	setLogUser: any
 	listOfExistentUsers: React.ReactNode[]
-	handleLoged: boolean
+	isLoged: boolean
 }) {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (props.handleLoged) {
+		if (props.isLoged) {
 			navigate('/')
 		}
-	}, [props.handleLoged])
+	}, [props.isLoged])
 
 	return (
 		<div className='display_login setMainFrame centerOnDisplay'>

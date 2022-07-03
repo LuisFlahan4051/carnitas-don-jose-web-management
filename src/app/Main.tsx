@@ -70,14 +70,14 @@ function Main(props: {URIGRAPHQL: string}) {
 	useEffect(() => {
 		if (logUser.username && !logUser.password) {
 			setDisplayAlert({
-				style: {display: 'block'},
+				display: true,
 				msg: 'Escribe la contraseña',
 				type: 'Error',
 			})
 		}
 		if (!logUser.username && logUser.password) {
 			setDisplayAlert({
-				style: {display: 'block'},
+				display: true,
 				msg: 'Escribe el nombre de usuario, tu correo o tu número de telefono',
 				type: 'Error',
 			})
@@ -162,21 +162,21 @@ function Main(props: {URIGRAPHQL: string}) {
 				switch (data.data.validateUser) {
 					case 'UserDoesNotExist':
 						setDisplayAlert({
-							style: {display: 'block'},
+							display: true,
 							msg: `¡No existe el usuario ${logUser.username}!`,
 							type: 'Error',
 						})
 						break
 					case 'IncorrectPassword':
 						setDisplayAlert({
-							style: {display: 'block'},
+							display: true,
 							msg: '¡Contraseña Incorrecta!',
 							type: 'Error',
 						})
 						break
 					case null:
 						setDisplayAlert({
-							style: {display: 'block'},
+							display: true,
 							msg: '¡Error de Consulta!',
 							type: 'Error',
 						})
@@ -199,78 +199,42 @@ function Main(props: {URIGRAPHQL: string}) {
 	/* -------------------- RENDER --------------------*/
 
 	/* Alert Functions */
-	function AlertScreenDisplay() {
-		return (
-			<div
-				className='display_alertScreen setOver centerOnDisplay'
-				style={displayAlert.style}
-			>
-				<AlertScreen
-					type={displayAlert.type}
-					msg={displayAlert.msg}
-					onAccept={handlerAlertAccept}
-					onCancel={handlerAlertCancel}
-				/>
-			</div>
-		)
-	}
-
-	function shootAlert(action: any, msg: string, type: string) {
-		setDisplayAlert({
-			style: {display: 'block'},
-			msg,
-			type,
-		})
-		setTimeout(() => {
-			setDisplayAlert({
-				style: {display: 'none'},
-				msg: '',
-				type: '',
-			})
-			action()
-		}, 1700)
-	}
-
-	function handlerAlertAccept() {
-		console.log('accept')
-		setDisplayAlert({
-			style: {display: 'none'},
-			msg: '',
-			type: '',
-		})
-	}
-
-	function handlerAlertCancel() {
-		console.log('cancel')
-		setDisplayAlert({
-			style: {display: 'none'},
-			msg: '',
-			type: '',
-		})
-	}
-
 	const [displayAlert, setDisplayAlert] = useState({
-		style: {display: 'none'},
+		display: false,
 		msg: '',
 		type: '',
 	})
 
-	/* Loader Functions */
-	function LoaderDisplay() {
-		return (
-			<div
-				style={displayLoader}
-				className='display_loader setOver centerOnDisplay'
-			>
-				<Loader />
-			</div>
-		)
+	/*function shootAlert(then: any, msg: string, type: string) {
+		setDisplayAlert({
+			display: true,
+			msg,
+			type,
+		})
+		setTimeout(() => {
+			dropAlert()
+			then()
+		}, 1700)
+	}*/
+
+	function acceptingAlert() {
+		dropAlert()
 	}
 
-	const [displayLoader, setDisplayLoader] = useState({})
+	function dropAlert() {
+		setDisplayAlert({
+			display: false,
+			msg: '',
+			type: '',
+		})
+	}
+
+	/* Loader Functions */
+
+	const [displayLoader, setDisplayLoader] = useState(true)
 	useEffect(() => {
 		setTimeout(() => {
-			setDisplayLoader({display: 'none'})
+			setDisplayLoader(false)
 		}, 800)
 	}, [])
 
@@ -287,8 +251,6 @@ function Main(props: {URIGRAPHQL: string}) {
 								darkTheme={darkTheme}
 								setDarkThemeHandler={setDarkThemeHandler}
 								closeSession={closeSession}
-								setDisplayAlert={setDisplayAlert}
-								callback={shootAlert}
 							/>
 						}
 					/>
@@ -299,7 +261,7 @@ function Main(props: {URIGRAPHQL: string}) {
 							<Login
 								setLogUser={setLogUser}
 								listOfExistentUsers={listOfExistentUsers}
-								handleLoged={!!currentUser.id}
+								isLoged={!!currentUser.id}
 							/>
 						}
 					/>
@@ -308,9 +270,17 @@ function Main(props: {URIGRAPHQL: string}) {
 				</Routes>
 			</BrowserRouter>
 
-			<AlertScreenDisplay />
+			{displayAlert.display ? (
+				<AlertScreen
+					type={displayAlert.type}
+					msg={displayAlert.msg}
+					onAccept={acceptingAlert}
+					onCancel={null}
+					onClose={acceptingAlert}
+				/>
+			) : null}
 
-			<LoaderDisplay />
+			{displayLoader ? <Loader /> : null}
 		</div>
 	)
 }
