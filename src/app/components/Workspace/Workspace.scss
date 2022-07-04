@@ -3,11 +3,5 @@
 .workspace{
     display: flex;
     flex-direction: row;
-}
-.shootAlert{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
+    flex-wrap: wrap;
 }

@@ -13,7 +13,8 @@ function AlertScreen(props: {
 	onCancel: any
 	onClose: any
 }) {
-	const inputOk = useRef(document.createElement('button'))
+	const inputAccept = useRef(document.createElement('button'))
+	const inputCancel = useRef(document.createElement('button'))
 
 	let icon: any
 	switch (props.type) {
@@ -38,7 +39,7 @@ function AlertScreen(props: {
 	}
 
 	useEffect(() => {
-		inputOk.current.focus()
+		inputAccept.current.focus()
 	}, [])
 
 	/* -------------- RENDER --------------*/
@@ -56,10 +57,13 @@ function AlertScreen(props: {
 								<button
 									className='alert-btn alert__acept'
 									onClick={props.onAccept}
-									ref={inputOk}
+									ref={inputAccept}
 									onKeyDown={e => {
 										if (e.key === 'ArrowRight') {
-											console.log('Right')
+											inputCancel.current.focus()
+										}
+										if (e.key === 'Escape') {
+											props.onCancel()
 										}
 									}}
 								>
@@ -68,6 +72,15 @@ function AlertScreen(props: {
 								<button
 									className='alert-btn alert__cancel'
 									onClick={props.onCancel}
+									ref={inputCancel}
+									onKeyDown={e => {
+										if (e.key === 'ArrowLeft') {
+											inputAccept.current.focus()
+										}
+										if (e.key === 'Escape') {
+											props.onCancel()
+										}
+									}}
 								>
 									Cancelar
 								</button>
@@ -76,7 +89,12 @@ function AlertScreen(props: {
 							<button
 								className='alert-btn alert__ok'
 								onClick={props.onAccept}
-								ref={inputOk}
+								ref={inputAccept}
+								onKeyDown={e => {
+									if (e.key === 'Escape') {
+										props.onClose()
+									}
+								}}
 							>
 								OK
 							</button>

@@ -87,6 +87,7 @@ function Login(props: {
 											new Promise(resolve => {
 												if (userInSelect > 0) {
 													setUserInSelect(userInSelect - 1)
+													setHandleSelect(true)
 												}
 												resolve(userInSelect - 1)
 											}).then((InSelect: any) => {
@@ -95,6 +96,7 @@ function Login(props: {
 													InSelect < props.listOfExistentUsers.length
 												) {
 													setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+													setHandleSelect(true)
 												}
 											})
 										}

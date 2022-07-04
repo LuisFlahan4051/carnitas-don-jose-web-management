@@ -2,7 +2,7 @@ import './ButtonCircle.scss'
 import {useState} from 'react'
 
 export default function ButtonCircle(props: {
-	alt: string
+	title: string
 	icon: any
 	color: string
 	specificTheme: string
@@ -26,11 +26,12 @@ export default function ButtonCircle(props: {
 			onMouseLeave={() => setIsHover(false)}
 			data-button-circle-theme={props.specificTheme}
 			onClick={props.onClick}
+			title={props.title}
 		>
 			{props.icon !== null ? (
-				<img src={props.icon} alt={props.alt} className='btn-circle_icon' />
+				<img src={props.icon} alt={props.title} className='btn-circle_icon' />
 			) : (
-				props.alt
+				props.title
 			)}
 		</button>
 	)

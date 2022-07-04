@@ -1,7 +1,11 @@
 import {useNavigate} from 'react-router-dom'
 import './Header.scss'
 
-export default function Header(props: {currentUser: any; closeSession: any}) {
+export default function Header(props: {
+	currentUser: any
+	closeSession: any
+	setDarkThemeHandler: any
+}) {
 	const navigate = useNavigate()
 	return (
 		<div className='header'>
@@ -13,6 +17,13 @@ export default function Header(props: {currentUser: any; closeSession: any}) {
 				}}
 			>
 				cerrar sesion
+			</button>
+			<button
+				onClick={() => {
+					props.setDarkThemeHandler()
+				}}
+			>
+				Change Theme
 			</button>
 		</div>
 	)

@@ -43,6 +43,7 @@ function Home(props: {
 					<Header
 						currentUser={props.currentUser}
 						closeSession={props.closeSession}
+						setDarkThemeHandler={props.setDarkThemeHandler}
 					/>
 				</div>
 
@@ -51,7 +52,10 @@ function Home(props: {
 				</div>
 
 				<div className='display_home__workspace'>
-					<Workspace setDarkThemeHandler={props.setDarkThemeHandler} />
+					<Workspace
+						setDarkThemeHandler={props.setDarkThemeHandler}
+						type='target'
+					/>
 				</div>
 			</div>
 		</div>
