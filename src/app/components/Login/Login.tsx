@@ -4,7 +4,7 @@ import icon from './img/Down-Row.svg'
 import React, {useRef, useState} from 'react'
 
 function Login(props: {
-	setLogUser: any
+	setLogUser: (username: string, password: string) => void
 	listOfExistentUsers: React.ReactNode[]
 }) {
 	/* -------------- INIT REFS AND THEMES --------------*/
@@ -19,10 +19,7 @@ function Login(props: {
 	/* -------------- FUNCTIONS -------------- */
 	function sendData(event: {preventDefault: () => void}) {
 		event.preventDefault()
-		props.setLogUser({
-			username: inputName.current.value,
-			password: inputPass.current.value,
-		})
+		props.setLogUser(inputName.current.value, inputPass.current.value)
 		inputPass.current.value = ''
 		inputPass.current.focus()
 	}

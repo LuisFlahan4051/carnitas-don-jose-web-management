@@ -42,6 +42,7 @@
 
 /* ----------------- ELEMENTS -----------------*/
 :root{
+    // --------------- General -----------------
     //Login
     --login-border: #d6d6d6;
     --login-shadow: var(--color-wite-5);
@@ -63,6 +64,30 @@
     --alert-button-cancel-hover: var(--color-red-cake-2);
     //Workspace
     --worspace-shadow: var(--color-wite-5);
+    
+
+    // --------------- Light ----------------
+    
+        //General   
+        --main-body: var(--color-wite-2);
+        //Login
+        --login-shadow: var(--color-wite-5);
+        --login-target: var(--color-wite-4);
+        --login-display-background: var(--main-body);
+        //NotFound
+        --not-found-background: var(--main-body);
+        //Alert
+        --alert-target: var(--color-wite-4);
+        --alert-message: var(--color-black-5);
+        //Home
+        --home-display-background: var(--main-body);
+        //Workspace
+        --btn-circle-background: var(--color-wite-1);
+        //ButtonTarget
+        --button-target-background: var(--color-wite-3);
+        --button-target-border: var(--color-wite-4);
+        --button-target-shadow: var(--color-wite-6);
+        --button-target-text: var(--color-black-2);
 }
 
 [data-global-theme='dark']{
@@ -81,80 +106,9 @@
     --home-display-background: var(--main-body);
     //Workspace
     --btn-circle-background: var(--color-black-3);
-    
-    
+    //ButtonTarget
+    --button-target-background: var(--color-black-6);
+    --button-target-border: var(--translucid-color);
+    --button-target-shadow: var(--translucid-color);
+    --button-target-text: var(--color-wite-5);
 }
-[data-global-theme='light']{
-    //General
-    --main-body: var(--color-wite-2);
-    //Login
-    --login-shadow: var(--color-wite-5);
-    --login-target: var(--color-wite-4);
-    --login-display-background: var(--main-body);
-    //NotFound
-    --not-found-background: var(--main-body);
-    //Alert
-    --alert-target: var(--color-wite-4);
-    --alert-message: var(--color-black-5);
-    //Home
-    --home-display-background: var(--main-body);
-    //Workspace
-    --btn-circle-background: var(--color-wite-1);
-}
-
-$main-body: var(--main-body);
-$border: var(--border);
-
-// LOGIN
-$target-login: var(--target-login);
-$color-emphasis-login: var(--color-fire);
-$color-emphasis-login-2: var(--color-fire-2);
-$color-emphasis-login-3: var(--color-fire-3);
-$text-label-input: var(--color-fire);
-$border-input: var(--color-fire);
-
-$input-background: var(--color-wite-1);
-$shadow: var(--color-wite-5);
-$color-select-hover: var(--color-select-hover);
-//ALERT
-$target-alert: var(--target-alert);
-$color-alert-btn: var(--color-fire);
-$color-alert-btn-2: #ff8839;
-//HOME
-$infoTarget: var(--infoTarget);
-// ----------------------------------
-/* COMON COLORS */
-$color-green-cake: #26FF8B;
-$color-green-primary: #00FF4C;
-$color-green-menta: #6BAEA7;
-$color-cyan-primary: #00FFF0;
-$color-blue-night: #407BFF;
-$color-purple: #7040C4;
-$color-magent: #BD31F8;
-$color-pink-primary: #FF26A5;
-$color-fire: #FC6706;
-$color-fire-2: #c44e00;
-$color-fire-3: #993d00;
-// >>> Black Scale
-$color-black-1: #000000;
-$color-black-2: #101010;
-$color-black-3: #181818;
-$color-black-4: #202020;
-$color-black-5: #282828;
-$color-black-6: #303030;
-$color-black-7-gray: #383838;
-$color-black-8-gray: #404040;
-$color-black-9-gray: #505050;
-$color-black-10-gray: #606060;
-// >>> Wite Scale
-$color-wite-11-gray: #707070;
-$color-wite-10-gray: #808080;
-$color-wite-9-gray: #909090;
-$color-wite-8-gray: #B0B0B0;
-$color-wite-7: #C0C0C0;
-$color-wite-6: #D0D0D0;
-$color-wite-5: #E0E0E0;
-$color-wite-4: #E8E8E8;
-$color-wite-3: #F0F0F0;
-$color-wite-2: #F8F8F8;
-$color-wite-1: #FFFFFF;

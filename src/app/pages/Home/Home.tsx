@@ -6,12 +6,13 @@ import IconBackground from './imgs/LogoFondoWite.svg'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import Workspace from '../../components/Workspace/Workspace'
+import {User} from '../../Types'
 
 function Home(props: {
-	currentUser: any
+	currentUser: User
 	darkTheme: boolean
-	setDarkThemeHandler: any
-	closeSession: any
+	setDarkThemeHandler: () => void
+	closeSession: () => void
 }) {
 	const navigate = useNavigate()
 
@@ -51,12 +52,15 @@ function Home(props: {
 					<Navbar />
 				</div>
 
+				<div className='display_home__directory'></div>
+
 				<div className='display_home__workspace'>
 					<Workspace
 						setDarkThemeHandler={props.setDarkThemeHandler}
 						type='target'
 					/>
 				</div>
+				<div className='display_home__footer'></div>
 			</div>
 		</div>
 	)

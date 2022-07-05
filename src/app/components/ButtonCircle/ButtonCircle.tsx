@@ -3,10 +3,10 @@ import {useState} from 'react'
 
 export default function ButtonCircle(props: {
 	title: string
-	icon: any
+	icon: string | null
 	color: string
 	specificTheme: string
-	onClick: any
+	onClick: () => void
 }) {
 	const [isHover, setIsHover] = useState(false)
 

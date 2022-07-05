@@ -6,7 +6,7 @@ import AlertScreen from '../AlertScreen/AlertScreen'
 import ButtonTarget from '../ButtonTarget/ButtonTarget'
 
 export default function Workspace(props: {
-	setDarkThemeHandler: any
+	setDarkThemeHandler: () => void
 	type: string
 }) {
 	const [displayAlert, setDisplayAlert] = useState(false)
@@ -37,8 +37,18 @@ export default function Workspace(props: {
 	if (props.type === 'target') {
 		return (
 			<div className='workspace'>
-				<ButtonTarget title='Usuarios' icon={IconUsers} />
-				<ButtonTarget title='Other' icon={null} />
+				<ButtonTarget
+					title='Usuarios'
+					icon={IconUsers}
+					specificTheme='null'
+					onClick={onClickUsers}
+				/>
+				<ButtonTarget
+					title='Other'
+					icon={null}
+					specificTheme='null'
+					onClick={onClickOther}
+				/>
 			</div>
 		)
 	}
@@ -54,21 +64,21 @@ export default function Workspace(props: {
 			/>
 			<ButtonCircle
 				color='#26FF8B'
-				icon='null'
+				icon={null}
 				title='Simple Button'
 				specificTheme='null'
 				onClick={onClickOther}
 			/>
 			<ButtonCircle
 				color='#7040C4'
-				icon='null'
+				icon={null}
 				title='Change Theme'
 				specificTheme='null'
 				onClick={props.setDarkThemeHandler}
 			/>
 			<ButtonCircle
 				color='#407BFF'
-				icon='null'
+				icon={null}
 				title='Send Alert'
 				specificTheme='null'
 				onClick={onClickAlert}

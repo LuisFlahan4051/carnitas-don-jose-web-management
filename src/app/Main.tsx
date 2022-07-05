@@ -7,14 +7,9 @@ import AlertScreen from './components/AlertScreen/AlertScreen'
 import {gql, useQuery} from '@apollo/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
+import type {User} from './Types'
 
 /* --------------- Apollo TYPES ---------------------*/
-interface User {
-	id: string
-	name: string
-	username: string
-	password: string
-}
 
 interface UserData {
 	users: User[]
@@ -61,8 +56,16 @@ function Main(props: {URIGRAPHQL: string}) {
 		password: '',
 	})
 
+	function setLogUserHandler(username: string, password: string) {
+		setLogUser({
+			username,
+			password,
+		})
+	}
+
 	const [currentUser, setCurrentUser] = useState({
 		id: window.sessionStorage.getItem('idCurrentUser'),
+		name: window.sessionStorage.getItem('nameCurrentUser'),
 		username: window.sessionStorage.getItem('usernameCurrentUser'),
 		password: window.sessionStorage.getItem('passwordCurrentUser'),
 	})
@@ -86,65 +89,6 @@ function Main(props: {URIGRAPHQL: string}) {
 			validateUser()
 		}
 	}, [logUser.username, logUser.password])
-
-	function closeSession() {
-		window.sessionStorage.clear()
-		setCurrentUser({
-			id: '',
-			username: '',
-			password: '',
-		})
-		setLogUser({
-			username: '',
-			password: '',
-		})
-	}
-
-	function saveSession(userId: string) {
-		const query = `
-          query{
-            userById(id:"${userId}"){
-              id
-              name
-              lastname
-              username
-              password
-              darktheme
-            }
-          }
-        `
-		fetch(props.URIGRAPHQL, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({query}),
-		})
-			.then(res => res.json())
-			.then(data => {
-				setCurrentUser({
-					id: data.data.userById.id,
-					username: data.data.userById.username,
-					password: data.data.userById.password,
-				})
-
-				if (data.data.userById.darktheme === true) {
-					setDarkTheme(true)
-					window.sessionStorage.setItem('darkTheme', 'true')
-				} else {
-					setDarkTheme(false)
-					window.sessionStorage.removeItem('darkTheme')
-				}
-				window.sessionStorage.setItem('darkTheme', data.data.userById.darktheme)
-				window.sessionStorage.setItem('idCurrentUser', data.data.userById.id)
-				window.sessionStorage.setItem(
-					'usernameCurrentUser',
-					data.data.userById.username
-				)
-				window.sessionStorage.setItem(
-					'passwordCurrentUser',
-					data.data.userById.password
-				)
-			})
-	}
 
 	function validateUser() {
 		const query = `
@@ -185,6 +129,63 @@ function Main(props: {URIGRAPHQL: string}) {
 						saveSession(data.data.validateUser)
 						break
 				}
+			})
+	}
+
+	function closeSession() {
+		window.sessionStorage.clear()
+		setCurrentUser({
+			id: null,
+			name: null,
+			username: null,
+			password: null,
+		})
+		setLogUser({
+			username: '',
+			password: '',
+		})
+	}
+
+	function saveSession(userId: string) {
+		const query = `
+          query{
+            userById(id:"${userId}"){
+              id
+              name
+              lastname
+              username
+              password
+              darktheme
+            }
+          }
+        `
+		fetch(props.URIGRAPHQL, {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({query}),
+		})
+			.then(res => res.json())
+			.then(data => {
+				const user: User = data.data.userById
+				const storage = window.sessionStorage
+				setCurrentUser({
+					id: user.id || null,
+					name: user.name || null,
+					username: user.username || null,
+					password: user.password || null,
+				})
+
+				if (data.data.userById.darktheme === true) {
+					setDarkTheme(true)
+					storage.setItem('darkTheme', 'true')
+				} else {
+					setDarkTheme(false)
+					storage.removeItem('darkTheme')
+				}
+				storage.setItem('darkTheme', data.data.userById.darktheme)
+				storage.setItem('idCurrentUser', user.id || '')
+				storage.setItem('usernameCurrentUser', user.username || '')
+				storage.setItem('passwordCurrentUser', user.password || '')
 			})
 	}
 
@@ -259,7 +260,7 @@ function Main(props: {URIGRAPHQL: string}) {
 						path='login'
 						element={
 							<Login
-								setLogUser={setLogUser}
+								setLogUser={setLogUserHandler}
 								listOfExistentUsers={listOfExistentUsers}
 								isLoged={!!currentUser.id}
 							/>
@@ -275,7 +276,7 @@ function Main(props: {URIGRAPHQL: string}) {
 					type={displayAlert.type}
 					msg={displayAlert.msg}
 					onAccept={acceptingAlert}
-					onCancel={null}
+					onCancel={() => {}}
 					onClose={acceptingAlert}
 				/>
 			) : null}

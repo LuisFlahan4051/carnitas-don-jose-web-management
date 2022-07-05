@@ -9,9 +9,9 @@ import {useEffect, useRef} from 'react'
 function AlertScreen(props: {
 	type: string
 	msg: string
-	onAccept: any
-	onCancel: any
-	onClose: any
+	onAccept: () => void
+	onCancel: () => void
+	onClose: () => void
 }) {
 	const inputAccept = useRef(document.createElement('button'))
 	const inputCancel = useRef(document.createElement('button'))

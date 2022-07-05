@@ -5,7 +5,7 @@ import LoginForm from '../../components/Login/Login'
 import './Login.scss'
 
 export default function Login(props: {
-	setLogUser: any
+	setLogUser: (username: string, password: string) => void
 	listOfExistentUsers: React.ReactNode[]
 	isLoged: boolean
 }) {
