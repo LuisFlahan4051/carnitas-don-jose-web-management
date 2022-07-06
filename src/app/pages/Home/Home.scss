@@ -26,8 +26,8 @@
     height: 100%;
     position: absolute;
     display: grid;
-    grid-template-columns: 80px auto;
-    grid-template-rows: 80px 20px auto 20px; 
+    grid-template-columns: 10rem auto;
+    grid-template-rows: 5rem 2rem auto 1.2rem; 
     grid-template-areas: 
     "header header"
     "navbar directory"

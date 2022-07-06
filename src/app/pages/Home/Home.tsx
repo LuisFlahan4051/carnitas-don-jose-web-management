@@ -7,6 +7,8 @@ import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
 import Workspace from '../../components/Workspace/Workspace'
 import {User} from '../../Types'
+import Footer from '../../components/Footer/Footer'
+import Directory from '../../components/Directory/Directory'
 
 function Home(props: {
 	currentUser: User
@@ -52,7 +54,9 @@ function Home(props: {
 					<Navbar />
 				</div>
 
-				<div className='display_home__directory'></div>
+				<div className='display_home__directory'>
+					<Directory />
+				</div>
 
 				<div className='display_home__workspace'>
 					<Workspace
@@ -60,7 +64,9 @@ function Home(props: {
 						type='target'
 					/>
 				</div>
-				<div className='display_home__footer'></div>
+				<div className='display_home__footer'>
+					<Footer />
+				</div>
 			</div>
 		</div>
 	)

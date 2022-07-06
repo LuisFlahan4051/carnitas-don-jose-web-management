@@ -1,5 +1,9 @@
+@import '../../Main-colors.scss';
+
 .navbar{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: red;
+    background-color: var(--color-black-5);
 }
