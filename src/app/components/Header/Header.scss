@@ -1,12 +1,85 @@
 @import '../../Main-colors.scss';
 
+
 $margin: 10px;
 .header{
     display: flex;
     align-items: center;
     height: 100%;
-    background-color: var(--color-black-4);
+    background-color: var(--header-background);
 }
 
+// --------------------------------------------
+.header__options{
+    position: relative;
+}
+
+.options_profile-button{
+    margin-left: $margin;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.options_profile-picture{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.options_row{
+    position: absolute;
+    left: 25px;
+    
+    width: 20px;
+    height: 20px;
+
+}
+.options_row path {
+    fill: var(--header-options-background);
+}
+
+.options_container{
+    position: absolute;
+    top:63px;
+    left: 10px;
+
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    border-radius: 5px;
+    background-color: var(--header-options-background);
+    z-index: 1;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.options_button{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background-color: transparent;
+    height: 30px;
+    text-align: start;
+    cursor: pointer;
+}
+.options_button:hover{
+    background-color: var(--header-options-hover);
+}
+// ---------------------------------------------------
 
 
+.header__profile-name{
+    font-family: 'Noto Serif', serif;
+    font-style: oblique;
+    margin-left: $margin;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--header-text);
+}

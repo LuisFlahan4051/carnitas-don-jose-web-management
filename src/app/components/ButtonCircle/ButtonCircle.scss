@@ -3,9 +3,9 @@
 $btn-circle-size: 100px;
 [data-button-circle-theme='dark'],[data-button-circle-theme='light']{
     --color-black-3: #181818;
-    --color-wite-1: #FFFFFF;
-    --color-wite-3: #F0F0F0;
-    --color-wite-5: #E0E0E0;
+    --color-white-1: #FFFFFF;
+    --color-white-3: #F0F0F0;
+    --color-white-5: #E0E0E0;
     --translucid-color: #e0e0e000;
 }
 
@@ -14,8 +14,8 @@ $btn-circle-size: 100px;
     --worspace-shadow: var(--translucid-color);
 }
 [data-button-circle-theme='light']{
-    --btn-circle-background: var(--color-wite-1);
-    --worspace-shadow: var(--color-wite-5);
+    --btn-circle-background: var(--color-white-1);
+    --worspace-shadow: var(--color-white-5);
 }
 
 .btn-circle {

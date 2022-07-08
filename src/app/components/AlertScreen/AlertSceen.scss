@@ -5,7 +5,7 @@
 
 [data-alert-theme='dark'],
 [data-alert-theme='light'] {
-    --color-wite-5: #E0E0E0;
+    --color-white-5: #E0E0E0;
     --color-fire: #FC6706;
     --color-red-cake: #ec3636;
     --color-red-cake-2: #f55656;
@@ -16,16 +16,16 @@
     --alert-button-acept: var(--color-blue-night);
     --alert-button-acept-hover: var(--color-blue-night-2);
     --alert-button-cancel: var(--color-red-cake);
-    --alert-button-cancel-hover: var(--color-red-cake-2);--alert-shadow: var(--color-wite-5);
+    --alert-button-cancel-hover: var(--color-red-cake-2);--alert-shadow: var(--color-white-5);
 }
 
 [data-alert-theme='dark'] {
     --alert-target: var(--color-black-4);
-    --alert-message: var(--color-wite-5);
+    --alert-message: var(--color-white-5);
 }
 
 [data-alert-theme='light'] {
-    --alert-target: var(--color-wite-4);
+    --alert-target: var(--color-white-4);
     --alert-message: var(--color-black-5);
 }
 // ----------------------------------------

@@ -4,8 +4,8 @@
 //USE data-global-theme for a global theme
 
 [data-login-theme='dark'],[data-login-theme='light']{
-    --color-wite-5: #E0E0E0;
-    --color-wite-1: #FFFFFF;
+    --color-white-5: #E0E0E0;
+    --color-white-1: #FFFFFF;
     --color-black-5: #282828;
     --color-black-4: #202020;
     --translucid-color: rgba(0, 0, 0, 0);
@@ -15,8 +15,8 @@
 
     --login-border: #d6d6d6;
     --login-input-selector-hover: #F1F1F1;
-    --login-input-selector-focused: var(--color-wite-5);
-    --login-input-background: var(--color-wite-1);
+    --login-input-selector-focused: var(--color-white-5);
+    --login-input-background: var(--color-white-1);
     --login-input-label: var(--color-fire);
     --login-input-border: var(--color-fire);
     --login-emphasis-color: var(--color-fire);
@@ -29,9 +29,15 @@
     --login-shadow: var(--translucid-color);
 }
 [data-login-theme='light'] {
-    --login-shadow: var(--color-wite-5);
-    --login-target: var(--color-wite-4);
+    --login-shadow: var(--color-white-5);
+    --login-target: var(--color-white-4);
 }
+
+@font-face {
+    font-family: 'armalite_rifle';
+    src: url('./fonts/armalite_rifle.ttf') format('truetype');
+}
+
 /* -------------------------------------------- */
 .shadow {
     box-shadow: 0px 3px 6px var(--login-shadow);
@@ -57,10 +63,6 @@
     font-weight: bold;
 }
 
-@font-face {
-    font-family: 'armalite_rifle';
-    src: url('./fonts/armalite_rifle.ttf') format('truetype');
-}
 
 /* ------------------------------------------------------- */
 
@@ -268,7 +270,7 @@
 
 .form__btnEntry{
     border-color: var(--login-emphasis-color-2);
-    color: var(--color-wite-1);
+    color: var(--color-white-1);
     background-color: var(--login-emphasis-color-2);
     width: 200px;
     height: 50px;
