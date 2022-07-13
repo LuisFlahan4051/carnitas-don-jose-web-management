@@ -19,7 +19,9 @@ function Home(props: {
 
 	useEffect(() => {
 		if (!props.currentUser.id) {
-			navigate('/login')
+			navigate('/login', {
+				replace: true,
+			})
 		}
 	}, [props.currentUser.id])
 

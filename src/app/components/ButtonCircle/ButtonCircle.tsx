@@ -1,12 +1,14 @@
 import './ButtonCircle.scss'
 import {useState} from 'react'
+import {Link} from 'react-router-dom'
 
 export default function ButtonCircle(props: {
 	title: string
 	icon: string | null
 	color: string
 	specificTheme: string
-	onClick: () => void
+	to: string
+	onClick: any
 }) {
 	const [isHover, setIsHover] = useState(false)
 
@@ -19,7 +21,7 @@ export default function ButtonCircle(props: {
 	}
 
 	return (
-		<button
+		<Link
 			className='btn-circle'
 			style={isHover ? styleHover : style}
 			onMouseEnter={() => setIsHover(true)}
@@ -27,12 +29,13 @@ export default function ButtonCircle(props: {
 			data-button-circle-theme={props.specificTheme}
 			onClick={props.onClick}
 			title={props.title}
+			to={props.to}
 		>
 			{props.icon !== null ? (
 				<img src={props.icon} alt={props.title} className='btn-circle_icon' />
 			) : (
 				props.title
 			)}
-		</button>
+		</Link>
 	)
 }

@@ -4,14 +4,12 @@ import './Workspace.scss'
 import {useState} from 'react'
 import AlertScreen from '../AlertScreen/AlertScreen'
 import ButtonTarget from '../ButtonTarget/ButtonTarget'
-import {useNavigate} from 'react-router-dom'
 
 export default function Workspace(props: {
 	setDarkThemeHandler: () => void
 	type: string
 }) {
 	const [displayAlert, setDisplayAlert] = useState(false)
-	const navigate = useNavigate()
 
 	function sure() {
 		console.log('sure')
@@ -21,14 +19,6 @@ export default function Workspace(props: {
 	function dontsure() {
 		console.log('dontsure')
 		setDisplayAlert(false)
-	}
-
-	function onClickUsers() {
-		navigate('/home/users')
-	}
-
-	function onClickOther() {
-		console.log('onClickOther')
 	}
 
 	function onClickAlert() {
@@ -43,13 +33,15 @@ export default function Workspace(props: {
 					title='Usuarios'
 					icon={IconUsers}
 					specificTheme='null'
-					onClick={onClickUsers}
+					onClick={null}
+					to='/home/users'
 				/>
 				<ButtonTarget
 					title='Other'
 					icon={null}
 					specificTheme='null'
-					onClick={onClickOther}
+					onClick={null}
+					to='/home/other'
 				/>
 			</div>
 		)
@@ -62,14 +54,16 @@ export default function Workspace(props: {
 				icon={IconUsers}
 				title='Usuarios'
 				specificTheme='null'
-				onClick={onClickUsers}
+				onClick={null}
+				to='/home/users'
 			/>
 			<ButtonCircle
 				color='#26FF8B'
 				icon={null}
 				title='Simple Button'
 				specificTheme='null'
-				onClick={onClickOther}
+				onClick={null}
+				to='/home/other'
 			/>
 			<ButtonCircle
 				color='#7040C4'
@@ -77,6 +71,7 @@ export default function Workspace(props: {
 				title='Change Theme'
 				specificTheme='null'
 				onClick={props.setDarkThemeHandler}
+				to=''
 			/>
 			<ButtonCircle
 				color='#407BFF'
@@ -84,6 +79,7 @@ export default function Workspace(props: {
 				title='Send Alert'
 				specificTheme='null'
 				onClick={onClickAlert}
+				to=''
 			/>
 
 			{displayAlert ? (

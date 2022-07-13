@@ -5,7 +5,7 @@ import Home from './pages/Home/Home'
 import Loader from './components/Loader/Loader'
 import AlertScreen from './components/AlertScreen/AlertScreen'
 import {gql, useQuery} from '@apollo/client'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
 import type {User} from './Types'
 import Workspace from './components/Workspace/Workspace'
@@ -66,10 +66,18 @@ function Main(props: {URIGRAPHQL: string}) {
 	}
 
 	const [currentUser, setCurrentUser] = useState({
-		id: window.sessionStorage.getItem('idCurrentUser'),
-		name: window.sessionStorage.getItem('nameCurrentUser'),
-		username: window.sessionStorage.getItem('usernameCurrentUser'),
-		password: window.sessionStorage.getItem('passwordCurrentUser'),
+		id: window.sessionStorage.getItem('idCurrentUser')
+			? window.sessionStorage.getItem('idCurrentUser')
+			: window.localStorage.getItem('idCurrentUser'),
+		name: window.sessionStorage.getItem('nameCurrentUser')
+			? window.sessionStorage.getItem('nameCurrentUser')
+			: window.localStorage.getItem('nameCurrentUser'),
+		username: window.sessionStorage.getItem('usernameCurrentUser')
+			? window.sessionStorage.getItem('usernameCurrentUser')
+			: window.localStorage.getItem('usernameCurrentUser'),
+		password: window.sessionStorage.getItem('passwordCurrentUser')
+			? window.sessionStorage.getItem('passwordCurrentUser')
+			: window.localStorage.getItem('passwordCurrentUser'),
 	})
 
 	useEffect(() => {
@@ -136,6 +144,7 @@ function Main(props: {URIGRAPHQL: string}) {
 
 	function closeSession() {
 		window.sessionStorage.clear()
+		window.localStorage.clear()
 		setCurrentUser({
 			id: null,
 			name: null,
@@ -170,6 +179,7 @@ function Main(props: {URIGRAPHQL: string}) {
 			.then(data => {
 				const user: User = data.data.userById
 				const storage = window.sessionStorage
+				const local = window.localStorage
 				setCurrentUser({
 					id: user.id || null,
 					name: user.name || null,
@@ -188,6 +198,11 @@ function Main(props: {URIGRAPHQL: string}) {
 				storage.setItem('idCurrentUser', user.id || '')
 				storage.setItem('usernameCurrentUser', user.username || '')
 				storage.setItem('passwordCurrentUser', user.password || '')
+
+				local.setItem('darkTheme', data.data.userById.darktheme)
+				local.setItem('idCurrentUser', user.id || '')
+				local.setItem('usernameCurrentUser', user.username || '')
+				local.setItem('passwordCurrentUser', user.password || '')
 			})
 	}
 
@@ -246,6 +261,7 @@ function Main(props: {URIGRAPHQL: string}) {
 		<div className='Main' data-global-theme={darkTheme ? 'dark' : 'light'}>
 			<BrowserRouter>
 				<Routes>
+					<Route path='/' element={<Navigate to='login' replace={true} />} />
 					<Route
 						path='home/*'
 						element={

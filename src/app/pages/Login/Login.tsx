@@ -13,7 +13,9 @@ export default function Login(props: {
 
 	useEffect(() => {
 		if (props.isLoged) {
-			navigate('/home')
+			navigate('/home', {
+				replace: true,
+			})
 		}
 	}, [props.isLoged])
 
