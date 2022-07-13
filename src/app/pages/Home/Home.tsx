@@ -1,11 +1,10 @@
 import {useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import './Home.scss'
 import IconBackgroundDark from './imgs/LogoFondoDark.svg'
 import IconBackground from './imgs/LogoFondoWite.svg'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
-import Workspace from '../../components/Workspace/Workspace'
 import {User} from '../../Types'
 import Footer from '../../components/Footer/Footer'
 import Directory from '../../components/Directory/Directory'
@@ -59,10 +58,7 @@ function Home(props: {
 				</div>
 
 				<div className='display_home__workspace'>
-					<Workspace
-						setDarkThemeHandler={props.setDarkThemeHandler}
-						type='target'
-					/>
+					<Outlet />
 				</div>
 				<div className='display_home__footer'>
 					<Footer />

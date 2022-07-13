@@ -8,6 +8,8 @@ import {gql, useQuery} from '@apollo/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
 import type {User} from './Types'
+import Workspace from './components/Workspace/Workspace'
+import Users from './pages/Users/Users'
 
 /* --------------- Apollo TYPES ---------------------*/
 
@@ -245,7 +247,7 @@ function Main(props: {URIGRAPHQL: string}) {
 			<BrowserRouter>
 				<Routes>
 					<Route
-						path='/'
+						path='home/*'
 						element={
 							<Home
 								currentUser={currentUser}
@@ -254,7 +256,18 @@ function Main(props: {URIGRAPHQL: string}) {
 								closeSession={closeSession}
 							/>
 						}
-					/>
+					>
+						<Route
+							path=''
+							element={
+								<Workspace
+									setDarkThemeHandler={setDarkThemeHandler}
+									type='target'
+								/>
+							}
+						/>
+						<Route path='users' element={<Users />} />
+					</Route>
 
 					<Route
 						path='login'

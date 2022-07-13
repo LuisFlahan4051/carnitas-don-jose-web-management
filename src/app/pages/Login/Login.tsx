@@ -13,7 +13,7 @@ export default function Login(props: {
 
 	useEffect(() => {
 		if (props.isLoged) {
-			navigate('/')
+			navigate('/home')
 		}
 	}, [props.isLoged])
 

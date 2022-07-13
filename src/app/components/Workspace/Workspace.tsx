@@ -4,12 +4,14 @@ import './Workspace.scss'
 import {useState} from 'react'
 import AlertScreen from '../AlertScreen/AlertScreen'
 import ButtonTarget from '../ButtonTarget/ButtonTarget'
+import {useNavigate} from 'react-router-dom'
 
 export default function Workspace(props: {
 	setDarkThemeHandler: () => void
 	type: string
 }) {
 	const [displayAlert, setDisplayAlert] = useState(false)
+	const navigate = useNavigate()
 
 	function sure() {
 		console.log('sure')
@@ -22,7 +24,7 @@ export default function Workspace(props: {
 	}
 
 	function onClickUsers() {
-		console.log('onClickUsers')
+		navigate('/home/users')
 	}
 
 	function onClickOther() {

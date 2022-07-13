@@ -43,14 +43,14 @@
     align-items: center;
     justify-content: center;
     animation-name: target-nohover-animation;
-    animation-duration: 500ms;
+    animation-duration: 400ms;
     animation-fill-mode: forwards;
 }
 
 .ButtonTarget:hover {
     cursor: pointer;
     animation-name: target-hover-animation;
-    animation-duration: 500ms;
+    animation-duration: 400ms;
     animation-fill-mode: forwards;
 }
 
