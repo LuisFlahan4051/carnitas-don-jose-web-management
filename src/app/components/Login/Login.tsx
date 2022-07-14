@@ -1,7 +1,7 @@
 import './Login.scss'
 import logo from './img/LogoCV1.svg'
 import icon from './img/Down-Row.svg'
-import React, {startTransition, useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 
 function Login(props: {
 	setLogUser: (username: string, password: string) => void
@@ -36,21 +36,18 @@ function Login(props: {
 
 			<form className='login__form' onSubmit={sendData}>
 				<div className='login__fild'>
-					<label htmlFor='username'>Usuario:</label>
+					<label>Usuario:</label>
 
 					<div className='form__username'>
 						<div className='username__select_area'>
 							<input
 								type='text'
-								id='username'
 								name='username'
 								ref={inputName}
 								autoFocus
 								autoComplete='off'
 								onChange={(event: {target: {value: any}}) => {
-									startTransition(() => {
-										setUserValue(event.target.value)
-									})
+									setUserValue(event.target.value)
 								}}
 								value={userValue}
 								onKeyPress={(e: {key: any; preventDefault: () => void}) => {
@@ -61,45 +58,46 @@ function Login(props: {
 										setHandleSelect(false)
 									}
 								}}
-								onKeyDown={e => {
-									if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-										if (e.key === 'ArrowDown') {
-											new Promise(resolve => {
-												if (
-													userInSelect <
-													props.listOfExistentUsers.length - 1
-												) {
-													setUserInSelect(userInSelect + 1)
-													setHandleSelect(true)
-												}
-												resolve(userInSelect + 1) //Se ejecuta al mismo tiempo que el if. por eso regreso el valor mientras actualiza el estado
-											}).then((InSelect: any) => {
-												if (
-													InSelect >= 0 &&
-													InSelect < props.listOfExistentUsers.length
-												) {
-													setUserValue(`${props.listOfExistentUsers[InSelect]}`)
-													setHandleSelect(true)
-												}
-											})
+								onKeyDown={async e => {
+									if (e.key === 'ArrowDown') {
+										const InSelect: number = await new Promise(resolve => {
+											if (userInSelect < props.listOfExistentUsers.length - 1) {
+												setUserInSelect(userInSelect + 1)
+												setHandleSelect(true)
+											}
+											resolve(userInSelect + 1) //Se ejecuta al mismo tiempo que el if. por eso regreso el valor mientras actualiza el estado
+										})
+
+										if (
+											InSelect >= 0 &&
+											InSelect < props.listOfExistentUsers.length
+										) {
+											setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+											setHandleSelect(true)
 										}
-										if (e.key === 'ArrowUp') {
-											new Promise(resolve => {
-												if (userInSelect > 0) {
-													setUserInSelect(userInSelect - 1)
-													setHandleSelect(true)
-												}
-												resolve(userInSelect - 1)
-											}).then((InSelect: any) => {
-												if (
-													InSelect >= 0 &&
-													InSelect < props.listOfExistentUsers.length
-												) {
-													setUserValue(`${props.listOfExistentUsers[InSelect]}`)
-													setHandleSelect(true)
-												}
-											})
+									}
+
+									if (e.key === 'ArrowUp') {
+										const InSelect: number = await new Promise(resolve => {
+											if (userInSelect > 0) {
+												setUserInSelect(userInSelect - 1)
+												setHandleSelect(true)
+											}
+											resolve(userInSelect - 1)
+										})
+										if (
+											InSelect >= 0 &&
+											InSelect < props.listOfExistentUsers.length
+										) {
+											setUserValue(`${props.listOfExistentUsers[InSelect]}`)
+											setHandleSelect(true)
 										}
+									}
+
+									if (e.key === 'Escape') {
+										setUserValue('')
+										setHandleSelect(false)
+										setUserInSelect(-1)
 									}
 								}}
 								className='input'
@@ -147,10 +145,9 @@ function Login(props: {
 				</div>
 
 				<div className='login__fild'>
-					<label htmlFor='password'>Contraseña:</label>
+					<label>Contraseña:</label>
 					<input
 						type='password'
-						id='password'
 						name='password'
 						ref={inputPass}
 						onKeyPress={(e: {key: any; preventDefault: () => void}) => {

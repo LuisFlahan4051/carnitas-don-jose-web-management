@@ -100,46 +100,46 @@ function Main(props: {URIGRAPHQL: string}) {
 		}
 	}, [logUser.username, logUser.password])
 
-	function validateUser() {
+	async function validateUser() {
 		const query = `
 			query{
 				validateUser(username: "${logUser.username}", password: "${logUser.password}")
 			}
 		`
-		fetch(props.URIGRAPHQL, {
+		const response = await fetch(props.URIGRAPHQL, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
 		})
-			.then(response => response.json())
-			.then(data => {
-				switch (data.data.validateUser) {
-					case 'UserDoesNotExist':
-						setDisplayAlert({
-							display: true,
-							msg: `¡No existe el usuario ${logUser.username}!`,
-							type: 'Error',
-						})
-						break
-					case 'IncorrectPassword':
-						setDisplayAlert({
-							display: true,
-							msg: '¡Contraseña Incorrecta!',
-							type: 'Error',
-						})
-						break
-					case null:
-						setDisplayAlert({
-							display: true,
-							msg: '¡Error de Consulta!',
-							type: 'Error',
-						})
-						break
-					default:
-						saveSession(data.data.validateUser)
-						break
-				}
-			})
+
+		const {data} = await response.json()
+
+		switch (data.validateUser) {
+			case 'UserDoesNotExist':
+				setDisplayAlert({
+					display: true,
+					msg: `¡No existe el usuario ${logUser.username}!`,
+					type: 'Error',
+				})
+				break
+			case 'IncorrectPassword':
+				setDisplayAlert({
+					display: true,
+					msg: '¡Contraseña Incorrecta!',
+					type: 'Error',
+				})
+				break
+			case null:
+				setDisplayAlert({
+					display: true,
+					msg: '¡Error de Consulta!',
+					type: 'Error',
+				})
+				break
+			default:
+				saveSession(data.validateUser)
+				break
+		}
 	}
 
 	function closeSession() {
@@ -157,7 +157,7 @@ function Main(props: {URIGRAPHQL: string}) {
 		})
 	}
 
-	function saveSession(userId: string) {
+	async function saveSession(userId: string) {
 		const query = `
           query{
             userById(id:"${userId}"){
@@ -170,40 +170,41 @@ function Main(props: {URIGRAPHQL: string}) {
             }
           }
         `
-		fetch(props.URIGRAPHQL, {
+		const response = await fetch(props.URIGRAPHQL, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
 		})
-			.then(res => res.json())
-			.then(data => {
-				const user: User = data.data.userById
-				const storage = window.sessionStorage
-				const local = window.localStorage
-				setCurrentUser({
-					id: user.id || null,
-					name: user.name || null,
-					username: user.username || null,
-					password: user.password || null,
-				})
 
-				if (data.data.userById.darktheme === true) {
-					setDarkTheme(true)
-					storage.setItem('darkTheme', 'true')
-				} else {
-					setDarkTheme(false)
-					storage.removeItem('darkTheme')
-				}
-				storage.setItem('darkTheme', data.data.userById.darktheme)
-				storage.setItem('idCurrentUser', user.id || '')
-				storage.setItem('usernameCurrentUser', user.username || '')
-				storage.setItem('passwordCurrentUser', user.password || '')
+		const {data} = await response.json()
 
-				local.setItem('darkTheme', data.data.userById.darktheme)
-				local.setItem('idCurrentUser', user.id || '')
-				local.setItem('usernameCurrentUser', user.username || '')
-				local.setItem('passwordCurrentUser', user.password || '')
-			})
+		const user: User = data.userById
+		const storage = window.sessionStorage
+		const local = window.localStorage
+
+		setCurrentUser({
+			id: user.id || null,
+			name: user.name || null,
+			username: user.username || null,
+			password: user.password || null,
+		})
+
+		if (data.userById.darktheme === true) {
+			setDarkTheme(true)
+			storage.setItem('darkTheme', 'true')
+		} else {
+			setDarkTheme(false)
+			storage.removeItem('darkTheme')
+		}
+		storage.setItem('darkTheme', data.userById.darktheme)
+		storage.setItem('idCurrentUser', user.id || '')
+		storage.setItem('usernameCurrentUser', user.username || '')
+		storage.setItem('passwordCurrentUser', user.password || '')
+
+		local.setItem('darkTheme', data.userById.darktheme)
+		local.setItem('idCurrentUser', user.id || '')
+		local.setItem('usernameCurrentUser', user.username || '')
+		local.setItem('passwordCurrentUser', user.password || '')
 	}
 
 	/* -------------- GET USER LIST -----------------*/
