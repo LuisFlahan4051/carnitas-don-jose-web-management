@@ -1,9 +1,9 @@
-import ButtonCircle from '../ButtonCircle/ButtonCircle'
+import ButtonCircle from '../../components/ButtonCircle/ButtonCircle'
 import IconUsers from './imgs/UsersIcon.svg'
 import './Workspace.scss'
 import {useState} from 'react'
-import AlertScreen from '../AlertScreen/AlertScreen'
-import ButtonTarget from '../ButtonTarget/ButtonTarget'
+import AlertScreen from '../../components/AlertScreen/AlertScreen'
+import ButtonTarget from '../../components/ButtonTarget/ButtonTarget'
 
 export default function Workspace(props: {
 	setDarkThemeHandler: () => void

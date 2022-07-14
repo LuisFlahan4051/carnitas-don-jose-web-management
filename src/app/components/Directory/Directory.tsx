@@ -1,11 +1,10 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Directory.scss'
 
 export default function Directory() {
 	const locations = location.pathname
 		.split('/')
 		.slice(1, location.pathname.split('/').length)
-	const navigate = useNavigate()
 	return (
 		<div className='Directory'>
 			{locations.map((value: string, index: number) => {
@@ -14,12 +13,9 @@ export default function Directory() {
 						{index !== 0 ? <p className='location_row'>➤</p> : null}
 						<Link
 							className='location_name'
-							onClick={() => {
-								//navigate(`/${locations.slice(0, index + 1).join('/')}`)
-							}}
 							to={`/${locations.slice(0, index + 1).join('/')}`}
 						>
-							{value}
+							{value[0].toUpperCase() + value.slice(1)}
 						</Link>
 					</div>
 				)

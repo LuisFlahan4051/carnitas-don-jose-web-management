@@ -1,7 +1,7 @@
 import './Login.scss'
 import logo from './img/LogoCV1.svg'
 import icon from './img/Down-Row.svg'
-import React, {useRef, useState} from 'react'
+import React, {startTransition, useRef, useState} from 'react'
 
 function Login(props: {
 	setLogUser: (username: string, password: string) => void
@@ -36,18 +36,21 @@ function Login(props: {
 
 			<form className='login__form' onSubmit={sendData}>
 				<div className='login__fild'>
-					<label>Usuario:</label>
+					<label htmlFor='username'>Usuario:</label>
 
 					<div className='form__username'>
 						<div className='username__select_area'>
 							<input
 								type='text'
+								id='username'
 								name='username'
 								ref={inputName}
 								autoFocus
 								autoComplete='off'
 								onChange={(event: {target: {value: any}}) => {
-									setUserValue(event.target.value)
+									startTransition(() => {
+										setUserValue(event.target.value)
+									})
 								}}
 								value={userValue}
 								onKeyPress={(e: {key: any; preventDefault: () => void}) => {
@@ -144,9 +147,10 @@ function Login(props: {
 				</div>
 
 				<div className='login__fild'>
-					<label>Contraseña:</label>
+					<label htmlFor='password'>Contraseña:</label>
 					<input
 						type='password'
+						id='password'
 						name='password'
 						ref={inputPass}
 						onKeyPress={(e: {key: any; preventDefault: () => void}) => {

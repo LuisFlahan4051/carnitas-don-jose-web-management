@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     height: 100%;
-    color: white;
     padding-left: 10px;
 }
 
@@ -18,12 +17,17 @@
     margin-bottom: 0px;
     margin-left: 5px;
     margin-right: 5px;
+    color: var(--directory-link);
 }
 
 .location_name{
     cursor: pointer;
+    text-decoration: none;
+    color: var(--directory-link);
+    font-family: var(--directory-general-font);
+    font-size: 1.1rem;
 }
 
 .location_name:hover{
-    color: violet;
+    color: var(--directory-link-hover);
 }

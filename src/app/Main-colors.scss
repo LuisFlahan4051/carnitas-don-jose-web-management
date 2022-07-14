@@ -38,11 +38,27 @@
     --color-white-3: #F0F0F0;
     --color-white-2: #F8F8F8;
     --color-white-1: #FFFFFF;
+
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+//font-family: 'Fredericka the Great', cursive;
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
+//font-family: 'Libre Baskerville',serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,700&display=swap');
+//font-family: 'Noto Serif',serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:ital,wght@1,400;1,500;1,600;1,700&display=swap');
+//font-family: 'Ibarra Real Nova',serif;
 
 /* ----------------- ELEMENTS -----------------*/
 :root{
     // --------------- General -----------------
+    // >>> FONTS
+    --normal-font: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
     //Login
     --login-border: #d6d6d6;
     --login-shadow: var(--color-white-5);
@@ -54,6 +70,9 @@
     --login-emphasis-color: var(--color-fire);
     --login-emphasis-color-2: var(--color-fire-2);
     --login-emphasis-color-3: var(--color-fire-3);
+    --login-general-font: var(--normal-font);
+    --login-input-font: var(--normal-font);
+    
     //Alert
     --alert-button-ok: var(--color-fire);
     --alert-button-ok-hover: #ff8839;
@@ -64,7 +83,8 @@
     --alert-button-cancel-hover: var(--color-red-cake-2);
     //Workspace
     --worspace-shadow: var(--color-white-5);
-    
+    //Directory
+    --directory-general-font: serif,'Ibarra Real Nova';
 
     // --------------- Light ----------------
     
@@ -121,11 +141,8 @@
     --header-options-background: var(--color-white-2);
     --header-options-hover: var(--color-white-4);
     --header-text: var(--color-white-3);
+    --directory-link: var(--color-white-9-gray);
+    --directory-link-hover: var(--color-white-4);
 }
 
 /* ---------------------- FONTS --------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
-//font-family: 'Libre Baskerville',serif;
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,700&display=swap');
-//font-family: 'Noto Serif',serif;

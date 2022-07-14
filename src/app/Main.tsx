@@ -8,7 +8,7 @@ import {gql, useQuery} from '@apollo/client'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
 import type {User} from './Types'
-import Workspace from './components/Workspace/Workspace'
+import Workspace from './pages/Workspace/Workspace'
 import Users from './pages/Users/Users'
 
 /* --------------- Apollo TYPES ---------------------*/

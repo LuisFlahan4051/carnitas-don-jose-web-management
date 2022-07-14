@@ -1,5 +1,4 @@
 import './Users.scss'
-
 export default function Users() {
 	return (
 		<div className='Users'>
