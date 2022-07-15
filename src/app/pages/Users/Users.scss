@@ -1,0 +1,88 @@
+@import '../../Main-colors.scss';
+
+$margin-container: 15px;
+.Users{
+    background-color: var(--color-black-5);
+    margin-left: $margin-container;
+    margin-right: $margin-container;
+    margin-bottom: $margin-container;
+    width: calc(100% - 2*$margin-container);
+    height: calc(100% - $margin-container);
+    border-radius:7px;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "findUsers userInfo";
+}
+
+.users__find{
+    grid-area: findUsers;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+$width-content: 90%;
+
+$margin-find-username: 20px;
+$heigth-find-username: 40px;
+.find_username{
+    margin-top: $margin-find-username;
+    border-radius: 7px;   background-color: var(--color-white-1);
+    width: $width-content;
+    height: $heigth-find-username;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+$width-username-button: 45px;
+$width-username-buttons: $width-username-button*2 + 5px;
+.username_input{
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    background-color: transparent;
+    width: calc(95% - $width-username-buttons);
+    height: 100%;
+    padding: 0%;
+    padding-left: 10px;
+}
+
+.username_buttons{
+    width: $width-username-buttons;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.username_buttons button{
+    background-color: var(--color-white-3);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: $width-username-button;
+    height: 30px;
+}
+
+$margin-find-selector: 20px;
+.find_selector{
+    background-color: var(--color-black-7-gray);
+    width: $width-content;
+    margin-top: $margin-find-selector;
+    margin-bottom: $margin-find-selector;
+    height: calc(100% - $heigth-find-username + $margin-find-username - 2*$margin-find-selector);
+    border-radius: 7px;
+}
+
+.users__info{
+    grid-area: userInfo;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -2,10 +2,15 @@
 
 
 $margin: 10px;
+$margin-header: 5px;
 .header{
     display: flex;
     align-items: center;
-    height: 100%;
+    margin-top: $margin-header;
+    margin-left: $margin-header;
+    margin-right: $margin-header;
+    height: calc(100% - $margin-header);
+    border-radius: 5px;
     background-color: var(--header-background);
 }
 
