@@ -43,9 +43,9 @@ $width-username-button: 45px;
 $width-username-buttons: $width-username-button*2 + 5px;
 .username_input{
     border: none;
-    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    appearance: none;
     outline: none;
     background-color: transparent;
     width: calc(95% - $width-username-buttons);
@@ -78,6 +78,63 @@ $margin-find-selector: 20px;
     margin-bottom: $margin-find-selector;
     height: calc(100% - $heigth-find-username + $margin-find-username - 2*$margin-find-selector);
     border-radius: 7px;
+    
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "UsersDisplay UsersOptions";
+}
+
+.selector_users{
+    grid-area: UsersDisplay;
+}
+
+.users_buttons{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.users_button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 8rem;
+    width: 7rem;
+    margin-top: 15px;
+    margin-left: 15px;
+
+    cursor: pointer;
+    outline: none;
+    border: none;
+    appearance: none;
+    background-color: transparent;
+}
+.users_button:hover{
+    border-radius: 10px;
+    background-color: #0000001e;
+}
+
+.users_button img{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+.users_button p{
+    margin: 0px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.selector_options{
+    grid-area: UsersOptions;
+}
+
+.options_add-users{
+    display: flex;
+    flex-direction: column;
 }
 
 .users__info{

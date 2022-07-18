@@ -61,7 +61,8 @@ export default function Header(props: {
 				>
 					<img
 						className='options_profile-picture'
-						src='https://yt3.ggpht.com/ytc/AKedOLRAXBHJqs3xjDliRHeSgZcREGFNfG7VImUpHsG3MA=s900-c-k-c0x00ffffff-no-rj'
+						//src='https://yt3.ggpht.com/ytc/AKedOLRAXBHJqs3xjDliRHeSgZcREGFNfG7VImUpHsG3MA=s900-c-k-c0x00ffffff-no-rj'
+						src='../../../profile.jpg'
 						alt='User Profile Picture'
 					/>
 				</button>

@@ -54,9 +54,9 @@
 }
 
 .input {
-    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    appearance: none;
     outline: none;
     background-color: var(--login-input-background);
     color: var(--login-emphasis-color);
