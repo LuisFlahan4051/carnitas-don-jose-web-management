@@ -81,29 +81,35 @@ $margin-find-selector: 20px;
     
     display: grid;
     grid-template-columns: 80% 20%;
-    grid-template-rows: auto;
+    grid-template-rows: 100%;
     grid-template-areas:
     "UsersDisplay UsersOptions";
 }
 
 .selector_users{
     grid-area: UsersDisplay;
+    position: relative;
 }
 
 .users_buttons{
     display: flex;
     flex-wrap: wrap;
+    height: calc(100% - 10px);
+    width: 100%;
+    position: absolute;
+    overflow-y: auto;
 }
+
 
 .users_button{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    height: 8rem;
+    height: 9.5rem;
     width: 7rem;
-    margin-top: 15px;
-    margin-left: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
 
     cursor: pointer;
     outline: none;
@@ -117,15 +123,14 @@ $margin-find-selector: 20px;
 }
 
 .users_button img{
+    margin-top: 5px;
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    margin-top: 5px;
 }
 .users_button p{
-    margin: 0px;
-    margin-bottom: 5px;
     color: white;
+    text-align: center;
 }
 
 .selector_options{

@@ -135,7 +135,7 @@ function Login(props: {
 										inputPass.current.value = ''
 										inputName.current?.focus()
 									}}
-									key={user?.toString()}
+									key={index}
 								>
 									{user}
 								</div>

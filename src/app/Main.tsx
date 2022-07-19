@@ -9,22 +9,13 @@ import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
 import type {User} from './Types'
 import Workspace from './pages/Workspace/Workspace'
-import Users from './pages/Users/Users'
+import UsersPage from './pages/Users/Users'
 
 /* --------------- Apollo TYPES ---------------------*/
 
-interface UserData {
+interface Users {
 	users: User[]
 }
-
-/* -------------- Apollo QUERYS ---------------------*/
-const DB_USERS_LOGIN = gql`
-	query users {
-		users {
-			username
-		}
-	}
-`
 
 function Main(props: {URIGRAPHQL: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
@@ -72,6 +63,9 @@ function Main(props: {URIGRAPHQL: string}) {
 		name: window.sessionStorage.getItem('nameCurrentUser')
 			? window.sessionStorage.getItem('nameCurrentUser')
 			: window.localStorage.getItem('nameCurrentUser'),
+		lastname: window.sessionStorage.getItem('lastnameCurrentUser')
+			? window.sessionStorage.getItem('lastnameCurrentUser')
+			: window.localStorage.getItem('lastnameCurrentUser'),
 		username: window.sessionStorage.getItem('usernameCurrentUser')
 			? window.sessionStorage.getItem('usernameCurrentUser')
 			: window.localStorage.getItem('usernameCurrentUser'),
@@ -148,6 +142,7 @@ function Main(props: {URIGRAPHQL: string}) {
 		setCurrentUser({
 			id: null,
 			name: null,
+			lastname: null,
 			username: null,
 			password: null,
 		})
@@ -185,6 +180,7 @@ function Main(props: {URIGRAPHQL: string}) {
 		setCurrentUser({
 			id: user.id || null,
 			name: user.name || null,
+			lastname: user.lastname || null,
 			username: user.username || null,
 			password: user.password || null,
 		})
@@ -208,11 +204,30 @@ function Main(props: {URIGRAPHQL: string}) {
 	}
 
 	/* -------------- GET USER LIST -----------------*/
-	const queryArrayUsers = useQuery<UserData>(DB_USERS_LOGIN)
+	const {data} = useQuery<Users>(gql`
+		query users {
+			users {
+				username
+				name
+				lastname
+			}
+		}
+	`)
+	const users: User[] = data?.users ?? []
 
 	const listOfExistentUsers: string[] = []
-	queryArrayUsers.data?.users.map((User: any) => {
-		return listOfExistentUsers.push(User.username)
+	const UsersList: User[] = []
+
+	users.map((User: User) => {
+		UsersList.push({
+			id: User.id,
+			username: User.username,
+			name: User.name,
+			lastname: User.lastname,
+			password: User.password,
+		})
+		listOfExistentUsers.push(User.username ?? '')
+		return null
 	})
 
 	/* -------------------- RENDER --------------------*/
@@ -283,7 +298,7 @@ function Main(props: {URIGRAPHQL: string}) {
 								/>
 							}
 						/>
-						<Route path='users' element={<Users />} />
+						<Route path='users' element={<UsersPage UsersList={UsersList} />} />
 					</Route>
 
 					<Route

@@ -1,10 +1,10 @@
 import './Users.scss'
-export default function Users() {
-	const users: string[] = ['luis', 'Marco', 'Kriss', 'ana', 'Dany']
+import type {User} from '../../Types'
 
+export default function Users(props: {UsersList: User[]}) {
 	function UsuarioButton(props: {usuario: string}) {
 		return (
-			<button className='users_button'>
+			<button className='users_button' type='button'>
 				<img src='../../../profile.jpg' alt='User Picture' />
 				<p>{props.usuario[0].toLocaleUpperCase() + props.usuario.slice(1)}</p>
 			</button>
@@ -25,8 +25,8 @@ export default function Users() {
 				<div className='find_selector'>
 					<div className='selector_users'>
 						<div className='users_buttons'>
-							{users.map(user => (
-								<UsuarioButton usuario={user} key={user} />
+							{props.UsersList.map((user, index) => (
+								<UsuarioButton usuario={user.name ?? ''} key={index} />
 							))}
 						</div>
 					</div>
