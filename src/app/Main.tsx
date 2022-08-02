@@ -7,7 +7,7 @@ import AlertScreen from './components/AlertScreen/AlertScreen'
 import {gql, useQuery} from '@apollo/client'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
-import type {User} from './Types'
+import type {User, UserLoged} from './Types'
 import Workspace from './pages/Workspace/Workspace'
 import UsersPage from './pages/Users/Users'
 
@@ -173,7 +173,7 @@ function Main(props: {URIGRAPHQL: string}) {
 
 		const {data} = await response.json()
 
-		const user: User = data.userById
+		const user: UserLoged = data.userById
 		const storage = window.sessionStorage
 		const local = window.localStorage
 
@@ -207,9 +207,11 @@ function Main(props: {URIGRAPHQL: string}) {
 	const {data} = useQuery<Users>(gql`
 		query users {
 			users {
+				id
 				username
 				name
 				lastname
+				mail
 			}
 		}
 	`)
@@ -225,6 +227,7 @@ function Main(props: {URIGRAPHQL: string}) {
 			name: User.name,
 			lastname: User.lastname,
 			password: User.password,
+			mail: User.mail,
 		})
 		listOfExistentUsers.push(User.username ?? '')
 		return null

@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import './Header.scss'
-import type {User} from '../../Types'
+import type {UserLoged} from '../../Types'
 
 export default function Header(props: {
-	currentUser: User
+	currentUser: UserLoged
 	closeSession: () => void
 	setDarkThemeHandler: () => void
 }) {

@@ -5,12 +5,12 @@ import IconBackgroundDark from './imgs/LogoFondoDark.svg'
 import IconBackground from './imgs/LogoFondoWite.svg'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
-import {User} from '../../Types'
+import {UserLoged} from '../../Types'
 import Footer from '../../components/Footer/Footer'
 import Directory from '../../components/Directory/Directory'
 
 function Home(props: {
-	currentUser: User
+	currentUser: UserLoged
 	darkTheme: boolean
 	setDarkThemeHandler: () => void
 	closeSession: () => void
