@@ -1,15 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
-import {ApolloProvider} from '@apollo/client'
-import {client, URIGRAPHQL} from './apollo/client'
+import {URIGRAPHQL} from './apollo/client'
 import Main from './app/Main'
+import {UsersContextProvider} from './app/context/Users/UsersContext'
+import {SystemContextProvider} from './app/context/System/SystemContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 	<React.StrictMode>
-		<ApolloProvider client={client}>
-			<Main URIGRAPHQL={URIGRAPHQL} />
-		</ApolloProvider>
+		<SystemContextProvider>
+			<UsersContextProvider>
+				<Main URIGRAPHQL={URIGRAPHQL} />
+			</UsersContextProvider>
+		</SystemContextProvider>
 	</React.StrictMode>
 )

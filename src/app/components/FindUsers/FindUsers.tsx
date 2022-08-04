@@ -1,14 +1,14 @@
-import type {User} from '../../Types'
+import type {UserSimplified} from '../../Types'
 import './FindUsers.scss'
 import btnRow from './imgs/btnRow.svg'
 import addIcon from './imgs/addIcon.svg'
 import {useState} from 'react'
 
-export default function FindUsers(props: {UsersList: User[]}) {
+export default function FindUsers(props: {UsersList: UserSimplified[]}) {
 	const [search, setSearch] = useState('')
 
-	const UsersList: User[] = []
-	props.UsersList.map((user: User) => {
+	const UsersList: UserSimplified[] = []
+	props.UsersList.map((user: UserSimplified) => {
 		if (
 			(search !== '' && user.username?.includes(search)) ||
 			user.name?.includes(search) ||

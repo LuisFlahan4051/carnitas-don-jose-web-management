@@ -1,11 +1,11 @@
 import './Login.scss'
 import logo from './img/LogoCV1.svg'
 import icon from './img/Down-Row.svg'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 
 function Login(props: {
 	setLogUser: (username: string, password: string) => void
-	listOfExistentUsers: React.ReactNode[]
+	listOfExistentUsers: string[]
 }) {
 	/* -------------- INIT REFS AND THEMES --------------*/
 	const inputName = useRef(document.createElement('input'))
