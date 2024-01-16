@@ -5,7 +5,9 @@ export const SystemContext = createContext({})
 export const useSystemContext = () => {
 	const context = useContext(SystemContext)
 	if (!context)
-		throw new Error('useUser must be used within a UserContextProvider')
+		throw new Error(
+			'useSystemContext must be used within a useSystemContextProvider binding the index.tsx file'
+		)
 
 	return context
 }

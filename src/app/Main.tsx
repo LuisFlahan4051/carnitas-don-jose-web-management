@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import Login from './pages/Login/Login'
 import Home from './pages/Home/Home'
 import Loader from './components/Loader/Loader'
+//Check what happens with this import
 import AlertScreen from './components/AlertScreen/AlertScreen'
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import NotFound from './pages/NotFound/NotFound'
@@ -12,7 +13,7 @@ import UsersPage from './pages/Users/Users'
 
 import {useUsersContext} from './context/Users/UsersContext'
 
-function Main(props: {URIGRAPHQL: string}) {
+function Main(props: {URIAPI: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
 
 	const {usersNames}: any = useUsersContext()
@@ -36,7 +37,7 @@ function Main(props: {URIGRAPHQL: string}) {
       			updateUser(id:"${currentUser.id}", changes:{darktheme: ${!darkTheme}})
     		}
 		`
-		fetch(props.URIGRAPHQL, {
+		fetch(props.URIAPI, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query: mutation}),
@@ -71,13 +72,33 @@ function Main(props: {URIGRAPHQL: string}) {
 		mail: getSessionItem('mailCurrent'),
 	})
 
+	useEffect(() => {
+		if (logUser.username && !logUser.password) {
+			setDisplayAlert({
+				display: true,
+				msg: 'Escribe la contraseña',
+				type: 'Error',
+			})
+		}
+		if (!logUser.username && logUser.password) {
+			setDisplayAlert({
+				display: true,
+				msg: 'Escribe el nombre de usuario, tu correo o tu número de telefono',
+				type: 'Error',
+			})
+		}
+		if (logUser.username && logUser.password) {
+			validateUser()
+		}
+	}, [logUser.username, logUser.password])
+
 	async function validateUser() {
 		const query = `
 			query{
 				validateUser(username: "${logUser.username}", password: "${logUser.password}")
 			}
 		`
-		const response = await fetch(props.URIGRAPHQL, {
+		const response = await fetch(props.URIAPI, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
@@ -144,7 +165,7 @@ function Main(props: {URIGRAPHQL: string}) {
             }
           }
         `
-		const response = await fetch(props.URIGRAPHQL, {
+		const response = await fetch(props.URIAPI, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
@@ -182,6 +203,45 @@ function Main(props: {URIGRAPHQL: string}) {
 	}
 
 	/* -------------------- RENDER --------------------*/
+	/* Alert Functions */
+	const [displayAlert, setDisplayAlert] = useState({
+		display: false,
+		msg: '',
+		type: '',
+	})
+
+	/*function shootAlert(then: any, msg: string, type: string) {
+		setDisplayAlert({
+			display: true,
+			msg,
+			type,
+		})
+		setTimeout(() => {
+			dropAlert()
+			then()
+		}, 1700)
+	}*/
+
+	function acceptingAlert() {
+		dropAlert()
+	}
+
+	function dropAlert() {
+		setDisplayAlert({
+			display: false,
+			msg: '',
+			type: '',
+		})
+	}
+
+	/* Loader Functions */
+
+	const [displayLoader, setDisplayLoader] = useState(true)
+	useEffect(() => {
+		setTimeout(() => {
+			setDisplayLoader(false)
+		}, 800)
+	}, [])
 
 	/*-------------------- Main Render ------------------------- */
 	return (
@@ -217,7 +277,7 @@ function Main(props: {URIGRAPHQL: string}) {
 						element={
 							<Login
 								setLogUser={setLogUserHandler}
-								listOfExistentUsers={[]}
+								listOfExistentUsers={usersNames}
 								isLoged={!!currentUser.id}
 							/>
 						}

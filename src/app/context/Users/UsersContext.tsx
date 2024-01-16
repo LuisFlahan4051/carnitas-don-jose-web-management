@@ -1,6 +1,6 @@
 import {ReactElement, createContext, useContext, useState} from 'react'
 import type {UserSimplified} from '../../Types'
-import {URIGRAPHQL} from '../../../apollo/client'
+import {URIAPI} from '../../../apollo/client'
 import {useSystemContext} from '../System/SystemContext'
 
 export const UsersContext = createContext({})
@@ -42,11 +42,13 @@ export function UsersContextProvider(props: {children: ReactElement}) {
             }
 		`
 
-		const response = await fetch(URIGRAPHQL, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({query}),
-		})
+		const response = await fetch(
+			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
+			{
+				method: 'GET',
+				headers: {'Content-Type': 'application/json'},
+			}
+		)
 
 		const {data} = await response.json()
 
@@ -57,29 +59,23 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	// ----------------------------
 	const [usersNames, setUsersNames] = useState([''])
 	async function getUsersNames() {
-		const query = `
-			query users {
-                users {
-                    name
-                }
-            }
-		`
-
-		const response = await fetch(URIGRAPHQL, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({query}),
-		})
-
-		const {data} = await response.json()
-
-		const usersNames: UserSimplified[] = (await data?.users) ?? []
-
-		setUsersNames(
-			usersNames.map(user => {
-				return user.name ?? ''
-			})
+		const response = await fetch(
+			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
+			{
+				method: 'GET',
+				headers: {'Content-Type': 'application/json'},
+			}
 		)
+
+		if (response.ok) {
+			const data = await response.json()
+			const usersNames: UserSimplified[] = data ?? []
+			setUsersNames(
+				usersNames.map(user => {
+					return user.username ?? ''
+				})
+			)
+		}
 	}
 	// ----------------------------
 
@@ -113,12 +109,13 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	// ----------------------------
 
 	async function validateUser(username: string, password: string) {
+		console.log('Hola')
 		const query = `
 			query{
 				validateUser(username: "${loginData.username}", password: "${loginData.password}")
 			}
 		`
-		const response = await fetch(URIGRAPHQL, {
+		const response = await fetch(URIAPI, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
@@ -143,7 +140,7 @@ export function UsersContextProvider(props: {children: ReactElement}) {
             }
           }
         `
-		const response = await fetch(URIGRAPHQL, {
+		const response = await fetch(URIAPI, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({query}),
