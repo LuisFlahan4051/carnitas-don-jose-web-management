@@ -4,7 +4,7 @@ import icon from './img/Down-Row.svg'
 import {useRef, useState} from 'react'
 
 function Login(props: {
-	setLogUser: (username: string, password: string) => void
+	onSubmit: (username: string, password: string) => void
 	listOfExistentUsers: string[]
 }) {
 	/* -------------- INIT REFS AND THEMES --------------*/
@@ -19,7 +19,7 @@ function Login(props: {
 	/* -------------- FUNCTIONS -------------- */
 	function sendData(event: {preventDefault: () => void}) {
 		event.preventDefault()
-		props.setLogUser(inputName.current.value, inputPass.current.value)
+		props.onSubmit(inputName.current.value, inputPass.current.value)
 		inputPass.current.value = ''
 		inputPass.current.focus()
 	}

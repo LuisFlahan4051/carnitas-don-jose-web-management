@@ -11,15 +11,15 @@ import type {CurrentUser} from './Types'
 import Workspace from './pages/Workspace/Workspace'
 import UsersPage from './pages/Users/Users'
 
-import {useUsersContext} from './context/Users/UsersContext'
+// import {useUsersContext} from './context/Users/UsersContext'
 
 function Main(props: {URIAPI: string}) {
 	/* -------------- GLOBAL THEME CONTROL --------------*/
 
-	const {usersNames}: any = useUsersContext()
-	useEffect(() => {
-		console.log(usersNames)
-	}, [])
+	// const {usersNames}: any = useUsersContext()
+	// useEffect(() => {
+	// 	console.log(usersNames)
+	// }, [])
 
 	const [darkTheme, setDarkTheme] = useState(
 		window.sessionStorage.getItem('darkTheme') === 'false'
@@ -272,16 +272,7 @@ function Main(props: {URIAPI: string}) {
 						<Route path='users' element={<UsersPage UsersList={[]} />} />
 					</Route>
 
-					<Route
-						path='login'
-						element={
-							<Login
-								setLogUser={setLogUserHandler}
-								listOfExistentUsers={usersNames}
-								isLoged={!!currentUser.id}
-							/>
-						}
-					/>
+					<Route path='login' element={<Login />} />
 
 					<Route path='*' element={<NotFound />} />
 				</Routes>

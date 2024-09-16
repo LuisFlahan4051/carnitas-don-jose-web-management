@@ -1,8 +1,6 @@
 import {ReactElement, createContext, useContext, useState} from 'react'
 import type {UserSimplified} from '../../Types'
 import {URIAPI} from '../../../apollo/client'
-import {useSystemContext} from '../System/SystemContext'
-
 export const UsersContext = createContext({})
 
 export const useUsersContext = () => {
@@ -14,8 +12,6 @@ export const useUsersContext = () => {
 }
 
 export function UsersContextProvider(props: {children: ReactElement}) {
-	const {setDarkTheme}: any = useSystemContext()
-
 	const initUsersList: UserSimplified[] = [
 		{
 			id: '',
@@ -29,19 +25,6 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	]
 	const [usersList, setUsersList] = useState(initUsersList)
 	async function getUsersList() {
-		const query = `
-			query users {
-                users {
-                    id
-                    username
-                    name
-                    lastname
-                    phone
-                    mail
-                }
-            }
-		`
-
 		const response = await fetch(
 			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
 			{
@@ -60,12 +43,14 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	const [usersNames, setUsersNames] = useState([''])
 	async function getUsersNames() {
 		const response = await fetch(
-			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
+			URIAPI + '/users?admin_username=root&admin_password=root&root=true',
 			{
 				method: 'GET',
 				headers: {'Content-Type': 'application/json'},
 			}
 		)
+
+		console.log(response)
 
 		if (response.ok) {
 			const data = await response.json()
@@ -107,75 +92,25 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	})
 
 	// ----------------------------
-
 	async function validateUser(username: string, password: string) {
-		console.log('Hola')
-		const query = `
-			query{
-				validateUser(username: "${loginData.username}", password: "${loginData.password}")
-			}
-		`
-		const response = await fetch(URIAPI, {
+		const response = await fetch(URIAPI + '/login', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({query}),
+			body: JSON.stringify({username, password}),
 		})
 
-		const {data} = await response.json()
-
-		return data?.validateUser ?? ''
-	}
-
-	async function saveSession(userId: string) {
-		const query = `
-          query{
-            userById(id:"${userId}"){
-              id
-              username
-              name
-              lastname
-              phone
-			  mail
-              darktheme
-            }
-          }
-        `
-		const response = await fetch(URIAPI, {
-			method: 'POST',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({query}),
-		})
-
-		const {data} = await response.json()
-		const user: UserSimplified = data.userById
-
-		const storage = window.sessionStorage
-		const local = window.localStorage
-
-		setCurrentUser({
-			id: user.id ?? '',
-			username: user.username ?? '',
-			name: user.name ?? '',
-			lastname: user.lastname ?? '',
-			phone: user.phone ?? '',
-			mail: user.mail ?? '',
-			darktheme: user.darktheme ? 'true' : 'false',
-		})
-
-		if (data.userById.darktheme === true) {
-			setDarkTheme(true)
-			storage.setItem('darkTheme', 'true')
-		} else {
-			setDarkTheme(false)
-			storage.removeItem('darkTheme')
+		if (response.ok) {
+			return 'Ok'
 		}
-		storage.setItem('darkTheme', data.userById.darktheme)
-		storage.setItem('idCurrentUser', user.id || '')
-		storage.setItem('usernameCurrentUser', user.username || '')
 
-		local.setItem('darkTheme', data.userById.darktheme)
-		local.setItem('idCurrentUser', user.id || '')
-		local.setItem('usernameCurrentUser', user.username || '')
+		const message = await response.text()
+
+		if (message.includes('incorrect password')) return 'IncorrectPassword'
+		if (message.includes('user does not exist')) return 'NotExist'
+		if (message.includes('user is deleted')) return 'Deleted'
+		if (message.includes('user is not verified')) return 'NotVerified'
+
+		return 'CanNotValidate'
 	}
 
 	function closeSession() {
@@ -199,14 +134,7 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 	return (
 		<UsersContext.Provider
 			value={{
-				usersList,
-				usersNames,
-				loginData,
-				getUsersList,
-				getUsersNames,
 				validateUser,
-				saveSession,
-				closeSession,
 			}}
 		>
 			{props.children}

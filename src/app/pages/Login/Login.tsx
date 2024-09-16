@@ -1,32 +1,45 @@
 /* eslint-disable no-undef */
-import {useContext, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import LoginForm from '../../components/Login/Login'
 import './Login.scss'
 import {useUsersContext} from '../../context/Users/UsersContext'
 import AlertScreen from '../../components/AlertScreen/AlertScreen'
+import {useSystemContext} from '../../context/System/SystemContext'
 
-export default function Login(props: {
-	setLogUser: (username: string, password: string) => void
-	listOfExistentUsers: string[]
-	isLoged: boolean
-}) {
-	const {loginData, validateUser, saveSession}: any = useUsersContext()
+export default function Login() {
 	const navigate = useNavigate()
 
+	const [passwordBuffered, setPasswordBuffered] = useState('')
+	const [usernameBuffered, setUsernameBuffered] = useState('')
+	const {usernamesList, setCurrentUser, currentUser}: any = useSystemContext()
+	const {validateUser}: any = useUsersContext()
+
 	useEffect(() => {
-		if (props.isLoged) {
+		if (currentUser.username !== undefined) {
 			navigate('/home', {
 				replace: true,
 			})
 		}
+	}, [])
 
-		const response = validateUser(loginData.username, loginData.password)
-		switch (response) {
-			case 'UserDoesNotExist':
+	async function validateFormData(username: string, password: string) {
+		const message = await validateUser(username, password)
+
+		switch (message) {
+			case 'Ok':
+				setCurrentUser({
+					username: usernameBuffered,
+					password: passwordBuffered,
+				})
+				navigate('/home', {
+					replace: true,
+				})
+				break
+			case 'NotExist':
 				setDisplayAlert({
 					display: true,
-					msg: `¡No existe el usuario ${loginData.username}!`,
+					msg: `¡No existe el usuario ${usernameBuffered}!`,
 					type: 'Error',
 				})
 				break
@@ -37,40 +50,51 @@ export default function Login(props: {
 					type: 'Error',
 				})
 				break
-			case null:
+			case 'Deleted':
+				setDisplayAlert({
+					display: true,
+					msg: '¡El usuario ha sido eliminado!',
+					type: 'Error',
+				})
+				break
+			case 'NotVerified':
+				setDisplayAlert({
+					display: true,
+					msg: '¡El usuario aun no es verificado!',
+					type: 'Error',
+				})
+				break
+			default:
 				setDisplayAlert({
 					display: true,
 					msg: '¡Error de Consulta!',
 					type: 'Error',
 				})
 				break
-			default:
-				saveSession(response)
-				break
 		}
-	}, [props.isLoged])
+	}
 
 	/* Alert Functions */
 
 	useEffect(() => {
-		if (loginData.username && !loginData.password) {
+		if (usernameBuffered && !passwordBuffered) {
 			setDisplayAlert({
 				display: true,
 				msg: 'Escribe la contraseña',
 				type: 'Error',
 			})
 		}
-		if (!loginData.username && loginData.password) {
+		if (!usernameBuffered && passwordBuffered) {
 			setDisplayAlert({
 				display: true,
 				msg: 'Escribe el nombre de usuario, tu correo o tu número de telefono',
 				type: 'Error',
 			})
 		}
-		if (loginData.username && loginData.password) {
-			validateUser()
+		if (usernameBuffered && passwordBuffered) {
+			validateFormData(usernameBuffered, passwordBuffered)
 		}
-	}, [loginData.username, loginData.password])
+	}, [usernameBuffered, passwordBuffered])
 
 	const [displayAlert, setDisplayAlert] = useState({
 		display: false,
@@ -105,8 +129,11 @@ export default function Login(props: {
 	return (
 		<div className='display_login setMainFrame centerOnDisplay'>
 			<LoginForm
-				setLogUser={props.setLogUser}
-				listOfExistentUsers={props.listOfExistentUsers}
+				onSubmit={(username, password) => {
+					setUsernameBuffered(username)
+					setPasswordBuffered(password)
+				}}
+				listOfExistentUsers={usernamesList}
 			/>
 
 			{displayAlert.display ? (
