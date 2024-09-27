@@ -15,6 +15,8 @@ $margin-container: 15px;
     grid-template-rows: auto;
     grid-template-areas: 
     "findUsers userInfo";
+
+    position: relative;
 }
 
 
@@ -24,4 +26,109 @@ $margin-container: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.display__new_user{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000093;
+}
+
+.display__new_user.visible{
+    display: flex;
+}
+.display__new_user.hidden{
+    display: none;
+}
+
+.new_user__target{
+    width: 900px;
+    height: 70%;
+    min-height: 560px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-black-5);
+}
+
+.new_user__target form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form__row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+}
+
+.form__column{
+    height: 100%;
+    width: 50%;
+}
+
+
+.new_user__picture{
+    cursor: pointer;
+    width: 130px;
+    height: 130px;
+}
+.new_user__picture img{
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+}
+
+.new_user__target label{
+    color: var(--label-text);
+    font-family: var(--normal-font);
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.new_user__target input, .display__new_user select{
+    height: 35px;
+    width: 100%;
+    border-style: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-family: var(--normal-font);
+    font-size: 16px;
+}
+
+.new_user__button{
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    color: var(--target-button-text);
+    width: 200px;
+    height: 50px;
+    font-family: var(--normal-font);
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.new_user__button.accept{
+    background-color: var(--target-accept);
+}
+.new_user__button.accept:hover {
+    background-color: var(--target-accept-hover);
+}
+
+.new_user__button.cancel{
+    background-color: var(--target-cancel);
+}
+.new_user__button.cancel:hover {
+    background-color: var(--target-cancel-hover);
 }

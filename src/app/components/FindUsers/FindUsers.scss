@@ -95,6 +95,7 @@ $margin-find-selector: 20px;
 .users_buttons {
     display: flex;
     flex-wrap: wrap;
+    align-content: start;
     height: calc(100% - 10px);
     width: 100%;
     position: absolute;

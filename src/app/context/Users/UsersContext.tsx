@@ -1,6 +1,12 @@
-import {ReactElement, createContext, useContext, useState} from 'react'
-import type {UserSimplified} from '../../Types'
+import {
+	ReactElement,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import {URIAPI} from '../../../apollo/client'
+import {User} from '../../generated/types/4-users'
 export const UsersContext = createContext({})
 
 export const useUsersContext = () => {
@@ -12,85 +18,6 @@ export const useUsersContext = () => {
 }
 
 export function UsersContextProvider(props: {children: ReactElement}) {
-	const initUsersList: UserSimplified[] = [
-		{
-			id: '',
-			username: '',
-			name: '',
-			lastname: '',
-			phone: '',
-			mail: '',
-			darktheme: false,
-		},
-	]
-	const [usersList, setUsersList] = useState(initUsersList)
-	async function getUsersList() {
-		const response = await fetch(
-			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
-			{
-				method: 'GET',
-				headers: {'Content-Type': 'application/json'},
-			}
-		)
-
-		const {data} = await response.json()
-
-		const usersList: UserSimplified[] = data?.users ?? []
-
-		setUsersList(usersList)
-	}
-	// ----------------------------
-	const [usersNames, setUsersNames] = useState([''])
-	async function getUsersNames() {
-		const response = await fetch(
-			URIAPI + '/users?admin_username=root&admin_password=root&root=true',
-			{
-				method: 'GET',
-				headers: {'Content-Type': 'application/json'},
-			}
-		)
-
-		console.log(response)
-
-		if (response.ok) {
-			const data = await response.json()
-			const usersNames: UserSimplified[] = data ?? []
-			setUsersNames(
-				usersNames.map(user => {
-					return user.username ?? ''
-				})
-			)
-		}
-	}
-	// ----------------------------
-
-	const [loginData, setLoginData] = useState({
-		username: '',
-		password: '',
-	})
-
-	function setLoginDataWrapper(username: string, password: string) {
-		setLoginData({
-			username,
-			password,
-		})
-	}
-
-	function getSessionItem(item: string): string | null {
-		return window.sessionStorage.getItem(`${item}User`)
-			? window.sessionStorage.getItem(`${item}User`)
-			: window.localStorage.getItem(`${item}User`)
-	}
-	const [currentUser, setCurrentUser] = useState({
-		id: getSessionItem('idCurrent'),
-		name: getSessionItem('nameCurrent'),
-		lastname: getSessionItem('lastnameCurrent'),
-		username: getSessionItem('usernameCurrent'),
-		phone: getSessionItem('phoneCurrent'),
-		mail: getSessionItem('mailCurrent'),
-		darktheme: getSessionItem('darkthemeCurrent'),
-	})
-
 	// ----------------------------
 	async function validateUser(username: string, password: string) {
 		const response = await fetch(URIAPI + '/login', {
@@ -113,28 +40,45 @@ export function UsersContextProvider(props: {children: ReactElement}) {
 		return 'CanNotValidate'
 	}
 
-	function closeSession() {
-		window.sessionStorage.clear()
-		window.localStorage.clear()
-		setCurrentUser({
-			id: null,
-			name: null,
-			lastname: null,
-			username: null,
-			phone: null,
-			mail: null,
-			darktheme: null,
-		})
-		setLoginData({
-			username: '',
-			password: '',
-		})
+	// ------------------- List of usernames --------------------
+	const [usernamesList, setUsernamesList] = useState([])
+	async function getUsernamesList() {
+		const response = await fetch(
+			URIAPI + '/users?admin_username=main&admin_password=main&root=false',
+			{
+				method: 'GET',
+				headers: {'Content-Type': 'application/json'},
+			}
+		)
+
+		const data: [] = await response.json()
+		const usernames: [] = []
+		data.map(({username}) => usernames.push(username))
+		setUsernamesList(usernames)
+	}
+	useEffect(() => {
+		getUsernamesList()
+	}, [])
+
+	async function getUsersList(): Promise<User[]> {
+		const response = await fetch(
+			URIAPI + '/users?admin_username=main&admin_password=main&root=false',
+			{
+				method: 'GET',
+				headers: {'Content-Type': 'application/json'},
+			}
+		)
+
+		const data: User[] = await response.json()
+		return data
 	}
 
 	return (
 		<UsersContext.Provider
 			value={{
 				validateUser,
+				usernamesList,
+				getUsersList,
 			}}
 		>
 			{props.children}

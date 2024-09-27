@@ -4,11 +4,10 @@ import './Workspace.scss'
 import {useState} from 'react'
 import AlertScreen from '../../components/AlertScreen/AlertScreen'
 import ButtonTarget from '../../components/ButtonTarget/ButtonTarget'
+import {useSystemContext} from '../../context/System/SystemContext'
 
-export default function Workspace(props: {
-	setDarkThemeHandler: () => void
-	type: string
-}) {
+export default function Workspace(props: {type: string}) {
+	const {setDarkThemeHandler}: any = useSystemContext()
 	const [displayAlert, setDisplayAlert] = useState(false)
 
 	function sure() {
@@ -70,7 +69,7 @@ export default function Workspace(props: {
 				icon={null}
 				title='Change Theme'
 				specificTheme='null'
-				onClick={props.setDarkThemeHandler}
+				onClick={setDarkThemeHandler}
 				to=''
 			/>
 			<ButtonCircle

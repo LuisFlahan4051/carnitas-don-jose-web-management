@@ -85,6 +85,13 @@
     --worspace-shadow: var(--color-white-5);
     //Directory
     --directory-general-font: serif,'Ibarra Real Nova';
+    //Target
+    --label-text: var(--color-white-3);
+    --target-button-text: var(--color-white-2);
+    --target-accept: var(--color-blue-night);
+    --target-accept-hover: var(--color-blue-night-2);
+    --target-cancel: var(--color-red-cake);
+    --target-cancel-hover: var(--color-red-cake-2);
 
     // --------------- Light ----------------
     
@@ -113,6 +120,7 @@
         --header-options-background: var(--color-white-2);
         --header-options-hover: var(--color-white-4);
         --header-text: var(--color-black-3);
+        
 }
 
 [data-global-theme='dark']{

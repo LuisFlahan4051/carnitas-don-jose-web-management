@@ -1,23 +1,28 @@
-import type {UserSimplified} from '../../Types'
 import './FindUsers.scss'
 import btnRow from './imgs/btnRow.svg'
 import addIcon from './imgs/addIcon.svg'
 import {useState} from 'react'
+import {User} from '../../generated/types/4-users'
 
-export default function FindUsers(props: {UsersList: UserSimplified[]}) {
+export default function FindUsers(props: {
+	UsersList: User[]
+	onAddUser: () => {}
+}) {
 	const [search, setSearch] = useState('')
 
-	const UsersList: UserSimplified[] = []
-	props.UsersList.map((user: UserSimplified) => {
+	const UsersList: User[] = []
+	props.UsersList.map(user => {
+		const mainEmail = user.user_mails ? user.user_mails[0] : ''
 		if (
 			(search !== '' && user.username?.includes(search)) ||
+			user.username?.includes(search.toLocaleLowerCase()) ||
 			user.name?.includes(search) ||
 			user.name?.includes(search[0].toLocaleUpperCase() + search.slice(1)) ||
 			user.lastname?.includes(search) ||
 			user.lastname?.includes(
 				search[0].toLocaleUpperCase() + search.slice(1)
 			) ||
-			user.mail?.includes(search)
+			mainEmail.includes(search)
 		) {
 			UsersList.push(user)
 		}
@@ -64,15 +69,15 @@ export default function FindUsers(props: {UsersList: UserSimplified[]}) {
 						{search
 							? UsersList.map((user, index) => (
 									<UsuarioButton
-										usuario={user.name ?? ''}
-										id={user.id ?? ''}
+										usuario={user.username ?? ''}
+										id={user.id.id ?? ''}
 										key={index}
 									/>
 							  ))
 							: props.UsersList.map((user, index) => (
 									<UsuarioButton
-										usuario={user.name ?? ''}
-										id={user.id ?? ''}
+										usuario={user.username ?? ''}
+										id={user.id.id ?? ''}
 										key={index}
 									/>
 							  ))}
@@ -80,7 +85,7 @@ export default function FindUsers(props: {UsersList: UserSimplified[]}) {
 				</div>
 
 				<div className='selector_options'>
-					<div className='option option_add-user'>
+					<div className='option option_add-user' onClick={props.onAddUser}>
 						<img className='option_icon' src={addIcon} alt='Add User' />
 					</div>
 				</div>

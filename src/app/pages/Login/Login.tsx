@@ -6,35 +6,34 @@ import './Login.scss'
 import {useUsersContext} from '../../context/Users/UsersContext'
 import AlertScreen from '../../components/AlertScreen/AlertScreen'
 import {useSystemContext} from '../../context/System/SystemContext'
+import {User} from '../../generated/types/4-users'
 
 export default function Login() {
 	const navigate = useNavigate()
 
 	const [passwordBuffered, setPasswordBuffered] = useState('')
 	const [usernameBuffered, setUsernameBuffered] = useState('')
-	const {usernamesList, setCurrentUser, currentUser}: any = useSystemContext()
+	const {currentUser, initSession}: any = useSystemContext()
+	const {usernamesList}: any = useUsersContext()
+	const userLoged: User = currentUser
+
 	const {validateUser}: any = useUsersContext()
 
 	useEffect(() => {
-		if (currentUser.username !== undefined) {
+		console.log(userLoged.id)
+		if (userLoged.id !== undefined) {
 			navigate('/home', {
 				replace: true,
 			})
 		}
-	}, [])
+	}, [userLoged.id])
 
 	async function validateFormData(username: string, password: string) {
 		const message = await validateUser(username, password)
 
 		switch (message) {
 			case 'Ok':
-				setCurrentUser({
-					username: usernameBuffered,
-					password: passwordBuffered,
-				})
-				navigate('/home', {
-					replace: true,
-				})
+				initSession(username, password)
 				break
 			case 'NotExist':
 				setDisplayAlert({

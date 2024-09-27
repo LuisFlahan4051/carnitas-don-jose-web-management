@@ -5,25 +5,31 @@ import IconBackgroundDark from './imgs/LogoFondoDark.svg'
 import IconBackground from './imgs/LogoFondoWite.svg'
 import Header from '../../components/Header/Header'
 import Navbar from '../../components/Navbar/Navbar'
-import {UserLoged} from '../../Types'
 import Footer from '../../components/Footer/Footer'
 import Directory from '../../components/Directory/Directory'
+import {useSystemContext} from '../../context/System/SystemContext'
+import {User} from '../../generated/types/4-users'
 
-function Home(props: {
-	currentUser: UserLoged
-	darkTheme: boolean
-	setDarkThemeHandler: () => void
-	closeSession: () => void
-}) {
+function Home() {
 	const navigate = useNavigate()
 
+	const {currentUser, darkTheme, initSession}: any = useSystemContext()
+	const userLoged: User = currentUser
+
 	useEffect(() => {
-		if (!props.currentUser.id) {
-			navigate('/login', {
-				replace: true,
-			})
+		if (!userLoged.id) {
+			if (!window.sessionStorage.getItem('usernameCarnitas')) {
+				navigate('/login', {
+					replace: true,
+				})
+			} else {
+				initSession(
+					window.sessionStorage.getItem('usernameCarnitas'),
+					window.sessionStorage.getItem('passwordCarnitas')
+				)
+			}
 		}
-	}, [props.currentUser.id])
+	}, [userLoged.id])
 
 	/* -------------- RENDER --------------*/
 
@@ -31,7 +37,7 @@ function Home(props: {
 		return (
 			<div className='background'>
 				<img
-					src={props.darkTheme ? IconBackgroundDark : IconBackground}
+					src={darkTheme ? IconBackgroundDark : IconBackground}
 					alt='icon background'
 					className='background__icon'
 				/>
@@ -44,11 +50,7 @@ function Home(props: {
 			<Background />
 			<div className='Home'>
 				<div className='display_home__header'>
-					<Header
-						currentUser={props.currentUser}
-						closeSession={props.closeSession}
-						setDarkThemeHandler={props.setDarkThemeHandler}
-					/>
+					<Header />
 				</div>
 
 				<div className='display_home__navbar'>

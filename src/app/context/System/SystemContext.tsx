@@ -1,11 +1,6 @@
-import {
-	ReactElement,
-	createContext,
-	useContext,
-	useEffect,
-	useState,
-} from 'react'
+import {ReactElement, createContext, useContext, useState} from 'react'
 import {URIAPI} from '../../../apollo/client'
+import {User} from '../../generated/types/4-users'
 
 const SystemContext = createContext({})
 // this is just a wrapper for throw an error
@@ -26,37 +21,43 @@ export function SystemContextProvider(props: {children: ReactElement}) {
 			? false
 			: !!window.matchMedia('(prefers-color-scheme: dark)').matches
 	)
-
-	const [currentUser, setCurrentUser] = useState({})
-
-	// ------------------- List of usernames --------------------
-	const [usernamesList, setUsernamesList] = useState([])
-	async function getUsersList() {
-		const response = await fetch(
-			URIAPI + '/users?admin_username=main&admin_password=main&root=true',
-			{
-				method: 'GET',
-				headers: {'Content-Type': 'application/json'},
-			}
-		)
-
-		const data: [] = await response.json()
-		const usernames: [] = []
-		data.map(({username}) => usernames.push(username))
-		setUsernamesList(usernames)
+	function setDarkThemeHandler(state: boolean) {
+		setDarkTheme(state)
 	}
-	useEffect(() => {
-		getUsersList()
-	}, [])
+
+	const [currentUser, setCurrentUser] = useState({} as User)
+
+	async function initSession(username: string, password: string) {
+		const response = await fetch(URIAPI + '/my/profile', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({username, password}),
+		})
+
+		if (response.ok) {
+			const data = await response.json()
+			const newUser: User = await data
+			setCurrentUser(newUser)
+			setDarkTheme(newUser.darktheme)
+			window.sessionStorage.setItem('usernameCarnitas', username)
+			window.sessionStorage.setItem('passwordCarnitas', password)
+		}
+	}
+
+	function closeSession() {
+		window.sessionStorage.clear()
+		setCurrentUser({} as User)
+	}
 
 	return (
 		<SystemContext.Provider
 			value={{
 				darkTheme,
-				setDarkTheme,
-				usernamesList,
+				setDarkThemeHandler,
 				currentUser,
 				setCurrentUser,
+				initSession,
+				closeSession,
 			}}
 		>
 			{props.children}

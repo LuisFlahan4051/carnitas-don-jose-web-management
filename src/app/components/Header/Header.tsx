@@ -1,13 +1,13 @@
 import {useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import './Header.scss'
-import type {UserLoged} from '../../Types'
+import {useSystemContext} from '../../context/System/SystemContext'
+import {User} from '../../generated/types/4-users'
 
-export default function Header(props: {
-	currentUser: UserLoged
-	closeSession: () => void
-	setDarkThemeHandler: () => void
-}) {
+export default function Header(props: {}) {
+	const {setDarkThemeHandler, closeSession, currentUser}: any =
+		useSystemContext()
+	const userLoged: User = currentUser
 	const navigate = useNavigate()
 	const [showOptions, setShowOptions] = useState(false)
 
@@ -26,7 +26,7 @@ export default function Header(props: {
 				<div className='options_container'>
 					<button
 						onClick={() => {
-							props.setDarkThemeHandler()
+							setDarkThemeHandler()
 							setShowOptions(!showOptions)
 						}}
 						className='options_button'
@@ -36,7 +36,7 @@ export default function Header(props: {
 
 					<button
 						onClick={() => {
-							props.closeSession()
+							closeSession()
 							navigate('/login')
 							setShowOptions(!showOptions)
 						}}
@@ -69,7 +69,7 @@ export default function Header(props: {
 				{showOptions ? <OptionsDisplay /> : null}
 			</div>
 
-			<p className='header__profile-name'>{props.currentUser.username}</p>
+			<p className='header__profile-name'>{userLoged.username}</p>
 		</div>
 	)
 }
