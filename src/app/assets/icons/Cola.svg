@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="284.765" height="318" viewBox="0 0 284.765 318">
+  <g id="Cola" transform="translate(115.372 492)">
+    <rect id="Rectángulo_76" data-name="Rectángulo 76" width="216" height="302" rx="30" transform="translate(-81 -485)" fill="red"/>
+    <rect id="Rectángulo_77" data-name="Rectángulo 77" width="159" height="7" rx="3" transform="translate(-53 -492)" fill="#c9c9c9"/>
+    <rect id="Rectángulo_78" data-name="Rectángulo 78" width="159" height="9" rx="3" transform="translate(-53 -183)" fill="#c9c9c9"/>
+    <path id="Trazado_3" data-name="Trazado 3" d="M27-482.255c-19.2,95.939,1.234,199.11,29.839,256.723,15.534,31.287,45.215,41.847,45.215,41.847H27S10.019-283.876,10.687-383.4s7.1-102.863,7.1-102.863H28.048Z" transform="translate(-7 1)" fill="#fff"/>
+    <text id="Cola-2" data-name="Cola" transform="translate(-43 -240) rotate(-39)" fill="#fff" font-size="132" font-family="HarlowSolid, Harlow Solid"><tspan x="0" y="0">Cola</tspan></text>
+  </g>
+</svg>

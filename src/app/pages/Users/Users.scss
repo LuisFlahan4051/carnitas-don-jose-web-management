@@ -12,7 +12,7 @@ $margin-container: 15px;
     
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: 100%;
     grid-template-areas: 
     "findUsers userInfo";
 
@@ -26,6 +26,9 @@ $margin-container: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 .display__new_user{
@@ -76,15 +79,28 @@ $margin-container: 15px;
 }
 
 
-.new_user__picture{
+.new_user__display_picture{
     cursor: pointer;
     width: 130px;
     height: 130px;
+    position: relative;
+    opacity: 70%;
 }
-.new_user__picture img{
+.new_user__display_picture:hover{
+    opacity: 100%;
+}
+
+.new_user__picture{
     height: 100%;
     width: 100%;
     border-radius: 100%;
+}
+
+.new_user__button_edit{
+    height: 40px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
 }
 
 .new_user__target label{
@@ -131,4 +147,231 @@ $margin-container: 15px;
 }
 .new_user__button.cancel:hover {
     background-color: var(--target-cancel-hover);
+}
+
+.info_target{
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user_info__form_group{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.info_target label {
+    color: var(--label-text);
+    font-family: var(--normal-font);
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.info_target input,
+.info_target select,
+.info_target textarea {
+    height: 35px;
+    width: 90%;
+    border-style: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-left: 10px;
+    margin-left: 5px;
+    font-family: var(--normal-font);
+    font-size: 16px;
+}
+
+.info_target.disable input,
+.info_target.disable select,
+.info_target.disable textarea{
+    background-color: var(--color-black-4);
+    color:var(--label-text);
+}
+
+
+
+.info_target form{
+    height: 60%;
+    width: 100%;
+    display: grid;
+    gap: 15px;
+    column-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+        "name lastname"
+        "username password"
+        "originBranch checksArea"
+        "currentBranch checksArea"
+        "valueRate valueRate"
+        "cualities defects"
+        "schoolarGrade civilStatus"
+        "birthdate address"
+        "ids ids"
+    ;
+    overflow-y: scroll;
+}
+
+.target__display_profile_picture {
+    display: flex;
+    justify-content: center;
+}
+
+.profile_picture {
+    height: 150px;
+    width: 150px;
+    position: relative;
+}
+
+.profile_picture__picture {
+    width: 100%;
+    height: 100%;
+}
+
+.profile_picture__status {
+    position: absolute;
+    height: 25px;
+    left: -30px;
+
+}
+
+.profile_picture__button_edit {
+    position: absolute;
+    height: 50px;
+    bottom: 0px;
+    right: 0px;
+    cursor: pointer;
+    opacity: 70%;
+}
+
+.profile_picture__button_edit:hover {
+    opacity: 100%;
+}
+
+.info__name{
+    grid-area: name;
+}
+.info__lastname{
+    grid-area: lastname;
+}
+.info__picture {
+    grid-area: picture;
+}
+
+.info__username {
+    grid-area: username;
+}
+
+.info__password {
+    grid-area: password;
+}
+
+.info__originBranch {
+    grid-area: originBranch;
+}
+
+.info__currentBranch {
+    grid-area: currentBranch;
+}
+
+.info__checksArea {
+    grid-area: checksArea;
+}
+
+.checkArea__group{
+    align-items: center;
+    justify-content: space-between;
+}
+.checkArea__group input{
+    width: 30px;
+}
+
+.info__valueRate {
+    grid-area: valueRate;
+}
+.rate__group{
+    align-items: center;
+}
+
+.info__cualities {
+    grid-area: cualities;
+}
+
+.info__defects {
+    grid-area: defects;
+}
+
+.info__schoolarGrade {
+    grid-area: schoolarGrade;
+}
+
+.info__civilStatus {
+    grid-area: civilStatus;
+}
+
+.info__birthdate {
+    grid-area: birthdate;
+}
+
+.info__address {
+    grid-area: address;
+}
+.info__ids {
+    grid-area: ids;
+}
+.info__ids input{
+    width: 95%;
+    grid-area: ids;
+}
+
+
+.info__buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.info__see_more {
+    cursor: pointer;
+    justify-content: end;
+    align-self: flex-end;
+    height: 25px;
+    width: 90px;
+    color: var(--label-text);
+    align-items: center;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.info__see_more:hover {
+    color: var(--target-accept);
+    background-color: var(--color-black-4);
+}
+
+.info__button {
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    color: var(--target-button-text);
+    width: 80%;
+    height: 50px;
+    font-family: var(--normal-font);
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info__button.accept {
+    background-color: var(--target-accept);
+}
+
+.info__button.accept:hover {
+    background-color: var(--target-accept-hover);
 }

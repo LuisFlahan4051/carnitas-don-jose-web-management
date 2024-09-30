@@ -27,7 +27,7 @@
     position: absolute;
     display: grid;
     grid-template-columns: 10rem auto;
-    grid-template-rows: 5rem 2rem auto 1.7rem; 
+    grid-template-rows: 80px 30px calc(100% - 136px) 26px; 
     grid-template-areas: 
     "header header"
     "navbar directory"

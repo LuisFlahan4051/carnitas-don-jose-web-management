@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="316.766" height="301.935" viewBox="0 0 316.766 301.935">
+  <g id="Limpieza" transform="translate(-1195.234 471.668)">
+    <g id="Basura" transform="translate(-134 -8)">
+      <path id="Unión_2" data-name="Unión 2" d="M10,189V32H0V11H53V0h68V11h52V32h-9V189Z" transform="translate(1473 -377)" fill="#afacac"/>
+      <rect id="Rectángulo_115" data-name="Rectángulo 115" width="17" height="142" rx="8.5" transform="translate(1491 -340)" fill="#cbcbcb"/>
+      <rect id="Rectángulo_116" data-name="Rectángulo 116" width="17" height="142" rx="8.5" transform="translate(1515 -340)" fill="#cbcbcb"/>
+      <rect id="Rectángulo_117" data-name="Rectángulo 117" width="17" height="142" rx="8.5" transform="translate(1539 -340)" fill="#cbcbcb"/>
+      <rect id="Rectángulo_118" data-name="Rectángulo 118" width="17" height="142" rx="8.5" transform="translate(1563 -340)" fill="#cbcbcb"/>
+      <rect id="Rectángulo_119" data-name="Rectángulo 119" width="17" height="142" rx="8.5" transform="translate(1587 -340)" fill="#cbcbcb"/>
+      <rect id="Rectángulo_120" data-name="Rectángulo 120" width="17" height="142" rx="8.5" transform="translate(1611 -340)" fill="#cbcbcb"/>
+    </g>
+    <g id="Escoba" transform="translate(235.69 -985.028) rotate(45)">
+      <rect id="Rectángulo_97" data-name="Rectángulo 97" width="134" height="47" transform="translate(1188 -216)" fill="#ffb657"/>
+      <rect id="Rectángulo_100" data-name="Rectángulo 100" width="8" height="47" transform="translate(1196 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_101" data-name="Rectángulo 101" width="8" height="47" transform="translate(1212 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_102" data-name="Rectángulo 102" width="8" height="47" transform="translate(1228 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_103" data-name="Rectángulo 103" width="8" height="47" transform="translate(1244 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_104" data-name="Rectángulo 104" width="8" height="47" transform="translate(1260 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_105" data-name="Rectángulo 105" width="8" height="47" transform="translate(1276 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_106" data-name="Rectángulo 106" width="8" height="47" transform="translate(1292 -216)" fill="#f18800"/>
+      <rect id="Rectángulo_107" data-name="Rectángulo 107" width="8" height="47" transform="translate(1307 -216)" fill="#f18800"/>
+      <path id="Rectángulo_98" data-name="Rectángulo 98" d="M20,0h94a20,20,0,0,1,20,20V39a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V20A20,20,0,0,1,20,0Z" transform="translate(1188 -255)" fill="#17c9b7"/>
+      <rect id="Rectángulo_99" data-name="Rectángulo 99" width="23" height="263" transform="translate(1244 -518)" fill="#ffda82"/>
+    </g>
+    <g id="Rosiadora" transform="translate(3 -24)">
+      <path id="Unión_1" data-name="Unión 1" d="M13,93.956a13,13,0,0,1-13-13V42.2a13,13,0,0,1,13-13H15.12l6.465-10.158V0H40.63V21.04L45.823,29.2h2.12a13,13,0,0,1,13,13V80.955a13,13,0,0,1-13,13Z" transform="translate(1270 -398.955)" fill="#cbcbcb"/>
+      <path id="Rectángulo_110" data-name="Rectángulo 110" d="M0,0H43a7,7,0,0,1,7,7v5a7,7,0,0,1-7,7H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(1270 -418)" fill="#afacac"/>
+      <rect id="Rectángulo_111" data-name="Rectángulo 111" width="61" height="30" transform="translate(1270 -352)" fill="#eee"/>
+      <path id="Trazado_4" data-name="Trazado 4" d="M1268.694-438c4.351,10.837,2.838,6.969,3.959,9.26a26.087,26.087,0,0,0,1.455,2.183c.318.649,2-.057,2.287-2.7-.1-3.431-.849-8.74-.849-8.74Z" transform="translate(11.075 39.045)" fill="#959595"/>
+    </g>
+  </g>
+</svg>

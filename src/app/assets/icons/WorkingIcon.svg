@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="157" height="30" viewBox="0 0 157 30">
+  <g id="WorkingIcon" transform="translate(-1272 -100)">
+    <rect id="Rectángulo_2" data-name="Rectángulo 2" width="157" height="30" rx="15" transform="translate(1272 100)" fill="rgba(0,146,184,0.84)"/>
+    <text id="Trabajando..." transform="translate(1283 122)" fill="#85deff" font-size="18" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Trabajando...</tspan></text>
+    <g id="Grupo_2" data-name="Grupo 2">
+      <circle id="Elipse_5" data-name="Elipse 5" cx="15" cy="15" r="15" transform="translate(1399 100)" fill="#00bfe6"/>
+      <g id="Grupo_1" data-name="Grupo 1" transform="translate(-0.672 1.571)">
+        <line id="Línea_1" data-name="Línea 1" y2="8" transform="translate(1406.672 112.672) rotate(-45)" fill="none" stroke="#85deff" stroke-linecap="round" stroke-width="4"/>
+        <line id="Línea_2" data-name="Línea 2" y2="14" transform="translate(1422.228 108.429) rotate(45)" fill="none" stroke="#85deff" stroke-linecap="round" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+</svg>

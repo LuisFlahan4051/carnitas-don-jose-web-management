@@ -1,12 +1,16 @@
 import './FindUsers.scss'
 import btnRow from './imgs/btnRow.svg'
 import addIcon from './imgs/addIcon.svg'
+import editIcon from './imgs/EditFileIcon.svg'
+import trash from './imgs/trash.svg'
 import {useState} from 'react'
 import {User} from '../../generated/types/4-users'
-
+import profilePicture from '../../assets/icons/GenericProfilePicture.svg'
 export default function FindUsers(props: {
 	UsersList: User[]
-	onAddUser: () => {}
+	onAddUser: () => void
+	onDelete: () => void
+	onEdit: () => void
 }) {
 	const [search, setSearch] = useState('')
 
@@ -36,7 +40,7 @@ export default function FindUsers(props: {
 				type='button'
 				onClick={() => console.log(props.id)}
 			>
-				<img src='../../../profile.jpg' alt='User Picture' />
+				<img src={profilePicture} alt='User Picture' />
 				<p>{props.usuario[0].toLocaleUpperCase() + props.usuario.slice(1)}</p>
 			</button>
 		)
@@ -87,6 +91,12 @@ export default function FindUsers(props: {
 				<div className='selector_options'>
 					<div className='option option_add-user' onClick={props.onAddUser}>
 						<img className='option_icon' src={addIcon} alt='Add User' />
+					</div>
+					<div className='option option_add-user' onClick={props.onEdit}>
+						<img className='option_icon' src={editIcon} alt='Add User' />
+					</div>
+					<div className='option option_add-user' onClick={props.onDelete}>
+						<img className='option_icon' src={trash} alt='Add User' />
 					</div>
 				</div>
 			</div>

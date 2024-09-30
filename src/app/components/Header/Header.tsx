@@ -3,6 +3,7 @@ import {useState} from 'react'
 import './Header.scss'
 import {useSystemContext} from '../../context/System/SystemContext'
 import {User} from '../../generated/types/4-users'
+import profilePicture from '../../assets/icons/GenericProfilePicture.svg'
 
 export default function Header(props: {}) {
 	const {setDarkThemeHandler, closeSession, currentUser}: any =
@@ -62,7 +63,7 @@ export default function Header(props: {}) {
 					<img
 						className='options_profile-picture'
 						//src='https://yt3.ggpht.com/ytc/AKedOLRAXBHJqs3xjDliRHeSgZcREGFNfG7VImUpHsG3MA=s900-c-k-c0x00ffffff-no-rj'
-						src='../../../profile.jpg'
+						src={profilePicture}
 						alt='User Profile Picture'
 					/>
 				</button>
